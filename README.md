@@ -52,7 +52,7 @@ table.insert(id=1, name='Bernie Huang')
 ### 查找记录
 SQL
 ```sql
-SELECT * FROM test WHERE id = 1;
+SELECT * FROM test WHERE id=1 AND name='Bernie Huang';
 ```
 PySQLite
 ```py
