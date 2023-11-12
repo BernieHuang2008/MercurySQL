@@ -56,8 +56,10 @@ SELECT * FROM test WHERE id=1 AND name='Bernie Huang';
 ```
 PySQLite
 ```py
-rec = (table['id'] == 1) \
+rec = table(
+      (table['id'] == 1) \
     & (table['name'] == 'test')
+)
 ```
 
 
