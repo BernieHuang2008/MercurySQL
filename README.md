@@ -47,7 +47,7 @@ DROP COLUMN name;
 ```
 PySQLite
 ```py
-delete table['name']
+del table['name']
 ```
 
 ### 添加记录
