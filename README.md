@@ -39,6 +39,17 @@ PySQLite
 table.newColumn('name', 'TEXT')
 ```
 
+### 删除列
+SQL
+```sql
+ALTER TABLE table
+DROP COLUMN name;
+```
+PySQLite
+```py
+delete table['name']
+```
+
 ### 添加记录
 SQL
 ```sql
