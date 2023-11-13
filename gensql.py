@@ -87,8 +87,6 @@ class DataBase:
 
 class Table:
     def __init__(self, db: DataBase, table_name: str):
-        self.name = table_name
-
         self.db = db
         self.table_name = table_name
 
@@ -115,7 +113,14 @@ class Table:
          Create a new column in the table.
          """ 
          self.newColumn(key, value)
-   
+
+    def __delitem__(self, key: str) -> None: 
+         """ 
+         Delete an existing column in this table. 
+         An Exception will be raised if column not exist.
+         """ 
+         self.delColumn(key)
+
     def __call__(self, exp: Exp, select: str='*') -> Any:
         """
         Select data from the table.
@@ -162,7 +167,7 @@ class Table:
         if self.isEmpty:
             # create it first
             self.db.do(f"""
-                CREATE TABLE IF NOT EXISTS {self.name} ({name} {type} {'PRIMARY KEY' if primaryKey else ''})
+                CREATE TABLE IF NOT EXISTS {self.table_name} ({name} {type} {'PRIMARY KEY' if primaryKey else ''})
             """)
         else:
             self.db.do(
@@ -172,6 +177,13 @@ class Table:
                 self.setPrimaryKey(name)
 
         self.columns.append(name)
+
+    def delColumn(self, name):
+        if name not in self.columns:
+            raise Exception("Column not exist!")
+        else:
+            self.columns.remove(name)
+            self.db.do(f"ALTER TABLE {self.table_name} DROP COLUMN {name}")
 
     def setPrimaryKey(self, keyname):
         """
