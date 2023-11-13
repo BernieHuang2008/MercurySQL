@@ -109,7 +109,13 @@ class Table:
         if key not in self.columns:
             raise Exception("Column not exists.")
         return Exp(key)
-    
+
+    def __setitem__(self, key: str, value: Any) -> None: 
+         """ 
+         Create a new column in the table.
+         """ 
+         self.newColumn(key, value)
+   
     def __call__(self, exp: Exp, select: str='*') -> Any:
         """
         Select data from the table.
