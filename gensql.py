@@ -3,8 +3,9 @@ Use built-in sqlite3 library to operate sql in a more pythonic way.
 """
 
 import sqlite3
-from typing import Any, Union
+from typing import Any, Union, List, Tuple
 
+class BasicExp: pass
 class Exp: pass
 class Table: pass
 class DataBase: pass
@@ -33,7 +34,8 @@ class DataBase:
 
     def _gather_info(self):
         """
-        [Helper] Gather all infomations of the database, including:
+        [Helper]
+        Gather all infomations of the database, including:
           - all tables
         """
         def get_all_tables():
@@ -44,37 +46,43 @@ class DataBase:
         self.tables = get_all_tables()
         self.tables = {tname: Table(self, tname) for tname in self.tables}
 
-    def do(self, *sql: str) -> sqlite3.Cursor:
+    def do(self, *sql: str, paras: List[tuple]=[]) -> sqlite3.Cursor:
         """
         Execute a sql command on the database.
 
         Paras:
             sql: str
                 The sql command(s).
+            paras: tuple
+                The parameters for the sql command(s).
         """
-        for command in sql:
-            self.cursor.execute(command)
+        if len(paras) < len(sql):
+            paras += [()] * (len(sql) - len(paras))
+
+        # for each sql command
+        for i in range(len(sql)):
+            self.cursor.execute(sql[i], paras[i])
 
         self.conn.commit()
 
         return self.cursor
 
-    def createTable(self, *table_names: str, forceNew: bool=False) -> Table:
+    def createTable(self, *table_names: str, allowExist: bool=True) -> Table:
         """
         create a table in the database.
 
         Paras:
             table_names: str
                 The name of the table.
-            forceNew: bool
-                Force to create a new table.
-                An exception will be raised if the table already exists.
+            allowExist: bool
+                Allow to return a existing table.
         """
         tables = []
 
         for table_name in table_names:
-            if table_name in self.tables and forceNew:
-                raise Exception("Table already exists.")
+            if table_name in self.tables:
+                if not allowExist:
+                    raise Exception("Table already exists.")
 
             table = Table(self, table_name)
             # must be executed after Table.__init__()
@@ -106,7 +114,8 @@ class Table:
         """
         if key not in self.columns:
             raise Exception("Column not exists.")
-        return Exp(key)
+            
+        return Exp(key, table=self)
 
     def __setitem__(self, key: str, value: Any) -> None: 
          """ 
@@ -121,7 +130,7 @@ class Table:
          """ 
          self.delColumn(key)
 
-    def __call__(self, exp: Exp, select: str='*') -> Any:
+    def __call__(self, exp: Exp, select: str='*') -> list:
         """
         Select data from the table.
         
@@ -149,7 +158,7 @@ class Table:
         else:
             self.columns = []
 
-    def newColumn(self, name, type, primaryKey=False):
+    def newColumn(self, name: str, type, primaryKey=False, allowExist=True) -> None:
         """
         Add a new column to the table.
 
@@ -160,9 +169,14 @@ class Table:
                 The type of the column.
             primaryKey: bool
                 The column will be a primary key if set to `True`.
+            allowExist: bool
+                Allow to return a existing column.
         """
         if name in self.columns:
-            raise Exception("Column already exists.")
+            if not allowExist:
+                raise Exception("Column already exists.")
+            else:
+                return
 
         if self.isEmpty:
             # create it first
@@ -178,14 +192,14 @@ class Table:
 
         self.columns.append(name)
 
-    def delColumn(self, name):
+    def delColumn(self, name: str) -> None:
         if name not in self.columns:
             raise Exception("Column not exist!")
         else:
             self.columns.remove(name)
             self.db.do(f"ALTER TABLE {self.table_name} DROP COLUMN {name}")
 
-    def setPrimaryKey(self, keyname):
+    def setPrimaryKey(self, keyname: str) -> None:
         """
         Set a column as the primary key of the table.
 
@@ -200,7 +214,7 @@ class Table:
             f"ALTER TABLE new_table RENAME TO {self.table_name}"
         )
 
-    def insert(self, **kwargs):
+    def insert(self, **kwargs) -> None:
         """
         Insert a row into the table.
 
@@ -214,16 +228,45 @@ class Table:
         self.db.do(f"INSERT INTO {self.table_name} ({columns}) VALUES ({values})")
 
 
-class Exp:
-    def __init__(self, o1, op='', o2=''):
-        self.o1 = o1
-        self.op = op
-        self.o2 = o2
-    
-    def __str__(self):
-        if self.op == '':
-            return str(self.o1)
-        return f"({str(self.o1)} {str(self.op)} {str(self.o2)})"
+class BasicExp:
+    def __init__(self, exp1, oper='', exp2=None):
+        self.exp1 = exp1
+        self.oper = oper
+        self.exp2 = exp2
+
+    def formula(self) -> Tuple[str, tuple]:
+        if self.oper == '':
+            return self.exp1, ()
+        else:
+            # process `exp1`
+            if isinstance(self.exp1, BasicExp):
+                exp1_formula, exp1_paras = self.exp1.formula()
+            elif self.exp1 is None:
+                exp1_formula, exp1_paras = '', ()
+            else:
+                exp1_formula, exp1_paras = '?', (self.exp1,)
+            
+            # process `exp2`
+            if isinstance(self.exp2, BasicExp):
+                exp2_formula, exp2_paras = self.exp2.formula()
+            elif self.exp2 is None:
+                exp2_formula, exp2_paras = '', ()
+            else:
+                exp2_formula, exp2_paras = '?', (self.exp2,)
+            
+            return f"({exp1_formula} {self.oper} {exp2_formula})", tuple(exp1_paras + exp2_paras)        
+
+
+class Exp(BasicExp):
+    def __init__(self, o1, op='', o2='', table=None):
+        super().__init__(o1, op, o2)
+
+        self.table = table
+
+        if isinstance(o1, Exp):
+            self.table = self.table or o1.table
+        if isinstance(o2, Exp):
+            self.table = self.table or o2.table
     
     def __eq__(self, __value: Union[Exp, int, str]) -> Exp:
         return Exp(self, '=', __value)
@@ -243,8 +286,8 @@ class Exp:
     def __ge__(self, __value: Union[Exp, int, str]) -> Exp:  
         return Exp(self, '>=', __value)
     
-    def between(self, __value1: Union[Exp, int, str], __value2: Union[Exp, int, str]) -> Exp:
-        return Exp(self, 'BETWEEN', str(__value1) + ' AND ' + str(__value2))
+    # def between(self, __value1: Union[Exp, int, str], __value2: Union[Exp, int, str]) -> Exp:
+    #     return Exp(self, 'BETWEEN', str(__value1) + ' AND ' + str(__value2))
     
     def in_(self, __value: Union[list, tuple, set]) -> Exp:
         return Exp(self, 'IN', str(tuple(__value)))
@@ -261,15 +304,35 @@ class Exp:
     def __invert__(self) -> Union[Exp, int, str]:
         return Exp('', 'NOT', self)
 
+    def execute(self, table=None, select='*') -> list:
+        self.table = table or self.table
+
+        if self.table is None:
+            raise Exception("Table not specified.")
+        if not isinstance(self.table, Table):
+            raise Exception("Table not exists.")
+        
+        sql, paras = self.formula()
+        sql = f"SELECT {select} FROM {self.table.table_name} WHERE {sql}"
+
+        res = self.table.db.do(sql, paras=paras)
+        return res.fetchall()
+
+
+
 if __name__ == '__main__':
+    print((Exp('id').in_([1,2,3]) & (Exp('name') == 'hello, world')).table)
+
     db = DataBase("test.db")
     print(db.info)
 
-    test_table = db['test']
+    test_table = db.createTable('test')
     print(db.tables)
 
-    print((db['test']['id'] == 1) & (db['test']['name']=='test'))
-    print(db['test'].columns)
+    test_table.newColumn('id', 'INTEGER', primaryKey=True)
+    test_table.newColumn('name', 'TEXT')
 
-    # db['test'].insert(id=1, name='b huang')
-    print(db['test'](db['test']['id'] == 1))
+    print(((db['test']['id'] == 1) & (db['test']['name'] == 'test')).execute())
+
+    # # db['test'].insert(id=1, name='b huang')
+    # print(db['test'](db['test']['id'] == 1))
