@@ -79,10 +79,24 @@ from typing import Any, Union, List, Tuple
 
 
 # class decoration
-class DataBase: pass
-class Table: pass
-class BasicExp: pass
-class Exp: pass
+class BasicExp:
+    pass    # [Helper Class]
+
+
+class TypeParser:
+    pass  # [Helper Class]
+
+
+class DataBase:
+    pass
+
+
+class Table:
+    pass
+
+
+class Exp:
+    pass
 
 
 # class definition
@@ -204,9 +218,10 @@ class Table:
             self.column_info = get_columns()
         else:
             self.column_info = []
-        
+
         self.columns = list(map(lambda x: x[1], self.column_info))
-        self.columnsType = {self.column_info[i][1]: self.column_info[i][2] for i in range(len(self.column_info))}
+        self.columnsType = {self.column_info[i][1]: self.column_info[i][2] for i in range(
+            len(self.column_info))}
 
     def __getitem__(self, key: str) -> Exp:
         """
@@ -221,7 +236,7 @@ class Table:
         """ 
         Create a new column in the table.
         """
-        self.newColumn(key, value)
+        self.newColumn(key, value, allowExist=True)
 
     def __delitem__(self, key: str) -> None:
         """ 
@@ -242,19 +257,19 @@ class Table:
         """
         return exp.execute(table=self, select=select)
 
-    def newColumn(self, name: str, type, primaryKey=False, allowExist=True) -> None:
+    def newColumn(self, name: str, type_: Any, primaryKey=False, allowExist=False) -> None:
         """
         Add a new column to the table.
 
         Paras:
             name: str
-                The name of the column.
-            type: str
-                The type of the column.
+                Name of the new column.
+            type_: Any
+                Type of the new column.
             primaryKey: bool
                 The column will be a primary key if set to `True`.
             allowExist: bool
-                Allow to return a existing column.
+                Allow to skip when processing an existing column.
         """
         if name in self.columns:
             if not allowExist:
@@ -262,19 +277,48 @@ class Table:
             else:
                 return
 
+        type_ = TypeParser.parse(type_)
+
         if self.isEmpty:
             # create it first
             self.db.do(f"""
-                CREATE TABLE IF NOT EXISTS {self.table_name} ({name} {type} {'PRIMARY KEY' if primaryKey else ''})
+                CREATE TABLE IF NOT EXISTS {self.table_name} ({name} {type_} {'PRIMARY KEY' if primaryKey else ''})
             """)
         else:
             self.db.do(
-                f"ALTER TABLE {self.table_name} ADD COLUMN {name} {type}")
+                f"ALTER TABLE {self.table_name} ADD COLUMN {name} {type_}")
 
             if primaryKey:
                 self.setPrimaryKey(name)
 
         self.columns.append(name)
+        self.columnsType[name] = type_
+
+    def struct(self, columns: dict, primaryKey: str = None, allowExist=True) -> None:
+        """
+        Set the structure of the table.
+
+        Paras:
+            columns: dict
+                The structure of the table.
+            primaryKey: str
+                The primary key of the table.
+            allowExist: bool
+                Allow to skip when column exist and have the same type.
+        """
+        for name, type_ in columns.items():
+            type_ = TypeParser.parse(type_)
+            isPrimaryKey = (name == primaryKey)
+
+            if name in self.columns:
+                if not allowExist:
+                    raise Exception(
+                        f"Column `{name}` already exists. You can use `allowExist=True` to avoid this error.")
+                elif type_ != self.columnsType[name]:
+                    raise Exception(
+                        f"Column `{name}` with different types (`{self.columnsType[name]}`) already exists. While trying to add column `{name}` with type `{type_}`.")
+            else:
+                self.newColumn(name, type_, primaryKey=isPrimaryKey)
 
     def delColumn(self, name: str) -> None:
         if name not in self.columns:
@@ -309,7 +353,8 @@ class Table:
         columns = ', '.join(kwargs.keys())
         values = ', '.join(map(lambda x: f"'{x}'", kwargs.values()))
 
-        self.db.do(f"INSERT INTO {self.table_name} ({columns}) VALUES ({values})")
+        self.db.do(
+            f"INSERT INTO {self.table_name} ({columns}) VALUES ({values})")
 
 
 class BasicExp:
@@ -416,9 +461,61 @@ class Exp(BasicExp):
         use magic method `__iter__` to search.
         """
         return iter(self.execute())
-    
+
     def __str__(self):
         return self._str
+
+
+class TypeParser:
+    """
+    [Helper]
+    Parse the type of a column.
+    """
+
+    @staticmethod
+    def parse(type_: Any) -> str:
+        """
+        Compile the type to SQLite type.
+
+        Paras:
+            type_: Any
+                The type to parse.
+
+        Supported Types:
+            str ------- TEXT
+            int ------- INTEGER
+            float ----- REAL
+            bool ------ BOOLEAN
+            bytes ------- BLOB
+        """
+        supported_types = {
+            str: 'TEXT',
+            int: 'INTEGER',
+            float: 'REAL',
+            bool: 'BOOLEAN',
+            bytes: 'BLOB'
+        }
+
+        # round 1: Built-in Types
+        if type_ in supported_types:
+            return supported_types[type_]
+
+        # round 2: 'Not Null' Types
+        """ 
+        === !!! Not Supported By SQLite !!! ===
+
+        for t in supported_types:
+            if isinstance(type_, t):
+                if type_ == t(not None):
+                    return supported_types[t] + ' NOT NULL'
+        """
+
+        # round 3: Custom Types
+        if isinstance(type_, str):    # custom type
+            return type_
+
+        # Not Supported
+        raise Exception(f"Type `{str(type_)}` not supported.")
 
 
 if __name__ == '__main__':
@@ -432,9 +529,15 @@ if __name__ == '__main__':
     test_table = db.createTable('test')
     print("Tables in the database:", db.tables)
 
-    # Add new columns to the 'test' table
-    test_table.newColumn('id', 'INTEGER', primaryKey=True)
-    test_table.newColumn('name', 'TEXT')
+    # Set the structure of 'test' table
+    test_table.struct({
+        'id': int,
+        'name': str
+    }, primaryKey='id')
+
+    # add a single new column named 'score' with type 'float'
+    test_table['score'] = float
+
     print("Columns in the 'test' table:", test_table.columns)
 
     # Access the column definition of 'id' in 'test' table
@@ -444,4 +547,6 @@ if __name__ == '__main__':
     # test_table.insert(id=1, name='test')
 
     # Query the 'test' table for rows where 'id' is 1 and 'name' is 'test'
-    print("Query result:", list((db['test']['id'] == 1) & (db['test']['name'] == 'test')))
+    print("Query result:", list(
+            (db['test']['id'] == 1) & (db['test']['name'] == 'test')
+        ))
