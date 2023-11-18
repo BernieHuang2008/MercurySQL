@@ -1,17 +1,91 @@
 """
+PySQLite/gensql.py
+==================
 Use built-in sqlite3 library to operate sql in a more pythonic way.
+
+This file contains the implementation of a SQLite database wrapper class and related classes for table and query expressions.
+
+(Note): This code is a simplified implementation and may not cover all possible use cases. Please refer to the official documentation for more information.
+
+
+## Classes:
+----------
+
+### DataBase:
+    Represents a SQLite database and provides methods for creating tables, executing SQL commands, and retrieving table objects.
+    
+    - Methods:
+        * `__init__(db_name: str)`:
+            Create a new database object.
+        * `__getitem__(key: str) -> Table`:
+            Get a table from the database.
+        * `do(*sql: str, paras: List[tuple] = []) -> sqlite3.Cursor`:
+            Execute a sql command on the database.
+        * `createTable(*table_names: str, allowExist: bool = True) -> Table`:
+            Create a table in the database.
+
+        
+### Table:
+    Represents a table in the SQLite database and provides methods for adding columns, deleting columns, inserting rows, and executing queries.
+
+    - Methods:
+        * `__init__(db: DataBase, table_name: str)`:
+            Create a new table object.
+        * `__getitem__(key: str) -> Exp`:
+            Get a column from the table, mainly used to construct query.
+        * `__setitem__(key: str, value: Any) -> None`:
+            Create a new column in the table.
+        * `__delitem__(key: str) -> None`:
+            Delete an existing column in this table.
+        * `__call__(exp: Exp, select: str = '*') -> list`:
+            Select data from the table.
+        * `newColumn(name: str, type, primaryKey=False, allowExist=True) -> None`:
+            Add a new column to the table.
+        * `delColumn(name: str) -> None`:
+            Delete an existing column in this table.
+        * `setPrimaryKey(keyname: str) -> None`:
+            Set a column as the primary key of the table.
+        * `insert(**kwargs) -> None`:
+            Insert a row into the table.
+
+
+### Exp:
+    Subclass of BasicExp, representing a query expression that can be used to construct complex queries.
+
+    - Methods:
+      * `__init__(o1, op='', o2='', **kwargs)`:
+        Create a new query expression object.
+      * `formula() -> Tuple[str, tuple]`:
+        Return the formula of the expression in the form of (sql_command, paras).
+
+    - Supported Operations:
+      * `==`: equality
+      * `!=`: inequality
+      * `<`: less than
+      * `<=`: less than or equal to
+      * `>`: greater than
+      * `>=`: greater than or equal to
+      * `.in_()`: in
+      * `.like()`: like
+      * `&`: and
+      * `|`: or
+      * `not`: not
+
+      (Note): you should mind the priority of operations when using `&` and `|`.
 """
 
 import sqlite3
 from typing import Any, Union, List, Tuple
 
 
+# class decoration
 class DataBase: pass
 class Table: pass
 class BasicExp: pass
 class Exp: pass
 
 
+# class definition
 class DataBase:
     """
     select/create a SQLite database using python's built-in library `sqlite3`.
@@ -348,22 +422,26 @@ class Exp(BasicExp):
 
 
 if __name__ == '__main__':
-    print((Exp('id').in_([1, 2, 3]) & (Exp('name') == 'hello, world')).table)
-
+    # Create a new database object for a database named "test.db"
     db = DataBase("test.db")
-    print(db.info)
 
+    # Print the information about the database
+    print("Database Information:", db.info)
+
+    # Create a new table named 'test' in the database
     test_table = db.createTable('test')
-    print(db.tables)
+    print("Tables in the database:", db.tables)
 
-    # test_table.newColumn('id', 'INTEGER', primaryKey=True)
-    # test_table.newColumn('name', 'TEXT')
-    print(test_table.columns)
+    # Add new columns to the 'test' table
+    test_table.newColumn('id', 'INTEGER', primaryKey=True)
+    test_table.newColumn('name', 'TEXT')
+    print("Columns in the 'test' table:", test_table.columns)
 
-    print(test_table['id'])
+    # Access the column definition of 'id' in 'test' table
+    print("Accessing 'id' column :", test_table['id'])
 
+    # Uncomment the following line to insert a new row into the 'test' table
     # test_table.insert(id=1, name='test')
-    print(list((db['test']['id'] == 1) & (db['test']['name'] == 'test')))
 
-    # # db['test'].insert(id=1, name='b huang')
-    # print(db['test'](db['test']['id'] == 1))
+    # Query the 'test' table for rows where 'id' is 1 and 'name' is 'test'
+    print("Query result:", list((db['test']['id'] == 1) & (db['test']['name'] == 'test')))
