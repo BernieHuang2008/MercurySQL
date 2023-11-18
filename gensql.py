@@ -39,8 +39,7 @@ class DataBase:
           - all tables
         """
         def get_all_tables():
-            self.cursor.execute(
-                "SELECT name FROM sqlite_master WHERE type='table';")
+            self.cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
             return list(map(lambda x: x[0], self.cursor.fetchall()))
 
         self.tables = get_all_tables()
@@ -315,7 +314,7 @@ class Exp(BasicExp):
         sql, paras = self.formula()
         sql = f"SELECT {select} FROM {self.table.table_name} WHERE {sql}"
 
-        res = self.table.db.do(sql, paras=paras)
+        res = self.table.db.do(sql, paras=[paras])
         return res.fetchall()
 
 
@@ -332,6 +331,7 @@ if __name__ == '__main__':
     test_table.newColumn('id', 'INTEGER', primaryKey=True)
     test_table.newColumn('name', 'TEXT')
 
+    test_table.insert(id=1, name='test')
     print(((db['test']['id'] == 1) & (db['test']['name'] == 'test')).execute())
 
     # # db['test'].insert(id=1, name='b huang')
