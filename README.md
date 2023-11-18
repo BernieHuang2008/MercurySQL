@@ -1,4 +1,4 @@
-# PySQLite
+# MercurySQLite
 Operate SQLite in a more pythonic way.
 
 # 是个啥
@@ -10,7 +10,7 @@ SQL
 ```sql
 CREATE DATABASE IF NOT EXISTS test;
 ```
-PySQLite
+MercurySQLite
 ```py
 db = DataBase('test')
 ```
@@ -22,10 +22,17 @@ CREATE TABLE IF NOT EXISTS test (
     id INTEGER PRIMARY KEY
 );
 ```
-PySQLite
+MercurySQLite
 ```py
 table = db.createTable('test')
-table.newColumn('id', 'INTEGER', primaryKey=True)
+table.newColumn('id', int, primaryKey=True)
+
+# OR
+
+table = db['test']
+table.struct({
+    'id': int
+}, primaryKey='id')
 ```
 
 ### 添加列
@@ -34,9 +41,9 @@ SQL
 ALTER TABLE test
 ADD COLUMN name TEXT;
 ```
-PySQLite
+MercurySQLite
 ```py
-table.newColumn('name', 'TEXT')
+table['name'] = str
 ```
 
 ### 删除列
@@ -67,14 +74,15 @@ SELECT * FROM test WHERE id=1 AND name='Bernie Huang';
 ```
 PySQLite
 ```py
-rec = table(
-      (table['id'] == 1) \
-    & (table['name'] == 'test')
+rec = list(
+      (table['id'] == 1) & \
+      (table['name'] == 'test')
 )
 ```
 
 
 # 依赖项：
-sqlite3（Python自带）
+- sqlite3（Python自带）
 
+所以，没有依赖项！
 
