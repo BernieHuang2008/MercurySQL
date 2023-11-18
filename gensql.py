@@ -117,13 +117,13 @@ class DataBase:
 
     def __getitem__(self, key: str) -> Table:
         """
-        get a table from the database.
+        Create / Choose a table from the database.
 
         Paras:
             key: str
                 The name of the table.
         """
-        return self.tables[key]
+        return self.createTable(key, allowExist=True)
 
     def _gather_info(self):
         """
@@ -525,8 +525,8 @@ if __name__ == '__main__':
     # Print the information about the database
     print("Database Information:", db.info)
 
-    # Create a new table named 'test' in the database
-    test_table = db.createTable('test')
+    # Choose / Create a table named 'test' in the database
+    test_table = db['test']
     print("Tables in the database:", db.tables)
 
     # Set the structure of 'test' table
@@ -546,7 +546,8 @@ if __name__ == '__main__':
     # Uncomment the following line to insert a new row into the 'test' table
     # test_table.insert(id=1, name='test')
 
-    # Query the 'test' table for rows where 'id' is 1 and 'name' is 'test'
+    # Query the 'test' table for rows where 'id==1 AND name==test'
     print("Query result:", list(
-            (db['test']['id'] == 1) & (db['test']['name'] == 'test')
+            (db['test']['id'] == 1) & \
+            (db['test']['name'] == 'test')
         ))
