@@ -5,13 +5,18 @@ Use built-in sqlite3 library to operate sql in a more pythonic way.
 import sqlite3
 from typing import Any, Union, List, Tuple
 
+
+class DataBase: pass
+class Table: pass
 class BasicExp: pass
 class Exp: pass
-class Table: pass
-class DataBase: pass
 
 
 class DataBase:
+    """
+    select/create a SQLite database using python's built-in library `sqlite3`.
+    """
+
     def __init__(self, db_name: str):
         self.conn = sqlite3.connect(db_name)
         self.cursor = self.conn.cursor()
@@ -39,13 +44,14 @@ class DataBase:
           - all tables
         """
         def get_all_tables():
-            self.cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+            self.cursor.execute(
+                "SELECT name FROM sqlite_master WHERE type='table';")
             return list(map(lambda x: x[0], self.cursor.fetchall()))
 
         self.tables = get_all_tables()
         self.tables = {tname: Table(self, tname) for tname in self.tables}
 
-    def do(self, *sql: str, paras: List[tuple]=[]) -> sqlite3.Cursor:
+    def do(self, *sql: str, paras: List[tuple] = []) -> sqlite3.Cursor:
         """
         Execute a sql command on the database.
 
@@ -66,7 +72,7 @@ class DataBase:
 
         return self.cursor
 
-    def createTable(self, *table_names: str, allowExist: bool=True) -> Table:
+    def createTable(self, *table_names: str, allowExist: bool = True) -> Table:
         """
         create a table in the database.
 
@@ -93,6 +99,10 @@ class DataBase:
 
 
 class Table:
+    """
+    A table in the SQLite database.
+    """
+
     def __init__(self, db: DataBase, table_name: str):
         self.db = db
         self.table_name = table_name
@@ -102,46 +112,10 @@ class Table:
             self.isEmpty = False
         else:
             # table not exists
-            # can't create a table with no columns, so it's a hackish way to create a table when adding a column.
+            # can't create a table with no columns, so a hackish way is to create the table when adding a column.
             self.isEmpty = True
 
         self._gather_info()
-
-    def __getitem__(self, key: str) -> Exp:
-        """
-        get a column from the table, mainly used to construct query.
-        """
-        if key not in self.columns:
-            raise Exception("Column not exists.")
-            
-        return Exp(key, table=self)
-
-    def __setitem__(self, key: str, value: Any) -> None: 
-         """ 
-         Create a new column in the table.
-         """ 
-         self.newColumn(key, value)
-
-    def __delitem__(self, key: str) -> None: 
-         """ 
-         Delete an existing column in this table. 
-         An Exception will be raised if column not exist.
-         """ 
-         self.delColumn(key)
-
-    def __call__(self, exp: Exp, select: str='*') -> list:
-        """
-        Select data from the table.
-        
-        Paras:
-            exp: Exp
-                The query expression.
-            select: str
-                The columns to select, default is '*'(all columns).
-        """
-        sql = f"SELECT {select} FROM {self.table_name} WHERE {str(exp)}"
-        self.db.do(sql)
-        return self.db.cursor.fetchall()
 
     def _gather_info(self):
         """
@@ -150,12 +124,49 @@ class Table:
         """
         def get_columns():
             cursor = self.db.do(f"PRAGMA table_info({self.table_name})")
-            return list(map(lambda x: x[1], cursor.fetchall()))
+            return list(cursor.fetchall())
 
         if not self.isEmpty:
-            self.columns = get_columns()
+            self.column_info = get_columns()
         else:
-            self.columns = []
+            self.column_info = []
+        
+        self.columns = list(map(lambda x: x[1], self.column_info))
+        self.columnsType = {self.column_info[i][1]: self.column_info[i][2] for i in range(len(self.column_info))}
+
+    def __getitem__(self, key: str) -> Exp:
+        """
+        get a column from the table, mainly used to construct query.
+        """
+        if key not in self.columns:
+            raise Exception("Column not exists.")
+
+        return Exp(key, table=self, _str=self.columnsType[key])
+
+    def __setitem__(self, key: str, value: Any) -> None:
+        """ 
+        Create a new column in the table.
+        """
+        self.newColumn(key, value)
+
+    def __delitem__(self, key: str) -> None:
+        """ 
+        Delete an existing column in this table. 
+        An Exception will be raised if column not exist.
+        """
+        self.delColumn(key)
+
+    def __call__(self, exp: Exp, select: str = '*') -> list:
+        """
+        Select data from the table.
+
+        Paras:
+            exp: Exp
+                The query expression.
+            select: str
+                The columns to select, default is '*'(all columns).
+        """
+        return exp.execute(table=self, select=select)
 
     def newColumn(self, name: str, type, primaryKey=False, allowExist=True) -> None:
         """
@@ -244,7 +255,7 @@ class BasicExp:
                 exp1_formula, exp1_paras = '', ()
             else:
                 exp1_formula, exp1_paras = '?', (self.exp1,)
-            
+
             # process `exp2`
             if isinstance(self.exp2, BasicExp):
                 exp2_formula, exp2_paras = self.exp2.formula()
@@ -252,75 +263,92 @@ class BasicExp:
                 exp2_formula, exp2_paras = '', ()
             else:
                 exp2_formula, exp2_paras = '?', (self.exp2,)
-            
-            return f"({exp1_formula} {self.oper} {exp2_formula})", tuple(exp1_paras + exp2_paras)        
+
+            return f"({exp1_formula} {self.oper} {exp2_formula})", tuple(exp1_paras + exp2_paras)
 
 
 class Exp(BasicExp):
-    def __init__(self, o1, op='', o2='', table=None):
+    def __init__(self, o1, op='', o2='', **kwargs):
+        """
+        Acceptable addition attributes:
+        - table: Table ...................... the table to search
+        - _str: str ......................... the string to show when print the object
+        """
         super().__init__(o1, op, o2)
 
-        self.table = table
+        self.table = kwargs.get('table', None)
+        self._str = kwargs.get('_str', '<Exp object>')
 
         if isinstance(o1, Exp):
             self.table = self.table or o1.table
         if isinstance(o2, Exp):
             self.table = self.table or o2.table
-    
+
     def __eq__(self, __value: Union[Exp, int, str]) -> Exp:
         return Exp(self, '=', __value)
-    
+
     def __ne__(self, __value: Union[Exp, int, str]) -> Exp:
         return Exp(self, '<>', __value)
-    
+
     def __lt__(self, __value: Union[Exp, int, str]) -> Exp:
         return Exp(self, '<', __value)
-    
+
     def __le__(self, __value: Union[Exp, int, str]) -> Exp:
         return Exp(self, '<=', __value)
-    
+
     def __gt__(self, __value: Union[Exp, int, str]) -> Exp:
         return Exp(self, '>', __value)
-    
-    def __ge__(self, __value: Union[Exp, int, str]) -> Exp:  
+
+    def __ge__(self, __value: Union[Exp, int, str]) -> Exp:
         return Exp(self, '>=', __value)
-    
+
     # def between(self, __value1: Union[Exp, int, str], __value2: Union[Exp, int, str]) -> Exp:
     #     return Exp(self, 'BETWEEN', str(__value1) + ' AND ' + str(__value2))
-    
+
     def in_(self, __value: Union[list, tuple, set]) -> Exp:
         return Exp(self, 'IN', str(tuple(__value)))
 
     def like(self, __value: str) -> Exp:
         return Exp(self, 'LIKE', __value)
-    
+
     def __and__(self, __value: Union[Exp, int, str]) -> Exp:
         return Exp(self, 'AND', __value)
-    
+
     def __or__(self, __value: Union[Exp, int, str]) -> Exp:
         return Exp(self, 'OR', __value)
-    
+
     def __invert__(self) -> Union[Exp, int, str]:
         return Exp('', 'NOT', self)
 
     def execute(self, table=None, select='*') -> list:
+        """
+        Execute the query.
+        """
         self.table = table or self.table
 
         if self.table is None:
             raise Exception("Table not specified.")
         if not isinstance(self.table, Table):
             raise Exception("Table not exists.")
-        
+
         sql, paras = self.formula()
         sql = f"SELECT {select} FROM {self.table.table_name} WHERE {sql}"
 
         res = self.table.db.do(sql, paras=[paras])
         return res.fetchall()
 
+    def __iter__(self):
+        """
+        use magic method `__iter__` to search.
+        """
+        return iter(self.execute())
+    
+    def __str__(self):
+        return self._str
 
 
 if __name__ == '__main__':
-    print((Exp('id').in_([1,2,3]) & (Exp('name') == 'hello, world')).table)
+    print((Exp('id').in_([1, 2, 3]) & (Exp('name') == 'hello, world')).table)
 
     db = DataBase("test.db")
     print(db.info)
@@ -328,11 +356,14 @@ if __name__ == '__main__':
     test_table = db.createTable('test')
     print(db.tables)
 
-    test_table.newColumn('id', 'INTEGER', primaryKey=True)
-    test_table.newColumn('name', 'TEXT')
+    # test_table.newColumn('id', 'INTEGER', primaryKey=True)
+    # test_table.newColumn('name', 'TEXT')
+    print(test_table.columns)
 
-    test_table.insert(id=1, name='test')
-    print(((db['test']['id'] == 1) & (db['test']['name'] == 'test')).execute())
+    print(test_table['id'])
+
+    # test_table.insert(id=1, name='test')
+    print(list((db['test']['id'] == 1) & (db['test']['name'] == 'test')))
 
     # # db['test'].insert(id=1, name='b huang')
     # print(db['test'](db['test']['id'] == 1))
