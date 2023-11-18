@@ -24,15 +24,8 @@ CREATE TABLE IF NOT EXISTS test (
 ```
 MercurySQLite
 ```py
-table = db.createTable('test')
-table.newColumn('id', int, primaryKey=True)
-
-# OR
-
 table = db['test']
-table.struct({
-    'id': int
-}, primaryKey='id')
+table.newColumn('id', int, primaryKey=True)
 ```
 
 ### 添加列
