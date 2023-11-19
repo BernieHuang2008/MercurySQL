@@ -57,6 +57,8 @@ This file contains the implementation of a SQLite database wrapper class and rel
         Create a new query expression object.
       * `formula() -> Tuple[str, tuple]`:
         Return the formula of the expression in the form of (sql_command, paras).
+      * `__iter__()`:
+        Search in the database.
 
     - Supported Operations:
       * `==`: equality
@@ -396,7 +398,7 @@ class Exp(BasicExp):
         super().__init__(o1, op, o2)
 
         self.table = kwargs.get('table', None)
-        self._str = kwargs.get('_str', '<Exp object>')
+        self._str = kwargs.get('_str', '<MercurySQLite.gensql.Exp object>')
 
         if isinstance(o1, Exp):
             self.table = self.table or o1.table
@@ -439,9 +441,9 @@ class Exp(BasicExp):
     def __invert__(self) -> Union[Exp, int, str]:
         return Exp('', 'NOT', self)
 
-    def execute(self, table=None, select='*') -> list:
+    def query(self, table=None, select='*') -> list:
         """
-        Execute the query.
+        Execute query.
         """
         self.table = table or self.table
 
@@ -455,12 +457,34 @@ class Exp(BasicExp):
 
         res = self.table.db.do(sql, paras=[paras])
         return res.fetchall()
+    
+    def delete(self, table=None) -> None:
+        """
+        Execute delete.
+        """
+        self.table = table or self.table
+
+        if self.table is None:
+            raise Exception("Table not specified.")
+        if not isinstance(self.table, Table):
+            raise Exception("Table not exists.")
+
+        sql, paras = self.formula()
+        sql = f"DELETE FROM {self.table.table_name} WHERE {sql}"
+
+        self.table.db.do(sql, paras=[paras])
 
     def __iter__(self):
         """
         use magic method `__iter__` to search.
         """
-        return iter(self.execute())
+        return iter(self.query())
+    
+    def __del__(self):
+        """
+        use magic method `__del__` to delete.
+        """
+        self.delete()
 
     def __str__(self):
         return self._str
