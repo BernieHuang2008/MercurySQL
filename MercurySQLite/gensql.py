@@ -173,7 +173,7 @@ class DataBase:
         for table_name in table_names:
             if table_name in self.tables:
                 if not allowExist:
-                    raise Exception("Table already exists.")
+                    raise Exception(f"Table `{table_name}` already exists.")
 
             table = Table(self, table_name)
             # must be executed after Table.__init__()
@@ -203,7 +203,7 @@ class DataBase:
         """
         for table_name in table_names:
             if table_name not in self.tables:
-                raise Exception("Table not exists.")
+                raise Exception(f"Table `{table_name}` not exists.")
 
             self.do(f"DROP TABLE {table_name}")
 
@@ -262,7 +262,7 @@ class Table:
         get a column from the table, mainly used to construct query.
         """
         if key not in self.columns:
-            raise Exception("Column not exists.")
+            raise Exception(f"Column `{key}` not exists.")
 
         return Exp(key, table=self, _str=self.columnsType[key])
 
@@ -307,7 +307,7 @@ class Table:
         """
         if name in self.columns:
             if not allowExist:
-                raise Exception("Column already exists.")
+                raise Exception(f"Column `{name}` already exists.")
             else:
                 return
 
@@ -356,7 +356,7 @@ class Table:
 
     def delColumn(self, name: str) -> None:
         if name not in self.columns:
-            raise Exception("Column not exist!")
+            raise Exception(f"Column `{name}` not exist!")
         else:
             self.columns.remove(name)
             self.db.do(f"ALTER TABLE {self.table_name} DROP COLUMN {name}")
@@ -510,7 +510,7 @@ class Exp(BasicExp):
         if self.table is None:
             raise Exception("Table not specified.")
         if not isinstance(self.table, Table):
-            raise Exception("Table not exists.")
+            raise Exception(f"Table `{self.table.table_name}` not exists.")
 
         sql, paras = self.formula()
         sql = f"SELECT {select} FROM {self.table.table_name} WHERE {sql}"
@@ -533,7 +533,7 @@ class Exp(BasicExp):
         if self.table is None:
             raise Exception("Table not specified.")
         if not isinstance(self.table, Table):
-            raise Exception("Table not exists.")
+            raise Exception(f"Table `{self.table.table_name}` not exists.")
 
         sql, paras = self.formula()
         sql = f"DELETE FROM {self.table.table_name} WHERE {sql}"
