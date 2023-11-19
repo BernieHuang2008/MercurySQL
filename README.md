@@ -30,6 +30,16 @@ table = db['test']
 table.newColumn('id', int, primaryKey=True)
 ```
 
+### Delete Table
+SQL
+```sql
+DROP TABLE IF EXISTS test;
+```
+MercurySQLite
+```py
+del db['test']
+```
+
 ### Add Column
 SQL
 ```sql
@@ -39,6 +49,17 @@ ADD COLUMN name TEXT;
 MercurySQLite
 ```py
 table['name'] = str
+```
+
+### Add Primary Key Column
+SQL
+```sql
+ALTER TABLE test
+ADD COLUMN id INTEGER PRIMARY KEY;
+```
+MercurySQLite
+```py
+table['id'] = int, 'Primary Key'  # 'Primary Key' is case-insensitive
 ```
 
 ### Delete Column
@@ -73,6 +94,16 @@ rec = list(
       (table['id'] == 1) & \
       (table['name'] == 'test')
 )
+```
+
+### Delete Record
+SQL
+```sql
+DELETE * FROM test WHERE id=1 AND name='Bernie Huang';
+```
+MercurySQLite
+```py
+((table['id'] == 1) & (table['name'] == 'test')).delete()
 ```
 
 # Dependencies:

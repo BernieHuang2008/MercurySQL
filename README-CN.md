@@ -30,6 +30,16 @@ table = db['test']
 table.newColumn('id', int, primaryKey=True)
 ```
 
+### 删除数据表
+SQL
+```sql
+DROP TABLE IF EXISTS test;
+```
+MercurySQLite
+```py
+del db['test']
+```
+
 ### 添加列
 SQL
 ```sql
@@ -41,13 +51,24 @@ MercurySQLite
 table['name'] = str
 ```
 
+### 添加主键列
+SQL
+```sql
+ALTER TABLE test
+ADD COLUMN id INTEGER PRIMARY KEY;
+```
+MercurySQLite
+```py
+table['id'] = int, 'Primary Key'  # 'Primary Key' 对大小写不敏感
+```
+
 ### 删除列
 SQL
 ```sql
 ALTER TABLE table
 DROP COLUMN name;
 ```
-PySQLite
+MercurySQLite
 ```py
 del table['name']
 ```
@@ -57,7 +78,7 @@ SQL
 ```sql
 INSERT INTO test (id, name) VALUES (1, 'Bernie Huang');
 ```
-PySQLite
+MercurySQLite
 ```py
 table.insert(id=1, name='Bernie Huang')
 ```
@@ -67,12 +88,21 @@ SQL
 ```sql
 SELECT * FROM test WHERE id=1 AND name='Bernie Huang';
 ```
-PySQLite
+MercurySQLite
 ```py
-rec = list(
-      (table['id'] == 1) & \
-      (table['name'] == 'test')
-)
+res = (table['id'] == 1) & (table['name'] == 'test')
+
+print(list(res))
+```
+
+### 删除记录
+SQL
+```sql
+DELETE * FROM test WHERE id=1 AND name='Bernie Huang';
+```
+MercurySQLite
+```py
+((table['id'] == 1) & (table['name'] == 'test')).delete()
 ```
 
 
