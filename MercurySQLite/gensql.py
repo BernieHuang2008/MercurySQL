@@ -32,17 +32,17 @@ This file contains the implementation of a SQLite database wrapper class and rel
         * `__init__(db: DataBase, table_name: str)`:
             Create a new table object.
         * `__getitem__(key: str) -> Exp`:
-            Get a column from the table, mainly used to construct query.
+            Get a column from the table, it's '__str__' method will print out the definition.
         * `__setitem__(key: str, value: Any) -> None`:
             Create a new column in the table.
+        * `newColumn(name: str, type, primaryKey=False, allowExist=True) -> None`:
+            Add a new column to the table.
         * `__delitem__(key: str) -> None`:
+            Delete an existing column in this table.
+        * `delColumn(name: str) -> None`:
             Delete an existing column in this table.
         * `__call__(exp: Exp, select: str = '*') -> list`:
             Select data from the table.
-        * `newColumn(name: str, type, primaryKey=False, allowExist=True) -> None`:
-            Add a new column to the table.
-        * `delColumn(name: str) -> None`:
-            Delete an existing column in this table.
         * `setPrimaryKey(keyname: str) -> None`:
             Set a column as the primary key of the table.
         * `insert(**kwargs) -> None`:
@@ -59,6 +59,8 @@ This file contains the implementation of a SQLite database wrapper class and rel
         Return the formula of the expression in the form of (sql_command, paras).
       * `__iter__()`:
         Search in the database.
+      * `delete(table=None) -> None`:
+        Execute delete.
 
     - Supported Operations:
       * `==`: equality
@@ -116,16 +118,6 @@ class DataBase:
         }
 
         self._gather_info()
-
-    def __getitem__(self, key: str) -> Table:
-        """
-        Create / Choose a table from the database.
-
-        Paras:
-            key: str
-                The name of the table.
-        """
-        return self.createTable(key, allowExist=True)
 
     def _gather_info(self):
         """
@@ -186,6 +178,42 @@ class DataBase:
             tables.append(table)
 
         return tables if len(tables) > 1 else tables[0]
+
+    def __getitem__(self, key: str) -> Table:
+        """
+        Create / Choose a table from the database.
+
+        Paras:
+            key: str
+                The name of the table.
+        """
+        return self.createTable(key, allowExist=True)
+    
+    def deleteTable(self, *table_names: str) -> None:
+        """
+        delete a table in the database.
+
+        Paras:
+            table_names: str
+                The name of the table.
+        """
+        for table_name in table_names:
+            if table_name not in self.tables:
+                raise Exception("Table not exists.")
+
+            self.do(f"DROP TABLE {table_name}")
+
+            del self.tables[table_name]
+
+    def __delitem__(self, key: str) -> None:
+        """
+        Delete a table from the database.
+
+        Paras:
+            key: str
+                The name of the table.
+        """
+        self.deleteTable(key)
 
 
 class Table:
@@ -485,6 +513,12 @@ class Exp(BasicExp):
 
         res = self.table.db.do(sql, paras=[paras])
         return res.fetchall()
+
+    def __iter__(self):
+        """
+        use magic method `__iter__` to search.
+        """
+        return iter(self.query())
     
     def delete(self, table=None) -> None:
         """
@@ -502,12 +536,6 @@ class Exp(BasicExp):
 
         self.table.db.do(sql, paras=[paras])
 
-    def __iter__(self):
-        """
-        use magic method `__iter__` to search.
-        """
-        return iter(self.query())
-    
     def __del__(self):
         """
         use magic method `__del__` to delete.
