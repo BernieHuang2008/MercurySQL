@@ -77,11 +77,13 @@ rec = list(
 # 依赖项：
 - sqlite3（Python自带）
 
-所以，没有依赖项！
+  所以……没有依赖项！
 
-# 为什么叫做MercurySQLite
+---
 
-*（以下是ChatGPT瞎吹的）*
+## 为什么叫做MercurySQLite
+
+*（===== 以下是ChatGPT瞎吹的，别管他 =====）*
 
 **速度与敏捷性**： 水银（Mercury）是古罗马神话中的信使神，也是快速、灵活的代名词。通过
 将"Mercury"放在库的名称中，你可能想传达这个库在处理SQLite数据库时的速度和敏捷性。
