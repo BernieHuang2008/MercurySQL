@@ -270,7 +270,17 @@ class Table:
         """ 
         Create a new column in the table.
         """
-        self.newColumn(key, value, allowExist=True)
+        options = {
+            'primary key': False
+        }
+        
+        if isinstance(value, tuple):
+            # (type, options)
+            for i in range(1, len(value)):
+                options[value[i].lower()] = True
+            value = value[0]
+            
+        self.newColumn(key, value, primaryKey=options['primary key'], allowExist=True)
 
     def __delitem__(self, key: str) -> None:
         """ 

@@ -32,7 +32,7 @@ if __name__ == '__main__':
     print("Accessing 'id' column :", test_table['id'])
 
     # Uncomment the following line to insert a new row into the 'test' table
-    test_table.insert(id=1, name='test')
+    # test_table.insert(id=1, name='test')
 
     # Query the 'test' table for rows where 'id==1 AND name==test'
     e = (db['test']['id'] == 1) & \
