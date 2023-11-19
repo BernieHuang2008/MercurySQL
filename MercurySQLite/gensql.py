@@ -17,12 +17,16 @@ This file contains the implementation of a SQLite database wrapper class and rel
     - Methods:
         * `__init__(db_name: str)`:
             Create a new database object.
-        * `__getitem__(key: str) -> Table`:
-            Get a table from the database.
         * `do(*sql: str, paras: List[tuple] = []) -> sqlite3.Cursor`:
             Execute a sql command on the database.
         * `createTable(*table_names: str, allowExist: bool = True) -> Table`:
             Create a table in the database.
+        * `__getitem__(key: str) -> Table`:
+            Get a table from the database.
+        * `deleteTable(*table_names: str) -> None`:
+            Delete a table from the database.
+        * `__delitem__(key: str) -> None`:
+            Delete a table from the database.
 
         
 ### Table:
