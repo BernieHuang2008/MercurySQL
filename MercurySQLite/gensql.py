@@ -364,28 +364,47 @@ class BasicExp:
         self.exp1 = exp1
         self.oper = oper
         self.exp2 = exp2
+        self._formula = ('', ())
+
+        self.gen_formula()
+
+    @staticmethod
+    def convert(value: Any) -> Tuple[str, tuple]:
+        """
+        Convert value into a form that can be used in a SQL query.
+
+        Return:
+            Tuple[str, tuple]
+                The converted value in the form of `(sql_command, paras)`.
+        """
+        if isinstance(value, BasicExp):
+            formula, paras = value.formula()
+        elif value is None:
+            formula, paras = '', ()
+        else:
+            formula, paras = '?', (value,)
+
+        return formula, paras
+
+    def gen_formula(self) -> None:
+        """
+        [Helper] Generate the formula of the expression.
+
+        *(Note) You can also construct a formula by yourself, just set the `_formula` attribute to a tuple in the form of `(sql_command, paras)`.
+        """
+        if self.oper == '':
+            self._formula = self.exp1, ()
+        else:
+            exp1 = BasicExp.convert(self.exp1)
+            exp2 = BasicExp.convert(self.exp2)
+
+            self._formula = f"({exp1[0]} {self.oper} {exp2[0]})", tuple(exp1[1] + exp2[1])
 
     def formula(self) -> Tuple[str, tuple]:
-        if self.oper == '':
-            return self.exp1, ()
-        else:
-            # process `exp1`
-            if isinstance(self.exp1, BasicExp):
-                exp1_formula, exp1_paras = self.exp1.formula()
-            elif self.exp1 is None:
-                exp1_formula, exp1_paras = '', ()
-            else:
-                exp1_formula, exp1_paras = '?', (self.exp1,)
-
-            # process `exp2`
-            if isinstance(self.exp2, BasicExp):
-                exp2_formula, exp2_paras = self.exp2.formula()
-            elif self.exp2 is None:
-                exp2_formula, exp2_paras = '', ()
-            else:
-                exp2_formula, exp2_paras = '?', (self.exp2,)
-
-            return f"({exp1_formula} {self.oper} {exp2_formula})", tuple(exp1_paras + exp2_paras)
+        """
+        Return the formula of the expression in the form of (sql_command, paras).
+        """
+        return self._formula
 
 
 class Exp(BasicExp):
@@ -423,8 +442,17 @@ class Exp(BasicExp):
     def __ge__(self, __value: Union[Exp, int, str]) -> Exp:
         return Exp(self, '>=', __value)
 
-    # def between(self, __value1: Union[Exp, int, str], __value2: Union[Exp, int, str]) -> Exp:
-    #     return Exp(self, 'BETWEEN', str(__value1) + ' AND ' + str(__value2))
+    def between(self, __value1: Union[Exp, int, str], __value2: Union[Exp, int, str]) -> Exp:
+        # construct a new Exp object manually: set the `_formula` attribute to `(sql, paras)`.
+        res = Exp(self, 'BETWEEN', __value1)
+
+        exp1 = res.formula()
+        exp3 = BasicExp.convert(__value2)
+
+        # set the `_formula` attribute.
+        res._formula = f"({exp1[0]} AND {exp3[0]})", tuple(exp1[1] + exp3[1])
+
+        return res
 
     def in_(self, __value: Union[list, tuple, set]) -> Exp:
         return Exp(self, 'IN', str(tuple(__value)))
