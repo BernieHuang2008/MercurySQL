@@ -83,17 +83,17 @@ MercurySQLite
 table.insert(id=1, name='Bernie Huang')
 ```
 
-### Find Record
+## Query
 SQL
 ```sql
 SELECT * FROM test WHERE id=1 AND name='Bernie Huang';
 ```
 MercurySQLite
 ```py
-rec = list(
+rec = table.select(
       (table['id'] == 1) & \
       (table['name'] == 'test')
-)
+)   # rec = [{'id': 1, 'name': 'Bernie Huang'}]
 ```
 
 ### Delete Record

@@ -45,7 +45,7 @@ This file contains the implementation of a SQLite database wrapper class and rel
             Delete an existing column in this table.
         * `delColumn(name: str) -> None`:
             Delete an existing column in this table.
-        * `__call__(exp: Exp, select: str = '*') -> list`:
+        * `select(exp: Exp, select: str = '*') -> Table.QueryResult`:
             Select data from the table.
         * `setPrimaryKey(keyname: str) -> None`:
             Set a column as the primary key of the table.
@@ -192,7 +192,7 @@ class DataBase:
                 The name of the table.
         """
         return self.createTable(key, allowExist=True)
-    
+
     def deleteTable(self, *table_names: str) -> None:
         """
         delete a table in the database.
@@ -242,7 +242,8 @@ class Table:
     def _gather_info(self):
         """
         [Helper] Gather all infomations of the table, including:
-            - all columns
+            - `columns`: list[str] .................. name of all columns
+            - `columnsType`: dict[str, str] .......... the type of each column
         """
         def get_columns():
             cursor = self.db.do(f"PRAGMA table_info({self.table_name})")
@@ -273,14 +274,15 @@ class Table:
         options = {
             'primary key': False
         }
-        
+
         if isinstance(value, tuple):
             # (type, options)
             for i in range(1, len(value)):
                 options[value[i].lower()] = True
             value = value[0]
-            
-        self.newColumn(key, value, primaryKey=options['primary key'], allowExist=True)
+
+        self.newColumn(
+            key, value, primaryKey=options['primary key'], allowExist=True)
 
     def __delitem__(self, key: str) -> None:
         """ 
@@ -289,17 +291,61 @@ class Table:
         """
         self.delColumn(key)
 
-    def __call__(self, exp: Exp, select: str = '*') -> list:
+    class QueryResult:
+        """
+        [Helper Class]
+        The result of a query.
+
+        Usage:
+            res = table.select(exp)
+            for row in res:
+                print(row)
+        """
+
+        def __init__(self, table: Table, exp: Exp, selection: str = '*'):
+            values = self.exp.query(self.table, self.selection)
+            keys = table.columns if selection == '*' else selection.split(',')
+            self.data = [
+                {
+                    keys[i]: value[i] for i in range(len(keys))
+                } for value in values
+            ]
+
+        class QueryResultRow:
+            """ [Helper Class] """
+            def __init__(self, data: dict):
+                self.data = data
+
+            def __getattribute__(self, __name: str) -> Any:
+                data = object.__getattribute__(self, 'data')
+                return data[__name]
+            
+            def __iter__(self):
+                return iter(self.data)
+
+        def __getitem__(self, index: int) -> Any:
+            return self.QueryResultRow(self.data[index])
+
+        def __iter__(self):
+            return iter(self.data)
+
+        def __str__(self):
+            return str(self.data)
+
+        def __repr__(self):
+            return repr(self.data)
+
+    def select(self, exp: Exp, selection: str = '*') -> list:
         """
         Select data from the table.
 
         Paras:
             exp: Exp
                 The query expression.
-            select: str
+            selection: str
                 The columns to select, default is '*'(all columns).
         """
-        return exp.execute(table=self, select=select)
+        return self.QueryResult(self, exp, selection)
 
     def newColumn(self, name: str, type_: Any, primaryKey=False, allowExist=False) -> None:
         """
@@ -440,7 +486,8 @@ class BasicExp:
             exp1 = BasicExp.convert(self.exp1)
             exp2 = BasicExp.convert(self.exp2)
 
-            self._formula = f"({exp1[0]} {self.oper} {exp2[0]})", tuple(exp1[1] + exp2[1])
+            self._formula = f"({exp1[0]} {self.oper} {exp2[0]})", tuple(
+                exp1[1] + exp2[1])
 
     def formula(self) -> Tuple[str, tuple]:
         """
@@ -533,7 +580,7 @@ class Exp(BasicExp):
         use magic method `__iter__` to search.
         """
         return iter(self.query())
-    
+
     def delete(self, table=None) -> None:
         """
         Execute delete.
