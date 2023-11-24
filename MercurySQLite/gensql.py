@@ -229,6 +229,8 @@ class Table:
         self.db = db
         self.table_name = table_name
 
+        self._gather_info()
+
         if len(self.columns) > 0:
             # table exists
             self.isEmpty = False
@@ -236,8 +238,6 @@ class Table:
             # table not exists
             # can't create a table with no columns, so a hackish way is to create the table when adding a column.
             self.isEmpty = True
-
-        self._gather_info()
 
     def _gather_info(self):
         """
