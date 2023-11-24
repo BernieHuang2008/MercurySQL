@@ -229,7 +229,7 @@ class Table:
         self.db = db
         self.table_name = table_name
 
-        if table_name in self.db.tables:
+        if len(self.columns) > 0:
             # table exists
             self.isEmpty = False
         else:
@@ -412,8 +412,13 @@ class Table:
 
     def delColumn(self, name: str) -> None:
         if name not in self.columns:
+            # column not exist
             raise Exception(f"Column `{name}` not exist!")
+        elif len(self.columns) == 1:
+            # the last column, delete the table instead
+            self.db.do(f"DROP TABLE {self.table_name}")
         else:
+            # delete the column
             self.columns.remove(name)
             self.db.do(f"ALTER TABLE {self.table_name} DROP COLUMN {name}")
 
