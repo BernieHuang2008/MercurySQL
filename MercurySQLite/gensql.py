@@ -145,6 +145,16 @@ class DataBase:
         :type sql: str
         :param paras: The parameters for the sql command(s).
         :type paras: List[tuple]
+
+        :return: The cursor of the database.
+        :rtype: sqlite3.Cursor
+
+        Example Usage:
+
+        .. code-block:: python
+
+            db = DataBase('test.db')
+            db.do("CREATE TABLE test (id INTEGER PRIMARY KEY, name TEXT)")
         """
         if len(paras) < len(sql):
             paras += [()] * (len(sql) - len(paras))
@@ -165,6 +175,16 @@ class DataBase:
         :type table_names: str
         :param allowExist: Allow to return a existing table.
         :type allowExist: bool
+
+        :return: A Table object.
+        :rtype: Table
+
+        Example Usage:
+
+        .. code-block:: python
+
+            db = DataBase('test.db')
+            table = db.createTable('test')
         """
         tables = []
 
@@ -185,9 +205,19 @@ class DataBase:
         """
         Create / Choose a table from the database.
 
-        Paras:
-            key: str
-                The name of the table.
+        :param key: The name of the table.
+        :type key: str
+
+        :return: A Table object.
+        :rtype: Table
+
+        Example Usage:
+
+        .. code-block:: python
+
+            db = DataBase('test.db')
+            table = db['test']
+
         """
         if key in self.tables:
             return self.tables[key]
@@ -200,6 +230,14 @@ class DataBase:
 
         :param table_names: The name of the table.
         :type table_names: str
+
+        Example Usage:
+
+        .. code-block:: python
+
+            db = DataBase('test.db')
+            db.deleteTable('test')
+
         """
         for table_name in table_names:
             if table_name not in self.tables:
@@ -213,9 +251,15 @@ class DataBase:
         """
         Delete a table from the database.
 
-        Paras:
-            key: str
-                The name of the table.
+        :param key: The name of the table.
+        :type key: str
+
+        Example Usage:
+
+        .. code-block:: python
+
+            db = DataBase('test.db')
+            del db['test']  # same as db.deleteTable('test')
         """
         self.deleteTable(key)
 
@@ -265,6 +309,29 @@ class Table:
     def __getitem__(self, key: str) -> Exp:
         """
         get a column from the table, mainly used to construct query.
+
+        :param key: The name of the column.
+        :type key: str
+
+        :return: An Exp object.
+
+        Example Usage:
+
+        1. Construct a query expression.
+
+        .. code-block:: python
+
+            table = db['test']
+            exp = table['id'] == 1
+            res = table.select(exp)
+
+        2. Get the definition of a column.
+
+        .. code-block:: python
+
+            table = db['test']
+            print(table['id'])  # INTEGER PRIMARY KEY
+
         """
         if key not in self.columns:
             raise Exception(f"Column `{key}` not exists.")
@@ -274,6 +341,19 @@ class Table:
     def __setitem__(self, key: str, value: Any) -> None:
         """ 
         Create a new column in the table.
+
+        :param key: The name of the column.
+        :type key: str
+        :param value: The type of the column.
+        :type value: Any
+
+        Example Usage:
+
+        .. code-block:: python
+
+            table = db['test']
+            table['name'] = str
+
         """
         options = {
             'primary key': False
@@ -292,6 +372,17 @@ class Table:
         """ 
         Delete an existing column in this table. 
         An Exception will be raised if column not exist.
+
+        :param key: The name of the column.
+        :type key: str
+
+        Example Usage:
+
+        .. code-block:: python
+
+            table = db['test']
+            del table['name']  # same as table.delColumn('name')
+
         """
         self.delColumn(key)
 
@@ -300,7 +391,7 @@ class Table:
         [Helper Class]
         The result of a query.
 
-        Usage
+        Example Usage:
 
         .. code-block:: python
 
@@ -343,11 +434,21 @@ class Table:
         """
         Select data from the table.
 
-        Paras:
-            exp: Exp
-                The query expression.
-            selection: str
-                The columns to select, default is '*'(all columns).
+        :param exp: The query expression.
+        :type exp: Exp
+        :param selection: The columns to select, default is '*'(all columns).
+        :type selection: str
+
+        :return: A list of data.
+        :rtype: list
+
+        Example Usage:
+
+        .. code-block:: python
+
+            table = db['test']
+            table.select(table['id'] == 1)  # select all columns where id = 1
+
         """
         if exp is None:
             exp = Exp(1, '=', 1)
@@ -358,15 +459,23 @@ class Table:
         """
         Add a new column to the table.
 
-        Paras:
-            name: str
-                Name of the new column.
-            type\_: Any
-                Type of the new column.
-            primaryKey: bool
-                The column will be a primary key if set to `True`.
-            allowExist: bool
-                Allow to skip when processing an existing column.
+        :param name: The name of the column.
+        :type name: str
+        :param type_: The type of the column.
+        :type type_: Any
+        :param primaryKey: Whether the column is a primary key.
+        :type primaryKey: bool
+        :param allowExist: Allow to skip when processing an existing column.
+        :type allowExist: bool
+
+        Example Usage:
+
+        .. code-block:: python
+
+            table = db['test']
+            table.newColumn('name', str)
+            table.newColumn('id', int, primaryKey=True)
+            
         """
         if name in self.columns:
             if not allowExist:
@@ -395,13 +504,23 @@ class Table:
         """
         Set the structure of the table.
 
-        Paras:
-            columns: dict
-                The structure of the table.
-            primaryKey: str
-                The primary key of the table.
-            allowExist: bool
-                Allow to skip when column exist and have the same type.
+        :param columns: The structure of the table.
+        :type columns: dict
+        :param primaryKey: The primary key of the table.
+        :type primaryKey: str
+        :param allowExist: Allow to skip when column exist and have the same type.
+        :type allowExist: bool
+
+        Example Usage:
+
+        .. code-block:: python
+
+            table = db['test']
+            table.struct({
+                'id': int,
+                'name': str
+            }, primaryKey='id')
+
         """
         for name, type_ in columns.items():
             type_ = TypeParser.parse(type_)
@@ -433,9 +552,16 @@ class Table:
         """
         Set a column as the primary key of the table.
 
-        Paras:
-            keyname: str
-                The name of the column.
+        :param keyname: The name of the column.
+        :type keyname: str
+
+        Example Usage:
+
+        .. code-block:: python
+
+            table = db['test']
+            table.setPrimaryKey('id')
+
         """
         self.db.do(
             f"CREATE TABLE new_table ({keyname} INTEGER PRIMARY KEY, {', '.join([f'{name} {type}' for name, type in self.columns.items() if name != keyname])})",
@@ -448,9 +574,15 @@ class Table:
         """
         Insert a row into the table.
 
-        Paras:
-            kwargs: dict
-                The data to insert.
+        :param \*\*kwargs: The data to insert.
+
+        Example Usage:
+
+        .. code-block:: python
+
+            table = db['test']
+            table.insert(id=1, name='Bernie', age=15)
+
         """
         columns = ', '.join(kwargs.keys())
         values = ', '.join(['?' for _ in range(len(kwargs))])
@@ -472,9 +604,22 @@ class BasicExp:
         """
         Convert value into a form that can be used in a SQL query.
 
-        Return:
-            Tuple[str, tuple]
-                The converted value in the form of `(sql_command, paras)`.
+        :param value: The value to convert.
+        :type value: Any
+
+        :return: The converted value in the form of `(sql_command, paras)`.
+        :rtype: Tuple[str, tuple]
+
+        Example Usage:
+
+        .. code-block:: python
+
+            BasicExp.convert(1)                 # ('?', (1,))
+            BasicExp.convert('Bernie')          # ('?', ('Bernie',))
+            BasicExp.convert(None)              # ('', ())
+            BasicExp.convert(Exp('id') == 1)    # ('(id = ?)', (1,))
+            ...
+
         """
         if isinstance(value, BasicExp):
             formula, paras = value.formula()
@@ -623,16 +768,28 @@ class TypeParser:
         """
         Compile the type to SQLite type.
 
-        Paras:
-            type_: Any
-                The type to parse.
+        :param type_: The type to parse.
+        :type type_: Any
 
+        :return: The SQLite type.
+        :rtype: str
+        
         Supported Types:
             str ------- TEXT
             int ------- INTEGER
             float ----- REAL
             bool ------ BOOLEAN
             bytes ------- BLOB
+
+        Example Usage:
+
+        .. code-block:: python
+
+            TypeParser.parse(str)       # TEXT
+            TypeParser.parse(int)       # INTEGER
+            TypeParser.parse(float)     # REAL
+            ...
+
         """
         supported_types = {
             str: 'TEXT',

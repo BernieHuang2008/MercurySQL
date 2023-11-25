@@ -121,7 +121,18 @@
 <li><p><strong>allowExist</strong> (<em>bool</em>) – Allow to return a existing table.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Table object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#MercurySQLite.gensql.Table" title="MercurySQLite.gensql.Table">Table</a></p>
+</dd>
 </dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">createTable</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -133,6 +144,11 @@
 <dd class="field-odd"><p><strong>table_names</strong> (<em>str</em>) – The name of the table.</p>
 </dd>
 </dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="n">db</span><span class="o">.</span><span class="n">deleteTable</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -146,7 +162,18 @@
 <li><p><strong>paras</strong> (<em>List</em><em>[</em><em>tuple</em><em>]</em>) – The parameters for the sql command(s).</p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The cursor of the database.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sqlite3.Cursor</p>
+</dd>
 </dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="n">db</span><span class="o">.</span><span class="n">do</span><span class="p">(</span><span class="s2">&quot;CREATE TABLE test (id INTEGER PRIMARY KEY, name TEXT)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </dd></dl>
@@ -161,7 +188,7 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QueryResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.Table" title="MercurySQLite.gensql.Table"><span class="pre">Table</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'*'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.Table.QueryResult" title="Permalink to this definition"></a></dt>
 <dd><p>[Helper Class]
 The result of a query.</p>
-<p>Usage</p>
+<p>Example Usage:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
@@ -179,77 +206,102 @@ The result of a query.</p>
 <dt class="sig sig-object py" id="MercurySQLite.gensql.Table.insert">
 <span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.insert" title="Permalink to this definition"></a></dt>
 <dd><p>Insert a row into the table.</p>
-<dl class="simple">
-<dt>Paras:</dt><dd><dl class="simple">
-<dt>kwargs: dict</dt><dd><p>The data to insert.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> – The data to insert.</p>
 </dd>
 </dl>
-</dd>
-</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">table</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Bernie&#39;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="MercurySQLite.gensql.Table.newColumn">
 <span class="sig-name descname"><span class="pre">newColumn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primaryKey</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowExist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.newColumn" title="Permalink to this definition"></a></dt>
 <dd><p>Add a new column to the table.</p>
-<dl class="simple">
-<dt>Paras:</dt><dd><dl class="simple">
-<dt>name: str</dt><dd><p>Name of the new column.</p>
-</dd>
-<dt>type_: Any</dt><dd><p>Type of the new column.</p>
-</dd>
-<dt>primaryKey: bool</dt><dd><p>The column will be a primary key if set to <cite>True</cite>.</p>
-</dd>
-<dt>allowExist: bool</dt><dd><p>Allow to skip when processing an existing column.</p>
-</dd>
-</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The name of the column.</p></li>
+<li><p><strong>type</strong> (<em>Any</em>) – The type of the column.</p></li>
+<li><p><strong>primaryKey</strong> (<em>bool</em>) – Whether the column is a primary key.</p></li>
+<li><p><strong>allowExist</strong> (<em>bool</em>) – Allow to skip when processing an existing column.</p></li>
+</ul>
 </dd>
 </dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">table</span><span class="o">.</span><span class="n">newColumn</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+<span class="n">table</span><span class="o">.</span><span class="n">newColumn</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">primaryKey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="MercurySQLite.gensql.Table.select">
 <span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'*'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.select" title="Permalink to this definition"></a></dt>
 <dd><p>Select data from the table.</p>
-<dl class="simple">
-<dt>Paras:</dt><dd><dl class="simple">
-<dt>exp: Exp</dt><dd><p>The query expression.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exp</strong> (<a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><em>Exp</em></a>) – The query expression.</p></li>
+<li><p><strong>selection</strong> (<em>str</em>) – The columns to select, default is ‘*’(all columns).</p></li>
+</ul>
 </dd>
-<dt>selection: str</dt><dd><p>The columns to select, default is ‘*’(all columns).</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
-</dd>
-</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">table</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># select all columns where id = 1</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="MercurySQLite.gensql.Table.setPrimaryKey">
 <span class="sig-name descname"><span class="pre">setPrimaryKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.setPrimaryKey" title="Permalink to this definition"></a></dt>
 <dd><p>Set a column as the primary key of the table.</p>
-<dl class="simple">
-<dt>Paras:</dt><dd><dl class="simple">
-<dt>keyname: str</dt><dd><p>The name of the column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>keyname</strong> (<em>str</em>) – The name of the column.</p>
 </dd>
 </dl>
-</dd>
-</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">table</span><span class="o">.</span><span class="n">setPrimaryKey</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="MercurySQLite.gensql.Table.struct">
 <span class="sig-name descname"><span class="pre">struct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primaryKey</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowExist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.struct" title="Permalink to this definition"></a></dt>
 <dd><p>Set the structure of the table.</p>
-<dl class="simple">
-<dt>Paras:</dt><dd><dl class="simple">
-<dt>columns: dict</dt><dd><p>The structure of the table.</p>
-</dd>
-<dt>primaryKey: str</dt><dd><p>The primary key of the table.</p>
-</dd>
-<dt>allowExist: bool</dt><dd><p>Allow to skip when column exist and have the same type.</p>
-</dd>
-</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>columns</strong> (<em>dict</em>) – The structure of the table.</p></li>
+<li><p><strong>primaryKey</strong> (<em>str</em>) – The primary key of the table.</p></li>
+<li><p><strong>allowExist</strong> (<em>bool</em>) – Allow to skip when column exist and have the same type.</p></li>
+</ul>
 </dd>
 </dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">table</span><span class="o">.</span><span class="n">struct</span><span class="p">({</span>
+    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">},</span> <span class="n">primaryKey</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </dd></dl>
