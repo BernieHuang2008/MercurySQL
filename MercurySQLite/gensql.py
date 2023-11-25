@@ -191,7 +191,10 @@ class DataBase:
             key: str
                 The name of the table.
         """
-        return self.createTable(key, allowExist=True)
+        if key in self.tables:
+            return self.tables[key]
+        else:
+            return self.createTable(key, allowExist=True)
 
     def deleteTable(self, *table_names: str) -> None:
         """
@@ -218,6 +221,12 @@ class DataBase:
                 The name of the table.
         """
         self.deleteTable(key)
+
+    def __del__(self):
+        """
+        Close the connection when the object is deleted.
+        """
+        self.conn.close()
 
 
 class Table:
@@ -598,12 +607,6 @@ class Exp(BasicExp):
         sql = f"DELETE FROM {self.table.table_name} WHERE {sql}"
 
         self.table.db.do(sql, paras=[paras])
-
-    def __del__(self):
-        """
-        use magic method `__del__` to delete.
-        """
-        self.delete()
 
     def __str__(self):
         return self._str
