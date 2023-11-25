@@ -1,5 +1,7 @@
 Also read in [English](README.md)
 
+阅读完整文档 [Read the Docs](https://mercurysqlite.readthedocs.io/en/latest/)
+
 # MercurySQLite
 Operate SQLite in a more pythonic way.
 

@@ -7,8 +7,6 @@ This file contains the implementation of a SQLite database wrapper class and rel
 
 .. note:: This code is a simplified implementation and may not cover all possible use cases. Please refer to the official documentation for more information.
 
-Classes
--------
 
 .. autoclass:: MercurySQLite.gensql.DataBase
    :members:
