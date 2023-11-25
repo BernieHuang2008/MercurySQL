@@ -1,6 +1,6 @@
 """
-MercurySQLite/gensql.py
-==================
+MercurySQLite.gensql
+=======================
 Use built-in sqlite3 library to operate sql in a more pythonic way.
 
 This file contains the implementation of a SQLite database wrapper class and related classes for table and query expressions.
@@ -8,8 +8,8 @@ This file contains the implementation of a SQLite database wrapper class and rel
 (Note): This code is a simplified implementation and may not cover all possible use cases. Please refer to the official documentation for more information.
 
 
-## Classes:
-----------
+Classes
+-------
 
 ### DataBase:
     Represents a SQLite database and provides methods for creating tables, executing SQL commands, and retrieving table objects.
@@ -141,11 +141,10 @@ class DataBase:
         """
         Execute a sql command on the database.
 
-        Paras:
-            sql: str
-                The sql command(s).
-            paras: tuple
-                The parameters for the sql command(s).
+        :param sql: The sql command(s).
+        :type sql: str
+        :param paras: The parameters for the sql command(s).
+        :type paras: List[tuple]
         """
         if len(paras) < len(sql):
             paras += [()] * (len(sql) - len(paras))
@@ -162,11 +161,10 @@ class DataBase:
         """
         create a table in the database.
 
-        Paras:
-            table_names: str
-                The name of the table.
-            allowExist: bool
-                Allow to return a existing table.
+        :param table_names: The name of the table.
+        :type table_names: str
+        :param allowExist: Allow to return a existing table.
+        :type allowExist: bool
         """
         tables = []
 
@@ -200,9 +198,8 @@ class DataBase:
         """
         delete a table in the database.
 
-        Paras:
-            table_names: str
-                The name of the table.
+        :param table_names: The name of the table.
+        :type table_names: str
         """
         for table_name in table_names:
             if table_name not in self.tables:
@@ -303,7 +300,10 @@ class Table:
         [Helper Class]
         The result of a query.
 
-        Usage:
+        Usage
+
+        .. code-block:: python
+
             res = table.select(exp)
             for row in res:
                 print(row)
@@ -361,7 +361,7 @@ class Table:
         Paras:
             name: str
                 Name of the new column.
-            type_: Any
+            type\_: Any
                 Type of the new column.
             primaryKey: bool
                 The column will be a primary key if set to `True`.

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MercurySQLite.gensql &mdash; Mercury SQLite https://pypi.org/project/mercurysqlite documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=e8e6bea8"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Documentation of Mercury SQLite" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Mercury SQLite
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">MercurySQLite.gensql</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#classes">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQLite.gensql.DataBase"><code class="docutils literal notranslate"><span class="pre">DataBase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQLite.gensql.DataBase.createTable"><code class="docutils literal notranslate"><span class="pre">DataBase.createTable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQLite.gensql.DataBase.deleteTable"><code class="docutils literal notranslate"><span class="pre">DataBase.deleteTable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQLite.gensql.DataBase.do"><code class="docutils literal notranslate"><span class="pre">DataBase.do()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQLite.gensql.Table"><code class="docutils literal notranslate"><span class="pre">Table</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQLite.gensql.Table.QueryResult"><code class="docutils literal notranslate"><span class="pre">Table.QueryResult</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQLite.gensql.Table.insert"><code class="docutils literal notranslate"><span class="pre">Table.insert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQLite.gensql.Table.newColumn"><code class="docutils literal notranslate"><span class="pre">Table.newColumn()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQLite.gensql.Table.select"><code class="docutils literal notranslate"><span class="pre">Table.select()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQLite.gensql.Table.setPrimaryKey"><code class="docutils literal notranslate"><span class="pre">Table.setPrimaryKey()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQLite.gensql.Table.struct"><code class="docutils literal notranslate"><span class="pre">Table.struct()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQLite.gensql.Exp"><code class="docutils literal notranslate"><span class="pre">Exp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQLite.gensql.Exp.delete"><code class="docutils literal notranslate"><span class="pre">Exp.delete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQLite.gensql.Exp.query"><code class="docutils literal notranslate"><span class="pre">Exp.query()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Mercury SQLite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">MercurySQLite.gensql</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/gensql.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mercurysqlite-gensql">
+<h1>MercurySQLite.gensql<a class="headerlink" href="#mercurysqlite-gensql" title="Permalink to this heading"></a></h1>
+<p>Use built-in sqlite3 library to operate sql in a more pythonic way.</p>
+<p>This file contains the implementation of a SQLite database wrapper class and related classes for table and query expressions.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This code is a simplified implementation and may not cover all possible use cases. Please refer to the official documentation for more information.</p>
+</div>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQLite.gensql.DataBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQLite.gensql.</span></span><span class="sig-name descname"><span class="pre">DataBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.DataBase" title="Permalink to this definition"></a></dt>
+<dd><p>select/create a SQLite database using python’s built-in library <cite>sqlite3</cite>.</p>
+<p>Represents a SQLite database and provides methods for creating tables, executing SQL commands, and retrieving table objects.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQLite.gensql.DataBase.createTable">
+<span class="sig-name descname"><span class="pre">createTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">table_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowExist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQLite.gensql.Table" title="MercurySQLite.gensql.Table"><span class="pre">Table</span></a></span></span><a class="headerlink" href="#MercurySQLite.gensql.DataBase.createTable" title="Permalink to this definition"></a></dt>
+<dd><p>create a table in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table_names</strong> (<em>str</em>) – The name of the table.</p></li>
+<li><p><strong>allowExist</strong> (<em>bool</em>) – Allow to return a existing table.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQLite.gensql.DataBase.deleteTable">
+<span class="sig-name descname"><span class="pre">deleteTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">table_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.DataBase.deleteTable" title="Permalink to this definition"></a></dt>
+<dd><p>delete a table in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table_names</strong> (<em>str</em>) – The name of the table.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQLite.gensql.DataBase.do">
+<span class="sig-name descname"><span class="pre">do</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">sql</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paras</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Cursor</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.DataBase.do" title="Permalink to this definition"></a></dt>
+<dd><p>Execute a sql command on the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sql</strong> (<em>str</em>) – The sql command(s).</p></li>
+<li><p><strong>paras</strong> (<em>List</em><em>[</em><em>tuple</em><em>]</em>) – The parameters for the sql command(s).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQLite.gensql.Table">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQLite.gensql.</span></span><span class="sig-name descname"><span class="pre">Table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.DataBase" title="MercurySQLite.gensql.DataBase"><span class="pre">DataBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.Table" title="Permalink to this definition"></a></dt>
+<dd><p>A table in the SQLite database.</p>
+<p>Represents a table in the SQLite database and provides methods for adding columns, deleting columns, inserting rows, and executing queries.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.QueryResult">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QueryResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.Table" title="MercurySQLite.gensql.Table"><span class="pre">Table</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'*'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.Table.QueryResult" title="Permalink to this definition"></a></dt>
+<dd><p>[Helper Class]
+The result of a query.</p>
+<p>Usage</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.QueryResult.QueryResultRow">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QueryResultRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.Table.QueryResult.QueryResultRow" title="Permalink to this definition"></a></dt>
+<dd><p>[Helper Class]</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.insert">
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.insert" title="Permalink to this definition"></a></dt>
+<dd><p>Insert a row into the table.</p>
+<dl class="simple">
+<dt>Paras:</dt><dd><dl class="simple">
+<dt>kwargs: dict</dt><dd><p>The data to insert.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.newColumn">
+<span class="sig-name descname"><span class="pre">newColumn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primaryKey</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowExist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.newColumn" title="Permalink to this definition"></a></dt>
+<dd><p>Add a new column to the table.</p>
+<dl class="simple">
+<dt>Paras:</dt><dd><dl class="simple">
+<dt>name: str</dt><dd><p>Name of the new column.</p>
+</dd>
+<dt>type_: Any</dt><dd><p>Type of the new column.</p>
+</dd>
+<dt>primaryKey: bool</dt><dd><p>The column will be a primary key if set to <cite>True</cite>.</p>
+</dd>
+<dt>allowExist: bool</dt><dd><p>Allow to skip when processing an existing column.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.select">
+<span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'*'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.select" title="Permalink to this definition"></a></dt>
+<dd><p>Select data from the table.</p>
+<dl class="simple">
+<dt>Paras:</dt><dd><dl class="simple">
+<dt>exp: Exp</dt><dd><p>The query expression.</p>
+</dd>
+<dt>selection: str</dt><dd><p>The columns to select, default is ‘*’(all columns).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.setPrimaryKey">
+<span class="sig-name descname"><span class="pre">setPrimaryKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.setPrimaryKey" title="Permalink to this definition"></a></dt>
+<dd><p>Set a column as the primary key of the table.</p>
+<dl class="simple">
+<dt>Paras:</dt><dd><dl class="simple">
+<dt>keyname: str</dt><dd><p>The name of the column.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.struct">
+<span class="sig-name descname"><span class="pre">struct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primaryKey</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowExist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.struct" title="Permalink to this definition"></a></dt>
+<dd><p>Set the structure of the table.</p>
+<dl class="simple">
+<dt>Paras:</dt><dd><dl class="simple">
+<dt>columns: dict</dt><dd><p>The structure of the table.</p>
+</dd>
+<dt>primaryKey: str</dt><dd><p>The primary key of the table.</p>
+</dd>
+<dt>allowExist: bool</dt><dd><p>Allow to skip when column exist and have the same type.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQLite.gensql.Exp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQLite.gensql.</span></span><span class="sig-name descname"><span class="pre">Exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">o2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.Exp" title="Permalink to this definition"></a></dt>
+<dd><p>Subclass of BasicExp, representing a query expression that can be used to construct complex queries.</p>
+<ul class="simple">
+<li><p>Supported Operations:
+* <cite>==</cite>: equality
+* <cite>!=</cite>: inequality
+* <cite>&lt;</cite>: less than
+* <cite>&lt;=</cite>: less than or equal to
+* <cite>&gt;</cite>: greater than
+* <cite>&gt;=</cite>: greater than or equal to
+* <cite>.in_()</cite>: in
+* <cite>.like()</cite>: like
+* <cite>&amp;</cite>: and
+* <cite>|</cite>: or
+* <cite>not</cite>: not</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>you should mind the priority of operations when using <cite>&amp;</cite> and <cite>|</cite>.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQLite.gensql.Exp.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Exp.delete" title="Permalink to this definition"></a></dt>
+<dd><p>Execute delete.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQLite.gensql.Exp.query">
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'*'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Exp.query" title="Permalink to this definition"></a></dt>
+<dd><p>Execute query.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Documentation of Mercury SQLite" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Bernie J. Huang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
