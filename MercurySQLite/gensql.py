@@ -634,7 +634,7 @@ class BasicExp:
         """
         [Helper] Generate the formula of the expression.
 
-        *(Note) You can also construct a formula by yourself, just set the `_formula` attribute to a tuple in the form of `(sql_command, paras)`.
+        .. note :: You can also construct a formula by yourself, just set the `_formula` attribute to a tuple in the form of `(sql_command, paras)`.
         """
         if self.oper == '':
             self._formula = self.exp1, ()
