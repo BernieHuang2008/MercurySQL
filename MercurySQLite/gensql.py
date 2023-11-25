@@ -229,15 +229,13 @@ class Table:
         self.db = db
         self.table_name = table_name
 
-        self._gather_info()
+        def get_all_tables():
+            res = self.db.do("SELECT name FROM sqlite_master WHERE type='table';")
+            return list(map(lambda x: x[0], res.fetchall()))
+        
+        self.isEmpty = (table_name not in get_all_tables())
 
-        if len(self.columns) > 0:
-            # table exists
-            self.isEmpty = False
-        else:
-            # table not exists
-            # can't create a table with no columns, so a hackish way is to create the table when adding a column.
-            self.isEmpty = True
+        self._gather_info()
 
     def _gather_info(self):
         """
@@ -303,8 +301,8 @@ class Table:
         """
 
         def __init__(self, table: Table, exp: Exp, selection: str = '*'):
-            values = self.exp.query(self.table, self.selection)
-            keys = table.columns if selection == '*' else selection.split(',')
+            values = exp.query(table, selection)
+            keys = table.columns if selection == '*' else list(map(lambda x: x.strip(), selection.split(',')))
             self.data = [
                 {
                     keys[i]: value[i] for i in range(len(keys))
@@ -328,14 +326,11 @@ class Table:
 
         def __iter__(self):
             return iter(self.data)
+        
+        def __len__(self):
+            return len(self.data)
 
-        def __str__(self):
-            return str(self.data)
-
-        def __repr__(self):
-            return repr(self.data)
-
-    def select(self, exp: Exp, selection: str = '*') -> list:
+    def select(self, exp: Exp=None, selection: str='*') -> list:
         """
         Select data from the table.
 
@@ -345,6 +340,9 @@ class Table:
             selection: str
                 The columns to select, default is '*'(all columns).
         """
+        if exp is None:
+            exp = Exp(1, '=', 1)
+
         return self.QueryResult(self, exp, selection)
 
     def newColumn(self, name: str, type_: Any, primaryKey=False, allowExist=False) -> None:
@@ -446,10 +444,9 @@ class Table:
                 The data to insert.
         """
         columns = ', '.join(kwargs.keys())
-        values = ', '.join(map(lambda x: f"'{x}'", kwargs.values()))
+        values = ', '.join(['?' for _ in range(len(kwargs))])
 
-        self.db.do(
-            f"INSERT INTO {self.table_name} ({columns}) VALUES ({values})")
+        self.db.do(f"INSERT INTO {self.table_name} ({columns}) VALUES ({values})", paras=[tuple(kwargs.values())])
 
 
 class BasicExp:
