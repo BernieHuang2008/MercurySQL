@@ -114,6 +114,23 @@ class DataBase:
     """
 
     def __init__(self, db_name: str):
+        """
+        Create a new database object.
+
+        :param db_name: The name of the database.
+        :type db_name: str
+
+        Example Usage:
+
+        .. code-block:: python
+
+            db = DataBase('test.db')
+
+        How It Works:
+            - start a connection to the SQLite database
+            - get a cursor to execute sql commands
+            - gather all infomations of the database
+        """
         self.conn = sqlite3.connect(db_name)
         self.cursor = self.conn.cursor()
 
@@ -155,6 +172,10 @@ class DataBase:
 
             db = DataBase('test.db')
             db.do("CREATE TABLE test (id INTEGER PRIMARY KEY, name TEXT)")
+
+        How It Works:
+            - execute sql commands one by one, with parameters
+            - commit after all commands are executed
         """
         if len(paras) < len(sql):
             paras += [()] * (len(sql) - len(paras))
@@ -185,6 +206,11 @@ class DataBase:
 
             db = DataBase('test.db')
             table = db.createTable('test')
+
+        How It Works:
+            - create table(s) if not exists
+            - if already exists, return the existing table(s) in a NEW `Table` Object.
+            - if exists and `allowExist` set to False, raise an Exception.
         """
         tables = []
 
@@ -194,7 +220,8 @@ class DataBase:
                     raise Exception(f"Table `{table_name}` already exists.")
 
             table = Table(self, table_name)
-            # must be executed after Table.__init__()
+
+            # must be executed after `_gather_into()`, because the following code will use a mapping between table name and table object
             self.tables[table_name] = table
 
             tables.append(table)
@@ -218,6 +245,11 @@ class DataBase:
             db = DataBase('test.db')
             table = db['test']
 
+        How It Works:
+            - if exists, return the existing table (the OLD `Table` Object)
+            - if not exists, create a new table by `createTable()`.
+
+        .. note:: The only difference between `__getitem__()` and `createTable()` is that `__getitem__()` will return the **OLD** `Table` Object if exists, while `createTable()` will return a **NEW** `Table` Object.
         """
         if key in self.tables:
             return self.tables[key]
@@ -238,6 +270,9 @@ class DataBase:
             db = DataBase('test.db')
             db.deleteTable('test')
 
+        How It Works:
+            - delete table(s) if exists
+            - raise an Exception if not exists.
         """
         for table_name in table_names:
             if table_name not in self.tables:
@@ -249,7 +284,7 @@ class DataBase:
 
     def __delitem__(self, key: str) -> None:
         """
-        Delete a table from the database.
+        Delete a table from the database, same as `deleteTable()`.
 
         :param key: The name of the table.
         :type key: str
@@ -260,6 +295,7 @@ class DataBase:
 
             db = DataBase('test.db')
             del db['test']  # same as db.deleteTable('test')
+
         """
         self.deleteTable(key)
 
@@ -276,6 +312,25 @@ class Table:
     """
 
     def __init__(self, db: DataBase, table_name: str):
+        """
+        Initialize a table object.
+
+        :param db: The database object.
+        :type db: DataBase
+        :param table_name: The name of the table.
+        :type table_name: str
+
+        Example Usage:
+
+        .. code-block:: python
+
+            db = DataBase('test.db')
+            table = db['test']
+
+        How It Works:
+            - gather all infomations of the table, including columns name and their types.
+            - set `isEmpty` to True if the table doesn't have any columns. This variable will effect how the `newColumn()` method works.
+        """
         self.db = db
         self.table_name = table_name
 
@@ -332,6 +387,11 @@ class Table:
             table = db['test']
             print(table['id'])  # INTEGER PRIMARY KEY
 
+        How It Works:
+            - return an `Exp` object with `table` and `_str` attributes setted.
+            - `table` is used to execute the query using `list(...)`, even if table not specified. **[NOT RECOMMENDED]**
+            - `_str` is used to print the definition of a column using `str(...)`.
+            - raise an Exception if column not exists.
         """
         if key not in self.columns:
             raise Exception(f"Column `{key}` not exists.")
@@ -353,7 +413,11 @@ class Table:
 
             table = db['test']
             table['name'] = str
+            table['id'] = int, 'primary key'
 
+        How It Works:
+            - get options from `value` if it has parameters (Judge it by whether it's a tuple, so you can use it as the L3 of example showed).
+            - Actually create the column, using `newColumn()` method.
         """
         options = {
             'primary key': False
@@ -365,13 +429,13 @@ class Table:
                 options[value[i].lower()] = True
             value = value[0]
 
-        self.newColumn(
-            key, value, primaryKey=options['primary key'], allowExist=True)
+        self.newColumn(key, value, primaryKey=options['primary key'], allowExist=True)
 
     def __delitem__(self, key: str) -> None:
         """ 
         Delete an existing column in this table. 
         An Exception will be raised if column not exist.
+        Same as `delColumn()`.
 
         :param key: The name of the column.
         :type key: str
@@ -398,7 +462,45 @@ class Table:
             res = table.select(exp)
             for row in res:
                 print(row)
+        
         """
+
+        class QueryResultRow:
+            """ 
+            [Helper Class]
+            Representing a single row of the query result.
+            You can use QueryResult[i] to get it, and use it by `row.column_name`.
+
+            Example Usage:
+
+            .. code-block:: python
+
+                res = table.select(exp)
+                row = res[0]
+                print(row.id)
+
+            """
+            def __init__(self, data: dict):
+                self.data = data
+
+            def __getattribute__(self, __name: str) -> Any:
+                """
+                The main method of this class, used to get the value of a column.
+
+                :param __name: The name of the column.
+                :type __name: str
+
+                :return: The value of the column.
+                """
+                data = object.__getattribute__(self, 'data')
+                return data[__name]
+            
+            def __iter__(self):
+                """
+                Make it possible to iterate through.
+                It will work as a `dict`.
+                """
+                return iter(self.data)
 
         def __init__(self, table: Table, exp: Exp, selection: str = '*'):
             values = exp.query(table, selection)
@@ -408,18 +510,6 @@ class Table:
                     keys[i]: value[i] for i in range(len(keys))
                 } for value in values
             ]
-
-        class QueryResultRow:
-            """ [Helper Class] """
-            def __init__(self, data: dict):
-                self.data = data
-
-            def __getattribute__(self, __name: str) -> Any:
-                data = object.__getattribute__(self, 'data')
-                return data[__name]
-            
-            def __iter__(self):
-                return iter(self.data)
 
         def __getitem__(self, index: int) -> Any:
             return self.QueryResultRow(self.data[index])
@@ -449,6 +539,9 @@ class Table:
             table = db['test']
             table.select(table['id'] == 1)  # select all columns where id = 1
 
+        How It Works:
+            - Construct a `QueryResult` object, which will execute the query whthin it's `QueryResult.__init__()` method.
+            - return a `QueryResult` object with results.
         """
         if exp is None:
             exp = Exp(1, '=', 1)
@@ -476,6 +569,11 @@ class Table:
             table.newColumn('name', str)
             table.newColumn('id', int, primaryKey=True)
             
+        How It Works:
+            - Create a new table with this column, if table is empty.
+            - Add the column to an existing table.
+            - Set as the `primary key` column if `primaryKey` is True.
+            - Record its name and type in `self.columns` and `self.columnsType`.
         """
         if name in self.columns:
             if not allowExist:

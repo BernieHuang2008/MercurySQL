@@ -8,8 +8,8 @@ This file contains the implementation of a SQLite database wrapper class and rel
 .. note:: This code is a simplified implementation and may not cover all possible use cases. Please refer to the official documentation for more information.
 
 
-Advanced API
-------------
+Advanced APIs
+-------------
 
 .. autoclass:: MercurySQLite.gensql.DataBase
    :members:
@@ -49,8 +49,8 @@ Advanced API
    .. note:: you should mind the priority of operations when using `&` and `|`.
 
 
-Low-level API
--------------
+Low-level (Helper) APIs
+-----------------------
 
 .. autoclass:: MercurySQLite.gensql.BasicExp
    :members:
