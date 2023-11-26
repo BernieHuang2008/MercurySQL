@@ -872,12 +872,22 @@ class TypeParser:
         :return: The SQLite type.
         :rtype: str
         
-        Supported Types:
-            str ------- TEXT
-            int ------- INTEGER
-            float ----- REAL
-            bool ------ BOOLEAN
-            bytes ------- BLOB
+        .. list-table:: Supported Types: Mappings
+            :widths: 50 50
+            :header-rows: 1
+
+            * - Python Types
+              - SQLite Types
+            * - str
+              - TEXT
+            * - int
+              - INTEGER
+            * - float
+              - REAL
+            * - bool
+              - BOOLEAN
+            * - bytes
+              - BLOB
 
         Example Usage:
 
