@@ -1,4 +1,4 @@
-name: \[Docs\] Pull Request Docs Check
+name: Docs - Pull Request Docs Check
 
 on:
   pull_request_target:
