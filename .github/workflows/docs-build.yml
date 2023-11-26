@@ -1,0 +1,26 @@
+name: \[Docs\] Pull Request Docs Check
+
+on:
+  pull_request_target:
+    types:
+      - opened
+    paths:
+      - "docs/**"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    # Standard drop-in approach that should work for most people.
+    - uses: ammaraskar/sphinx-action@master
+      with:
+        docs-folder: "docs/"
+    # Great extra actions to compose with:
+    # Create an artifact of the html output.
+    - uses: actions/upload-artifact@v1
+      with:
+        name: Documentation HTML
+        path: docs/build/html/
