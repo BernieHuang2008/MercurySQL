@@ -194,7 +194,7 @@ class DataBase:
 
         :param table_names: The name of the table.
         :type table_names: str
-        :param allowExist: Allow to return a existing table.
+        :param allowExist: Allow to return an existing table.
         :type allowExist: bool
 
         :return: A Table object.
@@ -606,7 +606,7 @@ class Table:
         :type columns: dict
         :param primaryKey: The primary key of the table.
         :type primaryKey: str
-        :param allowExist: Allow to skip when column exist and have the same type.
+        :param allowExist: Allow to skip when column exist and have the same type at the same time.
         :type allowExist: bool
 
         Example Usage:
