@@ -705,9 +705,9 @@ class Table:
         """
         Insert a row into the table.
 
-        :param \*\*kwargs: The data to insert.
         :param \_\_auto: Whether to update the row if it already exists.
         :type \_\_auto: bool
+        :param \*\*kwargs: The data to insert.
 
         Example Usage:
 
@@ -717,7 +717,8 @@ class Table:
             table.insert(id=1, name='Bernie', age=15, __auto=True)
 
         """
-        keys = [k for k in kwargs.keys() if not k.startswith('__')]
+        # get keys and clean them
+        keys = kwargs.keys()
 
         columns = ', '.join(keys)
         values = ', '.join(['?' for _ in range(len(keys))])
