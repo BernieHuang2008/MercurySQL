@@ -138,6 +138,9 @@ class DataBase:
             "name": db_name
         }
 
+        self.template = None
+        self.template_params = {}
+
         self._gather_info()
 
     def _gather_info(self):
@@ -153,8 +156,6 @@ class DataBase:
 
         self.tables = get_all_tables()
         self.tables = {tname: Table(self, tname) for tname in self.tables}
-
-        self.template = None
 
     def do(self, *sql: str, paras: List[tuple] = []) -> sqlite3.Cursor:
         """
@@ -190,7 +191,7 @@ class DataBase:
 
         return self.cursor
     
-    def setTemplate(self, template: dict) -> None:
+    def setTemplate(self, template: dict, **kwargs) -> None:
         """
         Set the template, so new table's structure will be setted to this template. 
         You can specifd the template by using `template=...` parameter into `db.createTable()` method.
@@ -198,6 +199,7 @@ class DataBase:
 
         :param template: The template to set.
         :type template: dict
+        :param \*\*kwargs: The parameters for the template. E.g., `primaryKey='id'`.
 
         Example Usage:
 
@@ -212,6 +214,7 @@ class DataBase:
 
         """
         self.template = template
+        self.template_params = kwargs
 
     def createTable(self, *table_names: str, allowExist: bool = False, template=None) -> Table:
         """
@@ -242,17 +245,19 @@ class DataBase:
             template = self.template
 
         tables = []
+        already_exists = False
 
         for table_name in table_names:
             if table_name in self.tables:
+                already_exists = True
                 if not allowExist:
                     raise Exception(f"Table `{table_name}` already exists.")
 
             table = Table(self, table_name)
 
             # set template
-            if template is not None:
-                table.struct(template)
+            if not already_exists and template is not None:
+                table.struct(template, **self.template_params)
 
             # must be executed after `_gather_into()`, because the following code will use a mapping between table name and table object
             self.tables[table_name] = table
