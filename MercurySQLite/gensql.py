@@ -668,24 +668,55 @@ class Table:
             f"ALTER TABLE new_table RENAME TO {self.table_name}"
         )
 
-    def insert(self, **kwargs) -> None:
+    def insert(self, __auto=False, **kwargs) -> None:
         """
         Insert a row into the table.
 
         :param \*\*kwargs: The data to insert.
+        :param \_\_auto: Whether to update the row if it already exists.
+        :type \_\_auto: bool
 
         Example Usage:
 
         .. code-block:: python
 
             table = db['test']
-            table.insert(id=1, name='Bernie', age=15)
+            table.insert(id=1, name='Bernie', age=15, __auto=True)
 
         """
-        columns = ', '.join(kwargs.keys())
-        values = ', '.join(['?' for _ in range(len(kwargs))])
+        keys = [k for k in kwargs.keys() if not k.startswith('__')]
 
-        self.db.do(f"INSERT INTO {self.table_name} ({columns}) VALUES ({values})", paras=[tuple(kwargs.values())])
+        columns = ', '.join(keys)
+        values = ', '.join(['?' for _ in range(len(keys))])
+    
+        # Determine the SQL command based on the value of `__auto`
+        command = "INSERT OR REPLACE" if __auto else "INSERT"
+        
+        self.db.do(f"{command} INTO {self.table_name} ({columns}) VALUES ({values})", paras=[tuple(kwargs[k] for k in keys)])
+
+
+    def update(self, exp: Exp, **kwargs) -> None:
+        """
+        Update the table.
+
+        :param exp: The query expression.
+        :type exp: Exp
+        :param \*\*kwargs: The data to update.
+
+        Example Usage:
+
+        .. code-block:: python
+
+            table = db['test']
+            table.update(table['id'] == 1, name='Bernie', age=15)
+
+        """
+        columns = ', '.join([f"{key} = ?" for key in kwargs.keys()])
+        values = tuple(kwargs.values())
+
+        sql, paras = exp.formula()
+
+        self.db.do(f"UPDATE {self.table_name} SET {columns} WHERE {sql}", paras=[values + paras])
 
 
 class BasicExp:
@@ -872,22 +903,12 @@ class TypeParser:
         :return: The SQLite type.
         :rtype: str
         
-        .. list-table:: Supported Types: Mappings
-            :widths: 50 50
-            :header-rows: 1
-
-            * - Python Types
-              - SQLite Types
-            * - str
-              - TEXT
-            * - int
-              - INTEGER
-            * - float
-              - REAL
-            * - bool
-              - BOOLEAN
-            * - bytes
-              - BLOB
+        Supported Types:
+            str ------- TEXT
+            int ------- INTEGER
+            float ----- REAL
+            bool ------ BOOLEAN
+            bytes ------- BLOB
 
         Example Usage:
 
