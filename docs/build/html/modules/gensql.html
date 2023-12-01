@@ -67,6 +67,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#MercurySQLite.gensql.Table.select"><code class="docutils literal notranslate"><span class="pre">Table.select()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#MercurySQLite.gensql.Table.setPrimaryKey"><code class="docutils literal notranslate"><span class="pre">Table.setPrimaryKey()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#MercurySQLite.gensql.Table.struct"><code class="docutils literal notranslate"><span class="pre">Table.struct()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQLite.gensql.Table.update"><code class="docutils literal notranslate"><span class="pre">Table.update()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#MercurySQLite.gensql.Exp"><code class="docutils literal notranslate"><span class="pre">Exp</span></code></a><ul>
@@ -491,16 +492,19 @@ Same as <cite>delColumn()</cite>.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="MercurySQLite.gensql.Table.insert">
-<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.insert" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Table__auto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.insert" title="Permalink to this definition"></a></dt>
 <dd><p>Insert a row into the table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>**kwargs</strong> – The data to insert.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>**kwargs</strong> – The data to insert.</p></li>
+<li><p><strong>__auto</strong> (<em>bool</em>) – Whether to update the row if it already exists.</p></li>
+</ul>
 </dd>
 </dl>
 <p>Example Usage:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
-<span class="n">table</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Bernie&#39;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">table</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Bernie&#39;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">__auto</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -603,6 +607,25 @@ Same as <cite>delColumn()</cite>.</p>
     <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">},</span> <span class="n">primaryKey</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.update" title="Permalink to this definition"></a></dt>
+<dd><p>Update the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exp</strong> (<a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><em>Exp</em></a>) – The query expression.</p></li>
+<li><p><strong>**kwargs</strong> – The data to update.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">table</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Bernie&#39;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -835,35 +858,14 @@ Parse the type of a column.</p>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
-<table class="docutils align-default" id="id1">
-<caption><span class="caption-text">Supported Types: Mappings</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Python Types</p></th>
-<th class="head"><p>SQLite Types</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>str</p></td>
-<td><p>TEXT</p></td>
-</tr>
-<tr class="row-odd"><td><p>int</p></td>
-<td><p>INTEGER</p></td>
-</tr>
-<tr class="row-even"><td><p>float</p></td>
-<td><p>REAL</p></td>
-</tr>
-<tr class="row-odd"><td><p>bool</p></td>
-<td><p>BOOLEAN</p></td>
-</tr>
-<tr class="row-even"><td><p>bytes</p></td>
-<td><p>BLOB</p></td>
-</tr>
-</tbody>
-</table>
+<dl class="simple">
+<dt>Supported Types:</dt><dd><p>str ——- TEXT
+int ——- INTEGER
+float —– REAL
+bool —— BOOLEAN
+bytes ——- BLOB</p>
+</dd>
+</dl>
 <p>Example Usage:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">TypeParser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>       <span class="c1"># TEXT</span>
 <span class="n">TypeParser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>       <span class="c1"># INTEGER</span>
