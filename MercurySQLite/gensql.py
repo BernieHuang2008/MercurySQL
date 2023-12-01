@@ -154,6 +154,8 @@ class DataBase:
         self.tables = get_all_tables()
         self.tables = {tname: Table(self, tname) for tname in self.tables}
 
+        self.template = None
+
     def do(self, *sql: str, paras: List[tuple] = []) -> sqlite3.Cursor:
         """
         Execute a sql command on the database.
@@ -187,8 +189,31 @@ class DataBase:
         self.conn.commit()
 
         return self.cursor
+    
+    def setTemplate(self, template: dict) -> None:
+        """
+        Set the template, so new table's structure will be setted to this template. 
+        You can specifd the template by using `template=...` parameter into `db.createTable()` method.
+        Or set it after the table is created, using `table.struct()`.
 
-    def createTable(self, *table_names: str, allowExist: bool = True) -> Table:
+        :param template: The template to set.
+        :type template: dict
+
+        Example Usage:
+
+        .. code-block:: python
+
+            db = DataBase('test.db')
+            db.setTemplate({
+                'id': int,
+                'name': str
+            })
+            table = db.createTable('test')
+
+        """
+        self.template = template
+
+    def createTable(self, *table_names: str, allowExist: bool = False, template=None) -> Table:
         """
         create a table in the database.
 
@@ -212,6 +237,10 @@ class DataBase:
             - if already exists, return the existing table(s) in a NEW `Table` Object.
             - if exists and `allowExist` set to False, raise an Exception.
         """
+        # using template in `self.template` if not specified
+        if template is None:
+            template = self.template
+
         tables = []
 
         for table_name in table_names:
@@ -220,6 +249,10 @@ class DataBase:
                     raise Exception(f"Table `{table_name}` already exists.")
 
             table = Table(self, table_name)
+
+            # set template
+            if template is not None:
+                table.struct(template)
 
             # must be executed after `_gather_into()`, because the following code will use a mapping between table name and table object
             self.tables[table_name] = table
