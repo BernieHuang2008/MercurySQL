@@ -34,7 +34,7 @@ jobs:
 
       - name: Get Version Name
         id: version_name
-        run: echo "::set-output name=v::$(python ../test/tools/get_versoin_name.py)"
+        run: echo "::set-output name=v::$(python ../../test/tools/get_versoin_name.py)"
       - name: Update Version Name
         run: sed -i "s/^version\s*=\s*['\"].*['\"]$/version = '${{ steps.version_name.outputs.v }}.${{ steps.date.outputs.date }}'/" setup.py
 
