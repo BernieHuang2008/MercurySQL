@@ -30,7 +30,7 @@ jobs:
 
       - name: Get Version Name
         id: version_name
-        run: echo "::set-output name=v::$(python ../.github/workflows/tools/get_versoin_name.py)"
+        run: echo "::set-output name=v::$(python ../test/tools/get_versoin_name.py)"
       - name: Update Version Name
         run: sed -i "s/^version\s*=\s*['\"].*['\"]$/version = '${{ steps.version_name.outputs.v }}.${{ steps.date.outputs.date }}'/" setup.py
 
@@ -39,7 +39,7 @@ jobs:
         if: steps.check_changes.outputs.changes == 'true'
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
           tag_name: v${{ steps.version_name.outputs.v }}.${{ steps.date.outputs.date }}
           release_name: Weekly Release (${{ steps.date.outputs.date }})
