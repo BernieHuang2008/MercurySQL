@@ -7,6 +7,10 @@ This file contains the implementation of a SQLite database wrapper class and rel
 
 .. note:: This code is a simplified implementation and may not cover all possible use cases. Please refer to the official documentation for more information.
 
+.. warning::
+   This module will not perform any inspection on DB names, Table names or Column names etc.
+   However, all the query values are replaced with safe queries ('`?`'). Therefore, it is recommended to hardcode Column names to prevent SQL injection.
+
 
 Advanced APIs
 -------------
