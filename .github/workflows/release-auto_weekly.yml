@@ -5,8 +5,12 @@ on:
     - cron: "0 0 * * 0" # Runs every Sunday at midnight UTC
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   release:
+    environment: BuildPyPi
     runs-on: ubuntu-latest
 
     steps:
@@ -39,7 +43,7 @@ jobs:
         if: steps.check_changes.outputs.changes == 'true'
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: v${{ steps.version_name.outputs.v }}.${{ steps.date.outputs.date }}
           release_name: Weekly Release (${{ steps.date.outputs.date }})
