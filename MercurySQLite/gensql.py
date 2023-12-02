@@ -942,12 +942,19 @@ class TypeParser:
         :return: The SQLite type.
         :rtype: str
         
-        Supported Types:
-            str ------- TEXT
-            int ------- INTEGER
-            float ----- REAL
-            bool ------ BOOLEAN
-            bytes ------- BLOB
+        +----------------+-------------+
+        | Supported Types| SQLite Type |
+        +================+=============+
+        | str            | TEXT        |
+        +----------------+-------------+
+        | int            | INTEGER     |
+        +----------------+-------------+
+        | float          | REAL        |
+        +----------------+-------------+
+        | bool           | BOOLEAN     |
+        +----------------+-------------+
+        | bytes          | BLOB        |
+        +----------------+-------------+
 
         Example Usage:
 
