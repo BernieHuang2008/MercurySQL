@@ -884,14 +884,30 @@ Parse the type of a column.</p>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
-<dl class="simple">
-<dt>Supported Types:</dt><dd><p>str ——- TEXT
-int ——- INTEGER
-float —– REAL
-bool —— BOOLEAN
-bytes ——- BLOB</p>
-</dd>
-</dl>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Supported Types</p></th>
+<th class="head"><p>SQLite Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>str</p></td>
+<td><p>TEXT</p></td>
+</tr>
+<tr class="row-odd"><td><p>int</p></td>
+<td><p>INTEGER</p></td>
+</tr>
+<tr class="row-even"><td><p>float</p></td>
+<td><p>REAL</p></td>
+</tr>
+<tr class="row-odd"><td><p>bool</p></td>
+<td><p>BOOLEAN</p></td>
+</tr>
+<tr class="row-even"><td><p>bytes</p></td>
+<td><p>BLOB</p></td>
+</tr>
+</tbody>
+</table>
 <p>Example Usage:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">TypeParser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>       <span class="c1"># TEXT</span>
 <span class="n">TypeParser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>       <span class="c1"># INTEGER</span>
