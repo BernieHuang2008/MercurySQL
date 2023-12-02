@@ -2,31 +2,50 @@ name: Weekly Release
 
 on:
   schedule:
-    - crown: '0 0 * * 0'  #weekly, sunday 0:00
-  
-permissions:
-  contents: read
+    - cron: "0 0 * * 0" # Runs every Sunday at midnight UTC
+  workflow_dispatch:
 
 jobs:
-  update_release_draft:
-    permissions:
-      # write permission is required to create a github release
-      contents: write
-      # write permission is required for autolabeler
-      # otherwise, read permission is required at least
-      pull-requests: write
+  release:
     runs-on: ubuntu-latest
-    steps:
-      # (Optional) GitHub Enterprise requires GHE_HOST variable set
-      #- name: Set GHE_HOST
-      #  run: |
-      #    echo "GHE_HOST=${GITHUB_SERVER_URL##https:\/\/}" >> $GITHUB_ENV
 
-      # Drafts your next Release notes as Pull Requests are merged into "master"
-      - uses: release-drafter/release-drafter@v5
-        # (Optional) specify config name to use, relative to .github/. Default: release-drafter.yml
-        # with:
-        #   config-name: my-config.yml
-        #   disable-autolabeler: true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check for changes in the last week
+        id: check_changes
+        run: |
+          if git log --since='1 week ago' --oneline | grep .
+          then
+            echo "::set-output name=changes::true"
+          else
+            echo "::set-output name=changes::false"
+          fi
+      
+      - name: Get the date
+        id: date
+        if: steps.check_changes.outputs.changes == 'true'
+        run: echo "::set-output name=date::$(date +'%y%m%d')"
+
+      - name: Get Version Name
+        id: version_name
+        run: echo "::set-output name=v::$(python -c 'import re; version = re.search(r"^\s*version\s*=\s*['\"]([^'\"]*)['\"]", open("setup.py").read(), re.MULTILINE).group(1); print(version)')"
+
+      - name: Update Version Name
+        run: sed -i "s/^version\s*=\s*['\"].*['\"]$/version = '${{ steps.version_name.outputs.v }}.${{ steps.date.outputs.date }}'/" setup.py
+
+      - name: Create Release
+        id: create_release
+        if: steps.check_changes.outputs.changes == 'true'
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.version_name.outputs.v }}.${{ steps.date.outputs.date }}
+          release_name: Weekly Release (${{ steps.date.outputs.date }})
+          body: |
+            Weekly Release of v${{ steps.version_name.outputs.v }}${{ steps.date.outputs.date }}.
+          draft: false
+          prerelease: true
+
