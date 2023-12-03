@@ -82,7 +82,6 @@ Classes
       (Note): you should mind the priority of operations when using `&` and `|`.
 """
 
-import sqlite3
 from typing import Any, Union, List, Tuple
 
 
