@@ -11,7 +11,7 @@ sys.path.insert(0, 'g:\git\BernieHuang2008\MercurySQLite')
 import sqlite3
 from typing import Any, Union, List, Tuple
 
-from MercurySQLite.base import BaseDriver
+from .base import BaseDriver
 import MercurySQLite.base
 
 """Method 1"""
