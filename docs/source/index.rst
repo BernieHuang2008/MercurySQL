@@ -10,6 +10,7 @@ Documentation of Mercury SQL
    :maxdepth: 2
    :caption: Contents:
 
+   modules/base
 
 
 Indices and tables
