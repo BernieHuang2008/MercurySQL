@@ -3,14 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Documentation of Mercury SQLite
+Documentation of Mercury SQL
 ==========================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-
-   modules/gensql
 
 
 

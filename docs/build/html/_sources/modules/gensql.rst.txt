@@ -1,5 +1,5 @@
 MercurySQLite.gensql
-=======================
+====================
 
 Use built-in sqlite3 library to operate sql in a more pythonic way.
 
