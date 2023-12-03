@@ -14,4 +14,4 @@ This package provides classes for interacting with a SQLite database, including:
 
 Please refer to the individual class documentation for more details.
 """
-from .gensql import DataBase, Table
+from .base import DataBase, Table

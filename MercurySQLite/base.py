@@ -107,12 +107,137 @@ class Exp:
 
 
 # class definition
+
+class BaseDriver:
+    class Cursor:
+        pass
+
+    class Conn:
+        pass
+
+    class APIs:
+        pass
+
+
+class BaseDriver:
+    payload = '?'
+
+    class Cursor:
+        def execute(self, sql: str, paras: List[tuple] = []) -> BaseDriver.Cursor:
+            pass
+
+        def fetchone(self) -> tuple:
+            pass
+
+        def fetchall(self) -> List[tuple]:
+            pass
+
+    class Conn:
+        def cursor(self) -> BaseDriver.Cursor:
+            pass
+
+        def commit(self) -> None:
+            pass
+
+        def close(self) -> None:
+            pass
+
+    class APIs:
+        class gensql:
+            @staticmethod
+            def drop_table(table_name: str) -> str:
+                pass
+                # return f"DROP TABLE {table_name}"
+
+            @staticmethod
+            def get_all_tables() -> str:
+                pass
+                # return "SELECT name FROM sqlite_master WHERE type='table';"
+
+            @staticmethod
+            def get_all_columns(table_name: str) -> str:
+                pass
+                # return f"PRAGMA table_info({table_name});"
+
+            @staticmethod
+            def create_table_if_not_exists(table_name: str, column_name: str, column_type: str, primaryKey=False) -> str:
+                pass
+                # return f"""
+                #     CREATE TABLE IF NOT EXISTS {table_name} ({column_name} {column_type} {'PRIMARY KEY' if primaryKey else ''})
+                # """
+
+            @staticmethod
+            def add_column(table_name: str, column_name: str, column_type: str) -> str:
+                pass
+                # return f"""
+                #     ALTER TABLE {table_name} ADD COLUMN {column_name} {column_type}
+                # """
+
+            @staticmethod
+            def drop_column(table_name: str, column_name: str) -> str:
+                pass
+                # return f"""
+                #     ALTER TABLE {table_name} DROP COLUMN {column_name}
+                # """
+
+            @staticmethod
+            def set_primary_key(table: Table, keyname: str, keytype: str) -> Union[str, List[str]]:
+                pass
+                # return [
+                #     f"CREATE TABLE new_table ({keyname} {keytype} PRIMARY KEY, {', '.join([f'{name} {type_}' for name, type_ in table.columns.items() if name != keyname])})",
+                #     f"INSERT INTO new_table SELECT * FROM {table.table_name}",
+                #     f"DROP TABLE {table.table_name}",
+                #     f"ALTER TABLE new_table RENAME TO {table.table_name}"
+                # ]
+
+            @staticmethod
+            def insert(table_name: str, columns: str, values: str) -> str:
+                pass
+                # return f"INSERT INTO {table_name} ({columns}) VALUES ({values})"
+
+            @staticmethod
+            def insert_or_update(table_name: str, columns: str, values: str) -> str:
+                pass
+                # return f"INSERT OR REPLACE INTO {table_name} ({columns}) VALUES ({values})"
+
+            @staticmethod
+            def update(table_name: str, columns: str, condition: str) -> str:
+                pass
+                # return f"UPDATE {table_name} SET {columns} WHERE {condition}"
+
+            @staticmethod
+            def query(table_name: str, selection: str, condition: str) -> str:
+                pass
+                # return f"SELECT {selection} FROM {table_name} WHERE {condition}"
+
+            @staticmethod
+            def delete(table_name: str, condition: str) -> str:
+                pass
+                # return f"DELETE FROM {table_name} WHERE {condition}"
+
+        @classmethod
+        def get_all_tables(cls, conn) -> List[str]:
+            cursor = conn.cursor()
+            cursor.execute(cls.gensql.get_all_tables())
+            return list(map(lambda x: x[0], cursor.fetchall()))
+
+        @classmethod
+        def get_all_columns(cls, conn, table_name: str) -> List[str]:
+            cursor = conn.cursor()
+            cursor.execute(cls.gensql.get_all_columns(table_name))
+            return cursor.fetchall()
+
+    @staticmethod
+    def connect(db_name: str, **kwargs) -> BaseDriver.Conn:
+        pass
+
+
 class DataBase:
     """
     select/create a SQLite database using python's built-in library `sqlite3`.
     """
 
-    def __init__(self, db_name: str):
+    def __init__(self, driver: BaseDriver, db_name: str, **kwargs):
         """
         Create a new database object.
 
@@ -130,7 +255,8 @@ class DataBase:
             - get a cursor to execute sql commands
             - gather all infomations of the database
         """
-        self.conn = sqlite3.connect(db_name)
+        self.driver = driver
+        self.conn = driver.connect(db_name, **kwargs)
         self.cursor = self.conn.cursor()
 
         self.info = {
@@ -148,15 +274,10 @@ class DataBase:
         Gather all infomations of the database, including:
           - all tables
         """
-        def get_all_tables():
-            self.cursor.execute(
-                "SELECT name FROM sqlite_master WHERE type='table';")
-            return list(map(lambda x: x[0], self.cursor.fetchall()))
-
-        self.tables = get_all_tables()
+        self.tables = self.driver.APIs.get_all_tables(self.conn)
         self.tables = {tname: Table(self, tname) for tname in self.tables}
 
-    def do(self, *sql: str, paras: List[tuple] = []) -> sqlite3.Cursor:
+    def do(self, *sql: str, paras: List[tuple] = []) -> BaseDriver.Cursor:
         """
         Execute a sql command on the database.
 
@@ -174,22 +295,36 @@ class DataBase:
 
             db = DataBase('test.db')
             db.do("CREATE TABLE test (id INTEGER PRIMARY KEY, name TEXT)")
+            db.do("INSERT INTO test (name) VALUES (?)", paras=[('Bernie',)])
+            db.do(
+                "SQL1",
+                "SQL2",
+                paras=[
+                       (paras1, paras2),
+                       (paras3, paras4)
+                ])
 
         How It Works:
             - execute sql commands one by one, with parameters
             - commit after all commands are executed
         """
+        # Recommended to use `db.do(sql1, sql2)` instead of `db.do([sql1, sql2])`.
+        if isinstance(sql[0], list):
+            sql = sql[0]
+
         if len(paras) < len(sql):
             paras += [()] * (len(sql) - len(paras))
 
         # for each sql command
         for i in range(len(sql)):
-            self.cursor.execute(sql[i], paras[i])
+            cmd = sql[i].replace('___!!!PAYLOAD!!!___', self.driver.payload)  # replace payload
+
+            self.cursor.execute(cmd, paras[i])
 
         self.conn.commit()
 
         return self.cursor
-    
+
     def setTemplate(self, template: dict, **kwargs) -> None:
         """
         Set the template, so new table's structure will be setted to this template. 
@@ -315,7 +450,8 @@ class DataBase:
             if table_name not in self.tables:
                 raise Exception(f"Table `{table_name}` not exists.")
 
-            self.do(f"DROP TABLE {table_name}")
+            cmd = self.driver.APIs.gensql.drop_table(table_name)
+            self.do(cmd)
 
             del self.tables[table_name]
 
@@ -370,12 +506,10 @@ class Table:
         """
         self.db = db
         self.table_name = table_name
+        self.driver = db.driver
 
-        def get_all_tables():
-            res = self.db.do("SELECT name FROM sqlite_master WHERE type='table';")
-            return list(map(lambda x: x[0], res.fetchall()))
-        
-        self.isEmpty = (table_name not in get_all_tables())
+        all_tables = self.driver.APIs.get_all_tables(self.db.conn)
+        self.isEmpty = (table_name not in all_tables)
 
         self._gather_info()
 
@@ -385,12 +519,9 @@ class Table:
             - `columns`: list[str] .................. name of all columns
             - `columnsType`: dict[str, str] .......... the type of each column
         """
-        def get_columns():
-            cursor = self.db.do(f"PRAGMA table_info({self.table_name})")
-            return list(cursor.fetchall())
-
         if not self.isEmpty:
-            self.column_info = get_columns()
+            self.column_info = self.driver.APIs.get_all_columns(
+                self.db.conn, self.table_name)
         else:
             self.column_info = []
 
@@ -466,7 +597,8 @@ class Table:
                 options[value[i].lower()] = True
             value = value[0]
 
-        self.newColumn(key, value, primaryKey=options['primary key'], allowExist=True)
+        self.newColumn(
+            key, value, primaryKey=options['primary key'], allowExist=True)
 
     def __delitem__(self, key: str) -> None:
         """ 
@@ -499,7 +631,7 @@ class Table:
             res = table.select(exp)
             for row in res:
                 print(row)
-        
+
         """
 
         class QueryResultRow:
@@ -517,6 +649,7 @@ class Table:
                 print(row.id)
 
             """
+
             def __init__(self, data: dict):
                 self.data = data
 
@@ -531,7 +664,7 @@ class Table:
                 """
                 data = object.__getattribute__(self, 'data')
                 return data[__name]
-            
+
             def __iter__(self):
                 """
                 Make it possible to iterate through.
@@ -541,7 +674,8 @@ class Table:
 
         def __init__(self, table: Table, exp: Exp, selection: str = '*'):
             values = exp.query(table, selection)
-            keys = table.columns if selection == '*' else list(map(lambda x: x.strip(), selection.split(',')))
+            keys = table.columns if selection == '*' else list(
+                map(lambda x: x.strip(), selection.split(',')))
             self.data = [
                 {
                     keys[i]: value[i] for i in range(len(keys))
@@ -553,11 +687,11 @@ class Table:
 
         def __iter__(self):
             return iter(self.data)
-        
+
         def __len__(self):
             return len(self.data)
 
-    def select(self, exp: Exp=None, selection: str='*') -> list:
+    def select(self, exp: Exp = None, selection: str = '*') -> list:
         """
         Select data from the table.
 
@@ -605,7 +739,7 @@ class Table:
             table = db['test']
             table.newColumn('name', str)
             table.newColumn('id', int, primaryKey=True)
-            
+
         How It Works:
             - Create a new table with this column, if table is empty.
             - Add the column to an existing table.
@@ -622,15 +756,16 @@ class Table:
 
         if self.isEmpty:
             # create it first
-            self.db.do(f"""
-                CREATE TABLE IF NOT EXISTS {self.table_name} ({name} {type_} {'PRIMARY KEY' if primaryKey else ''})
-            """)
+            cmd = self.driver.APIs.gensql.create_table_if_not_exists(
+                self.db.cursor, self.table_name, name, type_, primaryKey=primaryKey)
+            self.db.do(cmd)
         else:
-            self.db.do(
-                f"ALTER TABLE {self.table_name} ADD COLUMN {name} {type_}")
+            cmd = self.driver.APIs.gensql.create_table_if_not_exists(
+                self.table_name, name, type_)
+            self.db.do(cmd)
 
             if primaryKey:
-                self.setPrimaryKey(name)
+                self.setPrimaryKey(name, type_)
 
         self.columns.append(name)
         self.columnsType[name] = type_
@@ -662,12 +797,12 @@ class Table:
             isPrimaryKey = (name == primaryKey)
 
             if name in self.columns:
-                if not allowExist:
-                    raise Exception(
-                        f"Column `{name}` already exists. You can use `allowExist=True` to avoid this error.")
-                elif type_ != self.columnsType[name]:
+                if type_ != self.columnsType[name]:
                     raise Exception(
                         f"Column `{name}` with different types (`{self.columnsType[name]}`) already exists. While trying to add column `{name}` with type `{type_}`.")
+                elif not allowExist:
+                    raise Exception(
+                        f"Column `{name}` already exists. You can use `allowExist=True` to avoid this error.")
             else:
                 self.newColumn(name, type_, primaryKey=isPrimaryKey)
 
@@ -677,18 +812,21 @@ class Table:
             raise Exception(f"Column `{name}` not exist!")
         elif len(self.columns) == 1:
             # the last column, delete the table instead
-            self.db.do(f"DROP TABLE {self.table_name}")
+            self.db.deleteTable(self.table_name)
         else:
             # delete the column
             self.columns.remove(name)
-            self.db.do(f"ALTER TABLE {self.table_name} DROP COLUMN {name}")
+            cmd = self.driver.APIs.gensql.drop_column(name)
+            self.db.do(cmd)
 
-    def setPrimaryKey(self, keyname: str) -> None:
+    def setPrimaryKey(self, keyname: str, keytype: str) -> None:
         """
         Set a column as the primary key of the table.
 
         :param keyname: The name of the column.
         :type keyname: str
+        :param keytype: The type of the column, been parsed by `TypeParser`.
+        :type keytype: str
 
         Example Usage:
 
@@ -698,12 +836,9 @@ class Table:
             table.setPrimaryKey('id')
 
         """
-        self.db.do(
-            f"CREATE TABLE new_table ({keyname} INTEGER PRIMARY KEY, {', '.join([f'{name} {type}' for name, type in self.columns.items() if name != keyname])})",
-            f"INSERT INTO new_table SELECT * FROM {self.table_name}",
-            f"DROP TABLE {self.table_name}",
-            f"ALTER TABLE new_table RENAME TO {self.table_name}"
-        )
+        cmd = self.driver.APIs.gensql.set_primary_key(
+            self.table_name, keyname, keytype)
+        self.db.do(cmd)
 
     def insert(self, __auto=False, **kwargs) -> None:
         """
@@ -722,16 +857,19 @@ class Table:
 
         """
         # get keys and clean them
-        keys = kwargs.keys()
+        keys = list(kwargs.keys())
+        keys.remove('__auto')
 
         columns = ', '.join(keys)
-        values = ', '.join(['?' for _ in range(len(keys))])
-    
-        # Determine the SQL command based on the value of `__auto`
-        command = "INSERT OR REPLACE" if __auto else "INSERT"
-        
-        self.db.do(f"{command} INTO {self.table_name} ({columns}) VALUES ({values})", paras=[tuple(kwargs[k] for k in keys)])
+        values = ', '.join([self.driver.payload for _ in range(len(keys))])
 
+        # Determine the SQL command based on the value of `__auto`
+        if __auto:
+            cmd = self.driver.APIs.gensql.insert_or_update(self.table_name, columns, values)
+        else:
+            cmd = self.driver.APIs.gensql.insert(self.table_name, columns, values)
+
+        self.db.do(cmd, paras=[tuple(kwargs[k] for k in keys)])
 
     def update(self, exp: Exp, **kwargs) -> None:
         """
@@ -749,12 +887,15 @@ class Table:
             table.update(table['id'] == 1, name='Bernie', age=15)
 
         """
-        columns = ', '.join([f"{key} = ?" for key in kwargs.keys()])
+        columns = ', '.join(
+            [f"{key} = {self.driver.payload}" for key in kwargs.keys()])
         values = tuple(kwargs.values())
 
-        sql, paras = exp.formula()
+        condition, paras = exp.formula()
 
-        self.db.do(f"UPDATE {self.table_name} SET {columns} WHERE {sql}", paras=[values + paras])
+        cmd = self.driver.APIs.gensql.update(
+            self.table_name, columns, condition)
+        self.db.do(cmd, paras=[values + paras])
 
 
 class BasicExp:
@@ -793,7 +934,7 @@ class BasicExp:
         elif value is None:
             formula, paras = '', ()
         else:
-            formula, paras = '?', (value,)
+            formula, paras = '___!!!PAYLOAD!!!___', (value,)
 
         return formula, paras
 
@@ -886,16 +1027,18 @@ class Exp(BasicExp):
         Execute query.
         """
         self.table = table or self.table
+        self.driver = self.table.db.driver
 
         if self.table is None:
             raise Exception("Table not specified.")
         if not isinstance(self.table, Table):
             raise Exception(f"Table `{self.table.table_name}` not exists.")
 
-        sql, paras = self.formula()
-        sql = f"SELECT {select} FROM {self.table.table_name} WHERE {sql}"
+        condition, paras = self.formula()
 
-        res = self.table.db.do(sql, paras=[paras])
+        cmd = self.driver.APIs.gensql.query(
+            self.table.table_name, select, condition)
+        res = self.table.db.do(cmd, paras=[paras])
         return res.fetchall()
 
     def __iter__(self):
@@ -915,10 +1058,10 @@ class Exp(BasicExp):
         if not isinstance(self.table, Table):
             raise Exception(f"Table `{self.table.table_name}` not exists.")
 
-        sql, paras = self.formula()
-        sql = f"DELETE FROM {self.table.table_name} WHERE {sql}"
+        condition, paras = self.formula()
 
-        self.table.db.do(sql, paras=[paras])
+        cmd = self.driver.APIs.gensql.delete(self.table.table_name, condition)
+        self.table.db.do(cmd, paras=[paras])
 
     def __str__(self):
         return self._str
@@ -940,7 +1083,7 @@ class TypeParser:
 
         :return: The SQLite type.
         :rtype: str
-        
+
         +----------------+-------------+
         | Supported Types| SQLite Type |
         +================+=============+
