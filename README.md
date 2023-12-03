@@ -16,10 +16,10 @@ Don't worry, I've been there too. That's why MercurySQL was born.
 
 MercurySQL has the following advantages ....
 
-**More Pythonic way of operation**: An API that is more in line with the Python style, making the operation of SQL databases more concise and easy to understand.
-**Avoid complex SQL statements**: Avoid writing complex SQL statements, thereby reducing the burden of learning and understanding SQL syntax.
-**More secure database**: Use safe queries, automatically commits for you, protect database security, and prevent data loss.
-**Debugging with Python**: You can debug and check your database in Python directly, without complext SQL debugging in terminal.
+- **More Pythonic way of operation**: An API that is more in line with the Python style, making the operation of SQL databases more concise and easy to understand.
+- **Avoid complex SQL statements**: Avoid writing complex SQL statements, thereby reducing the burden of learning and understanding SQL syntax.
+- **More secure database**: Use safe queries, automatically commits for you, protect database security, and prevent data loss.
+- **Debugging with Python**: You can debug and check your database in Python directly, without complext SQL debugging in terminal.
 
 For example, it can do these things....
 
