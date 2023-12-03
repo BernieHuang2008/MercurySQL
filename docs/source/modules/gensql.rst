@@ -1,9 +1,9 @@
-MercurySQLite.gensql
-====================
+MercurySQLite.base
+==================
 
-Use built-in sqlite3 library to operate sql in a more pythonic way.
+Operate SQL in a more pythonic way.
 
-This file contains the implementation of a SQLite database wrapper class and related classes for table and query expressions.
+This file contains the implementation of a common SQL database wrapper class, and for each sql (e.g. sqlite, mysql), a `Driver` is needed.
 
 .. note:: This code is a simplified implementation and may not cover all possible use cases. Please refer to the official documentation for more information.
 
@@ -15,27 +15,27 @@ This file contains the implementation of a SQLite database wrapper class and rel
 Advanced APIs
 -------------
 
-.. autoclass:: MercurySQLite.gensql.DataBase
+.. autoclass:: MercurySQLite.base.DataBase
    :members:
    :special-members:
    :exclude-members: __weakref__, __module__
 
-   Represents a SQLite database and provides methods for creating tables, executing SQL commands, and retrieving table objects.
+   Represents a SQL database. It provides methods for creating tables, executing SQL commands, and retrieving table objects, etc.
 
-.. autoclass:: MercurySQLite.gensql.Table
+.. autoclass:: MercurySQLite.base.Table
    :members:
    :special-members: 
    :exclude-members: __weakref__, __module__
 
-   Represents a table in the SQLite database and provides methods for adding columns, deleting columns, inserting rows, and executing queries.
+   Represents a table in a SQL database. Can be created by `db.createTable()`. It provides methods for adding columns, deleting columns, inserting rows, and executing queries, etc.
 
-.. autoclass:: MercurySQLite.gensql.Exp
+.. autoclass:: MercurySQLite.base.Exp
    :members:
    :special-members: 
    :exclude-members: __weakref__, __module__
    :inherited-members:
 
-   Subclass of BasicExp, representing a query expression that can be used to construct complex queries.
+   Subclass of BasicExp, representing a query expression, which can be used to construct complex queries.
 
    - Supported Operations:
      * `==`: equality
@@ -50,13 +50,13 @@ Advanced APIs
      * `|`: or
      * `not`: not
 
-   .. note:: you should mind the priority of operations when using `&` and `|`.
+   .. note:: you should mind the priority of operations when using some of the operators, especially `&` and `|`.
 
 
 Low-level (Helper) APIs
 -----------------------
 
-.. autoclass:: MercurySQLite.gensql.BasicExp
+.. autoclass:: MercurySQLite.base.BasicExp
    :members:
    :undoc-members:
    :special-members: 
@@ -64,11 +64,11 @@ Low-level (Helper) APIs
 
    Basic class of Exp, representing a basic query expression that can be used to construct complex queries.
 
-.. autoclass:: MercurySQLite.gensql.TypeParser
+.. autoclass:: MercurySQLite.base.TypeParser
    :members:
    :undoc-members:
    :special-members: 
    :exclude-members: __weakref__, __module__
 
-    Class for parsing Python standard types to SQLite types.
+    Class for parsing Python standard types to SQL types. TODO: move it to the driver.
 
