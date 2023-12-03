@@ -8,7 +8,20 @@ Operate SQLite in a more pythonic way.
 # 是个啥
 用更Python的方式操作sqlite数据库。
 
-比如说....
+- 被复杂无比的SQL语句弄懵？
+- 因没有commit而导致数据丢失？
+- 在终端里调试了几个小时的SQL？
+
+别怕，我也是。所以MercurySQLite诞生了。
+
+MercurySQLite有以下优点 ....
+
+- **更Pythonic的操作方式**：更符合Python风格的API，使得操作SQLite数据库更加简洁易懂。
+- **避免复杂的SQL语句**：避免编写复杂的SQL语句，从而减少了学习和理解SQL语法的负担。
+- **数据库更安全**：使用安全查询、自动处理事务提交，保护数据库安全，防止数据丢失。
+- **直接使用Python进行调试**：可以在Python代码中直接调试和查看数据库操作，无需在终端中进行SQL调试。
+
+比如说，它可以做这些事....
 ### 创建数据库
 SQL
 ```sql

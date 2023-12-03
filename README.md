@@ -8,7 +8,21 @@ Operate SQLite in a more pythonic way.
 # What is it
 Operate SQLite database in a more Pythonic way.
 
-For example....
+- Confused by complex SQL statements?
+- Lost data due to lack of commit?
+- Spent hours debugging SQL in the terminal?
+
+Don't worry, I've been there too. That's why MercurySQLite was born.
+
+MercurySQLite has the following advantages ....
+
+**More Pythonic way of operation**: An API that is more in line with the Python style, making the operation of SQLite databases more concise and easy to understand.
+**Avoid complex SQL statements**: Avoid writing complex SQL statements, thereby reducing the burden of learning and understanding SQL syntax.
+**More secure database**: Use safe queries, automatically commits for you, protect database security, and prevent data loss.
+**Debugging with Python**: You can debug and check your database in Python directly, without complext SQL debugging in terminal.
+
+For example, it can do these things....
+
 ### Create Database
 SQL
 ```sql
