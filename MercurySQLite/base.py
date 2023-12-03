@@ -193,7 +193,7 @@ class DataBase:
         # for each sql command
         for i in range(len(sql)):
             cmd = sql[i].replace('___!!!PAYLOAD!!!___', self.driver.payload)  # replace payload
-
+            
             self.cursor.execute(cmd, paras[i])
 
         self.conn.commit()
@@ -631,12 +631,11 @@ class Table:
 
         if self.isEmpty:
             # create it first
-            cmd = self.driver.APIs.gensql.create_table_if_not_exists(
-                self.db.cursor, self.table_name, name, type_, primaryKey=primaryKey)
+            cmd = self.driver.APIs.gensql.create_table_if_not_exists(self.table_name, name, type_, primaryKey=primaryKey)
             self.db.do(cmd)
+            self.isEmpty = False
         else:
-            cmd = self.driver.APIs.gensql.create_table_if_not_exists(
-                self.table_name, name, type_)
+            cmd = self.driver.APIs.gensql.add_column(self.table_name, name, type_)
             self.db.do(cmd)
 
             if primaryKey:
@@ -711,8 +710,7 @@ class Table:
             table.setPrimaryKey('id')
 
         """
-        cmd = self.driver.APIs.gensql.set_primary_key(
-            self.table_name, keyname, keytype)
+        cmd = self.driver.APIs.gensql.set_primary_key(self, keyname, keytype)
         self.db.do(cmd)
 
     def insert(self, __auto=False, **kwargs) -> None:

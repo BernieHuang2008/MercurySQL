@@ -1,3 +1,6 @@
+from typing import List, Union
+
+
 class BaseDriver:
     class Cursor:
         pass
@@ -71,7 +74,7 @@ class BaseDriver:
                 # """
 
             @staticmethod
-            def set_primary_key(table: Table, keyname: str, keytype: str) -> Union[str, List[str]]:
+            def set_primary_key(table, keyname: str, keytype: str) -> Union[str, List[str]]:
                 pass
                 # return [
                 #     f"CREATE TABLE new_table ({keyname} {keytype} PRIMARY KEY, {', '.join([f'{name} {type_}' for name, type_ in table.columns.items() if name != keyname])})",

@@ -3,35 +3,16 @@ Requirements:
   - sqlite3
 """
 
-# <--- Test Head --->
-import sys
-sys.path.insert(0, 'g:\git\BernieHuang2008\MercurySQLite')
-# <--- Test Head End --->
+# # <--- Test Head --->
+# import sys
+# sys.path.insert(0, 'g:\git\BernieHuang2008\MercurySQLite')
+# # <--- Test Head End --->
 
 import sqlite3
 from typing import Any, Union, List, Tuple
 
 from .base import BaseDriver
-import MercurySQLite.base
 
-"""Method 1"""
-# Driver_SQLite = sqlite3
-# class APIs:
-#     @staticmethod
-#     def get_all_tables(conn):
-#         cursor = conn.cursor()
-#         cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-#         return list(map(lambda x: x[0], cursor.fetchall()))
-# Driver_SQLite.APIs = APIs
-
-
-"""Method 2"""
-# Driver_SQLite = BaseDriver
-# Driver_SQLite.Conn = sqlite3.Connection
-# Driver_SQLite.Cursor = sqlite3.Cursor
-# Driver_SQLite.connect = sqlite3.connect
-
-"""Method 3"""
 
 class Driver_SQLite(BaseDriver):
     class Cursor:
@@ -78,12 +59,12 @@ class Driver_SQLite(BaseDriver):
                 """
 
             @staticmethod
-            def set_primary_key(table: MercurySQLite.base.Table, keyname: str, keytype: str) -> str:
+            def set_primary_key(table, keyname: str, keytype: str) -> list:
                 return [
-                    f"CREATE TABLE new_table ({keyname} {keytype} PRIMARY KEY, {', '.join([f'{name} {type_}' for name, type_ in table.columns.items() if name != keyname])})",
-                    f"INSERT INTO new_table SELECT * FROM {table.table_name}",
+                    f"CREATE TABLE ___temp_table ({keyname} {keytype} PRIMARY KEY, {', '.join([f'{name} {type_}' for name, type_ in table.columnsType.items() if name != keyname])})",
+                    f"INSERT INTO ___temp_table SELECT * FROM {table.table_name}",
                     f"DROP TABLE {table.table_name}",
-                    f"ALTER TABLE new_table RENAME TO {table.table_name}"
+                    f"ALTER TABLE ___temp_table RENAME TO {table.table_name}"
                 ]
 
             @staticmethod
@@ -123,16 +104,3 @@ class Driver_SQLite(BaseDriver):
     @staticmethod
     def connect(db_name: str, **kwargs) -> Driver_SQLite.Conn:
         return sqlite3.connect(db_name, **kwargs)
-
-
-if __name__ == '__main__':
-    from MercurySQLite.base import DataBase
-    db = DataBase(Driver_SQLite, 'test.db')
-    db.createTable('test', allowExist=True)
-    db['test'].struct({
-        'name': str,
-        'age': int
-    })
-    db['test'].insert(__auto=True, name='Bernie', age=18)
-
-    print(list(db['test'].select()))
