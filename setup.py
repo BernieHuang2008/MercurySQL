@@ -8,7 +8,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='MercurySQL',
-    version='0.0.1',
+    version='0.0.5',
     description='Operate sql in a more pythonic way.',
     long_description=long_description,
     long_description_content_type='text/markdown',
