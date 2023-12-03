@@ -4,10 +4,10 @@ MercurySQLite package
 Submodules
 ----------
 
-MercurySQLite.gensql module
+MercurySQL.base module
 ---------------------------
 
-.. automodule:: MercurySQLite.gensql
+.. automodule:: MercurySQLite.base
    :members: 
    :undoc-members:
    :show-inheritance:

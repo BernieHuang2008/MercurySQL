@@ -7,14 +7,14 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='MercurySQLite',
-    version='0.1.2',
+    name='MercurySQL',
+    version='0.0.1',
     description='Use built-in sqlite3 library to operate sql in a more pythonic way.',
     long_description=long_description,
     long_description_content_type='text/markdown',
     author='Bernie J. Huang',
     author_email='berniehuang2008@163.com',
-    url='https://github.com/BernieHuang2008/MercurySQLite',
+    url='https://github.com/BernieHuang2008/MercurySQL',
     packages=find_packages(),
     classifiers=[
         'Development Status :: 3 - Alpha',

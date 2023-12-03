@@ -11,10 +11,10 @@ import sys
 
 sys.path.insert(0, os.path.abspath('../../'))
 
-project = 'Mercury SQLite'
+project = 'Mercury SQL'
 copyright = '2023, Bernie J. Huang'
 author = 'Bernie J. Huang'
-release = 'https://pypi.org/project/mercurysqlite'
+release = 'https://pypi.org/project/mercurysql'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
