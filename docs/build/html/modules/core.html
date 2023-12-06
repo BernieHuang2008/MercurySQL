@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MercurySQL.core &mdash; Mercury SQL https://pypi.org/project/mercurysql documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/cite.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=5686b3ab"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Documentation of Mercury SQL" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Mercury SQL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">MercurySQL.core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-apis">Advanced APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.core.DataBase"><code class="docutils literal notranslate"><span class="pre">DataBase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.DataBase.__del__"><code class="docutils literal notranslate"><span class="pre">DataBase.__del__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.DataBase.__delitem__"><code class="docutils literal notranslate"><span class="pre">DataBase.__delitem__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.DataBase.__getitem__"><code class="docutils literal notranslate"><span class="pre">DataBase.__getitem__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.DataBase.__init__"><code class="docutils literal notranslate"><span class="pre">DataBase.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.DataBase.createTable"><code class="docutils literal notranslate"><span class="pre">DataBase.createTable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.DataBase.deleteTable"><code class="docutils literal notranslate"><span class="pre">DataBase.deleteTable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.DataBase.do"><code class="docutils literal notranslate"><span class="pre">DataBase.do()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.DataBase.setTemplate"><code class="docutils literal notranslate"><span class="pre">DataBase.setTemplate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.core.Table"><code class="docutils literal notranslate"><span class="pre">Table</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Table.QueryResult"><code class="docutils literal notranslate"><span class="pre">Table.QueryResult</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Table.__delitem__"><code class="docutils literal notranslate"><span class="pre">Table.__delitem__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Table.__getitem__"><code class="docutils literal notranslate"><span class="pre">Table.__getitem__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Table.__init__"><code class="docutils literal notranslate"><span class="pre">Table.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Table.__setitem__"><code class="docutils literal notranslate"><span class="pre">Table.__setitem__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Table.insert"><code class="docutils literal notranslate"><span class="pre">Table.insert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Table.newColumn"><code class="docutils literal notranslate"><span class="pre">Table.newColumn()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Table.select"><code class="docutils literal notranslate"><span class="pre">Table.select()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Table.setPrimaryKey"><code class="docutils literal notranslate"><span class="pre">Table.setPrimaryKey()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Table.struct"><code class="docutils literal notranslate"><span class="pre">Table.struct()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Table.update"><code class="docutils literal notranslate"><span class="pre">Table.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.core.Exp"><code class="docutils literal notranslate"><span class="pre">Exp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Exp.__eq__"><code class="docutils literal notranslate"><span class="pre">Exp.__eq__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Exp.__ge__"><code class="docutils literal notranslate"><span class="pre">Exp.__ge__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Exp.__gt__"><code class="docutils literal notranslate"><span class="pre">Exp.__gt__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Exp.__hash__"><code class="docutils literal notranslate"><span class="pre">Exp.__hash__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Exp.__init__"><code class="docutils literal notranslate"><span class="pre">Exp.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Exp.__iter__"><code class="docutils literal notranslate"><span class="pre">Exp.__iter__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Exp.__le__"><code class="docutils literal notranslate"><span class="pre">Exp.__le__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Exp.__lt__"><code class="docutils literal notranslate"><span class="pre">Exp.__lt__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Exp.__ne__"><code class="docutils literal notranslate"><span class="pre">Exp.__ne__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Exp.__str__"><code class="docutils literal notranslate"><span class="pre">Exp.__str__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Exp.convert"><code class="docutils literal notranslate"><span class="pre">Exp.convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Exp.delete"><code class="docutils literal notranslate"><span class="pre">Exp.delete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Exp.formula"><code class="docutils literal notranslate"><span class="pre">Exp.formula()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Exp.gen_formula"><code class="docutils literal notranslate"><span class="pre">Exp.gen_formula()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.Exp.query"><code class="docutils literal notranslate"><span class="pre">Exp.query()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#low-level-helper-apis">Low-level (Helper) APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.core.BasicExp"><code class="docutils literal notranslate"><span class="pre">BasicExp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.BasicExp.__dict__"><code class="docutils literal notranslate"><span class="pre">BasicExp.__dict__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.BasicExp.__init__"><code class="docutils literal notranslate"><span class="pre">BasicExp.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.BasicExp.convert"><code class="docutils literal notranslate"><span class="pre">BasicExp.convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.BasicExp.formula"><code class="docutils literal notranslate"><span class="pre">BasicExp.formula()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.BasicExp.gen_formula"><code class="docutils literal notranslate"><span class="pre">BasicExp.gen_formula()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.core.TypeParser"><code class="docutils literal notranslate"><span class="pre">TypeParser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.TypeParser.__dict__"><code class="docutils literal notranslate"><span class="pre">TypeParser.__dict__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.TypeParser.parse"><code class="docutils literal notranslate"><span class="pre">TypeParser.parse()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Mercury SQL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">MercurySQL.core</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/core.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mercurysql-core">
+<h1>MercurySQL.core<a class="headerlink" href="#mercurysql-core" title="Permalink to this heading"></a></h1>
+<p>Operate SQL in a more pythonic way.</p>
+<p>This file contains the implementation of a common SQL database wrapper class, and for each sql (e.g. sqlite, mysql), a <cite>Driver</cite> is needed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This code is a simplified implementation and may not cover all possible use cases. Please refer to the official documentation for more information.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This module will not perform any inspection on DB names, Table names or Column names etc.
+However, all the query values are replaced with safe queries (’<cite>?</cite>’ or else). Therefore, it is recommended to hardcode Column names to prevent SQL injection.</p>
+</div>
+<section id="advanced-apis">
+<h2>Advanced APIs<a class="headerlink" href="#advanced-apis" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.core.DataBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.core.</span></span><span class="sig-name descname"><span class="pre">DataBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">driver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.core.DataBase" title="Permalink to this definition"></a></dt>
+<dd><p>Select/Create/Connect a SQL database.</p>
+<p>Represents a SQL database. It provides methods for creating tables, executing SQL commands, and retrieving table objects, etc.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.DataBase.__del__">
+<span class="sig-name descname"><span class="pre">__del__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.core.DataBase.__del__" title="Permalink to this definition"></a></dt>
+<dd><p>Close the connection when the object is deleted.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.DataBase.__delitem__">
+<span class="sig-name descname"><span class="pre">__delitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.core.DataBase.__delitem__" title="Permalink to this definition"></a></dt>
+<dd><p>Delete a table from the database, same as <cite>deleteTable()</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – The name of the table.</p>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="k">del</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>  <span class="c1"># same as db.deleteTable(&#39;test&#39;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.DataBase.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.core.Table" title="MercurySQL.core.Table"><span class="pre">Table</span></a></span></span><a class="headerlink" href="#MercurySQL.core.DataBase.__getitem__" title="Permalink to this definition"></a></dt>
+<dd><p>Create / Choose a table from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – The name of the table.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Table object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#MercurySQL.core.Table" title="MercurySQL.core.Table">Table</a></p>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>How It Works:</dt><dd><ul class="simple">
+<li><p>if exists, return the existing table (the OLD <cite>Table</cite> Object)</p></li>
+<li><p>if not exists, create a new table by <cite>createTable()</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The only difference between <cite>__getitem__()</cite> and <cite>createTable()</cite> is that <cite>__getitem__()</cite> will return the <strong>OLD</strong> <cite>Table</cite> Object if exists, while <cite>createTable()</cite> will return a <strong>NEW</strong> <cite>Table</cite> Object.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.DataBase.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">driver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.core.DataBase.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Create a new database object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>db_name</strong> (<em>str</em>) – The name of the database.</p>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>How It Works:</dt><dd><ul class="simple">
+<li><p>start a connection to the SQL database, using the driver specified by <cite>driver</cite> parameter or <cite>set_driver()</cite> method.</p></li>
+<li><p>get a cursor to execute sql commands.</p></li>
+<li><p>gather all infomations of the database, for further usages.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.DataBase.createTable">
+<span class="sig-name descname"><span class="pre">createTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">table_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowExist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.core.Table" title="MercurySQL.core.Table"><span class="pre">Table</span></a></span></span><a class="headerlink" href="#MercurySQL.core.DataBase.createTable" title="Permalink to this definition"></a></dt>
+<dd><p>create a table in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table_names</strong> (<em>str</em>) – The name of the table.</p></li>
+<li><p><strong>allowExist</strong> (<em>bool</em>) – Allow to return an existing table.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Table object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#MercurySQL.core.Table" title="MercurySQL.core.Table">Table</a></p>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">createTable</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>How It Works:</dt><dd><ul class="simple">
+<li><p>create table(s) if not exists</p></li>
+<li><p>if already exists, return the existing table(s) in a NEW <cite>Table</cite> Object.</p></li>
+<li><p>if exists and <cite>allowExist</cite> set to False, raise an Exception.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.DataBase.deleteTable">
+<span class="sig-name descname"><span class="pre">deleteTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">table_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.core.DataBase.deleteTable" title="Permalink to this definition"></a></dt>
+<dd><p>delete a table in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table_names</strong> (<em>str</em>) – The name of the table.</p>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="n">db</span><span class="o">.</span><span class="n">deleteTable</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>How It Works:</dt><dd><ul class="simple">
+<li><p>delete table(s) if exists</p></li>
+<li><p>raise an Exception if not exists.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.DataBase.do">
+<span class="sig-name descname"><span class="pre">do</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">sql</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paras</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.core.DataBase.do" title="Permalink to this definition"></a></dt>
+<dd><p>Execute a sql command on the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sql</strong> (<em>str</em>) – The sql command(s).</p></li>
+<li><p><strong>paras</strong> (<em>List</em><em>[</em><em>tuple</em><em>]</em>) – The parameters for the sql command(s).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The cursor of the database.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Driver.Cursor</p>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="n">db</span><span class="o">.</span><span class="n">do</span><span class="p">(</span><span class="s2">&quot;CREATE TABLE test (id INTEGER PRIMARY KEY, name TEXT)&quot;</span><span class="p">)</span>
+<span class="n">db</span><span class="o">.</span><span class="n">do</span><span class="p">(</span><span class="s2">&quot;INSERT INTO test (name) VALUES (?)&quot;</span><span class="p">,</span> <span class="n">paras</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;Bernie&#39;</span><span class="p">,)])</span>
+<span class="n">db</span><span class="o">.</span><span class="n">do</span><span class="p">(</span>
+    <span class="s2">&quot;SQL1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SQL2&quot;</span><span class="p">,</span>
+    <span class="n">paras</span><span class="o">=</span><span class="p">[</span>
+           <span class="p">(</span><span class="n">paras1</span><span class="p">,</span> <span class="n">paras2</span><span class="p">),</span>
+           <span class="p">(</span><span class="n">paras3</span><span class="p">,</span> <span class="n">paras4</span><span class="p">)</span>
+    <span class="p">])</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>How It Works:</dt><dd><ul class="simple">
+<li><p>execute sql commands one by one, with parameters</p></li>
+<li><p>commit after all commands are executed</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.DataBase.setTemplate">
+<span class="sig-name descname"><span class="pre">setTemplate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.core.DataBase.setTemplate" title="Permalink to this definition"></a></dt>
+<dd><p>Set the template, so new table’s structure will be setted to this template. 
+You can specifd the template by using <cite>template=…</cite> parameter into <cite>db.createTable()</cite> method.
+Or set it after the table is created, using <cite>table.struct()</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>template</strong> (<em>dict</em>) – The template to set.</p></li>
+<li><p><strong>**kwargs</strong> – The parameters for the template. E.g., <cite>primaryKey=’id’</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="n">db</span><span class="o">.</span><span class="n">setTemplate</span><span class="p">({</span>
+    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">})</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">createTable</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.core.Table">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.core.</span></span><span class="sig-name descname"><span class="pre">Table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.core.DataBase" title="MercurySQL.core.DataBase"><span class="pre">DataBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.core.Table" title="Permalink to this definition"></a></dt>
+<dd><p>A table in a SQL database.</p>
+<p>Represents a table in a SQL database. Can be created by <cite>db.createTable()</cite>. It provides methods for adding columns, deleting columns, inserting rows, and executing queries, etc.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.core.Table.QueryResult">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QueryResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.core.Table" title="MercurySQL.core.Table"><span class="pre">Table</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.core.Exp" title="MercurySQL.core.Exp"><span class="pre">Exp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'*'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.core.Table.QueryResult" title="Permalink to this definition"></a></dt>
+<dd><p>[Helper Class]
+The result of a query.</p>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.core.Table.QueryResult.QueryResultRow">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QueryResultRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.core.Table.QueryResult.QueryResultRow" title="Permalink to this definition"></a></dt>
+<dd><p>[Helper Class]
+Representing a single row of the query result.
+You can use QueryResult[i] to get it, and use it by <cite>row.column_name</cite>.</p>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+<span class="n">row</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Table.QueryResult.QueryResultRow.__getattribute__">
+<span class="sig-name descname"><span class="pre">__getattribute__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_QueryResultRow__name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#MercurySQL.core.Table.QueryResult.QueryResultRow.__getattribute__" title="Permalink to this definition"></a></dt>
+<dd><p>The main method of this class, used to get the value of a column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>__name</strong> (<em>str</em>) – The name of the column.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the column.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Table.QueryResult.QueryResultRow.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.core.Table.QueryResult.QueryResultRow.__init__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Table.QueryResult.QueryResultRow.__iter__">
+<span class="sig-name descname"><span class="pre">__iter__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.core.Table.QueryResult.QueryResultRow.__iter__" title="Permalink to this definition"></a></dt>
+<dd><p>Make it possible to iterate through.
+It will work as a <cite>dict</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Table.QueryResult.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.core.Table" title="MercurySQL.core.Table"><span class="pre">Table</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.core.Exp" title="MercurySQL.core.Exp"><span class="pre">Exp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'*'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.core.Table.QueryResult.__init__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Table.__delitem__">
+<span class="sig-name descname"><span class="pre">__delitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.core.Table.__delitem__" title="Permalink to this definition"></a></dt>
+<dd><p>Delete an existing column in this table. 
+An Exception will be raised if column not exist.
+Same as <cite>delColumn()</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – The name of the column.</p>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="k">del</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>  <span class="c1"># same as table.delColumn(&#39;name&#39;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Table.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.core.Exp" title="MercurySQL.core.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQL.core.Table.__getitem__" title="Permalink to this definition"></a></dt>
+<dd><p>get a column from the table, mainly used to construct query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – The name of the column.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An Exp object.</p>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<ol class="arabic simple">
+<li><p>Construct a query expression.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">exp</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Get the definition of a column.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>  <span class="c1"># INTEGER PRIMARY KEY</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>How It Works:</dt><dd><ul class="simple">
+<li><p>return an <cite>Exp</cite> object with <cite>table</cite> and <cite>_str</cite> attributes setted.</p></li>
+<li><p><cite>table</cite> is used to execute the query using <cite>list(…)</cite>, even if table not specified. <strong>[NOT RECOMMENDED]</strong></p></li>
+<li><p><cite>_str</cite> is used to print the definition of a column using <cite>str(…)</cite>.</p></li>
+<li><p>raise an Exception if column not exists.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Table.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.core.DataBase" title="MercurySQL.core.DataBase"><span class="pre">DataBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.core.Table.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize a table object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> (<a class="reference internal" href="#MercurySQL.core.DataBase" title="MercurySQL.core.DataBase"><em>DataBase</em></a>) – The database object.</p></li>
+<li><p><strong>table_name</strong> (<em>str</em>) – The name of the table.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>How It Works:</dt><dd><ul class="simple">
+<li><p>gather all infomations of the table, including columns name and their types.</p></li>
+<li><p>set <cite>isEmpty</cite> to True if the table doesn’t have any columns. This variable will effect how the <cite>newColumn()</cite> method works.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Table.__setitem__">
+<span class="sig-name descname"><span class="pre">__setitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.core.Table.__setitem__" title="Permalink to this definition"></a></dt>
+<dd><p>Create a new column in the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>str</em>) – The name of the column.</p></li>
+<li><p><strong>value</strong> (<em>Any</em>) – The type of the column.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span>
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;primary key&#39;</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>How It Works:</dt><dd><ul class="simple">
+<li><p>get options from <cite>value</cite> if it has parameters (Judge it by whether it’s a tuple, so you can use it as the L3 of example showed).</p></li>
+<li><p>Actually create the column, using <cite>newColumn()</cite> method.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Table.insert">
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Table__auto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.core.Table.insert" title="Permalink to this definition"></a></dt>
+<dd><p>Insert a row into the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>__auto</strong> (<em>bool</em>) – Whether to update the row if it already exists.</p></li>
+<li><p><strong>**kwargs</strong> – The data to insert.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">table</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Bernie&#39;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">__auto</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Table.newColumn">
+<span class="sig-name descname"><span class="pre">newColumn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primaryKey</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowExist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.core.Table.newColumn" title="Permalink to this definition"></a></dt>
+<dd><p>Add a new column to the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The name of the column.</p></li>
+<li><p><strong>type</strong> (<em>Any</em>) – The type of the column.</p></li>
+<li><p><strong>primaryKey</strong> (<em>bool</em>) – Whether the column is a primary key.</p></li>
+<li><p><strong>allowExist</strong> (<em>bool</em>) – Allow to skip when processing an existing column.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">table</span><span class="o">.</span><span class="n">newColumn</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+<span class="n">table</span><span class="o">.</span><span class="n">newColumn</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">primaryKey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>How It Works:</dt><dd><ul class="simple">
+<li><p>Create a new table with this column, if table is empty.</p></li>
+<li><p>Add the column to an existing table.</p></li>
+<li><p>Set as the <cite>primary key</cite> column if <cite>primaryKey</cite> is True.</p></li>
+<li><p>Record its name and type in <cite>self.columns</cite> and <cite>self.columnsType</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Table.select">
+<span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.core.Exp" title="MercurySQL.core.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'*'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#MercurySQL.core.Table.select" title="Permalink to this definition"></a></dt>
+<dd><p>Select data from the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exp</strong> (<a class="reference internal" href="#MercurySQL.core.Exp" title="MercurySQL.core.Exp"><em>Exp</em></a>) – The query expression.</p></li>
+<li><p><strong>selection</strong> (<em>str</em>) – The columns to select, default is ‘*’(all columns).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">table</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># select all columns where id = 1</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>How It Works:</dt><dd><ul class="simple">
+<li><p>Construct a <cite>QueryResult</cite> object, which will execute the query whthin it’s <cite>QueryResult.__init__()</cite> method.</p></li>
+<li><p>return a <cite>QueryResult</cite> object with results.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Table.setPrimaryKey">
+<span class="sig-name descname"><span class="pre">setPrimaryKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keytype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.core.Table.setPrimaryKey" title="Permalink to this definition"></a></dt>
+<dd><p>Set a column as the primary key of the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keyname</strong> (<em>str</em>) – The name of the column.</p></li>
+<li><p><strong>keytype</strong> (<em>str</em>) – The type of the column, been parsed by <cite>TypeParser</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">table</span><span class="o">.</span><span class="n">setPrimaryKey</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Table.struct">
+<span class="sig-name descname"><span class="pre">struct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primaryKey</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowExist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.core.Table.struct" title="Permalink to this definition"></a></dt>
+<dd><p>Set the structure of the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>columns</strong> (<em>dict</em>) – The structure of the table.</p></li>
+<li><p><strong>primaryKey</strong> (<em>str</em>) – The primary key of the table.</p></li>
+<li><p><strong>allowExist</strong> (<em>bool</em>) – Allow to skip when column exist and have the same type at the same time.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">table</span><span class="o">.</span><span class="n">struct</span><span class="p">({</span>
+    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">},</span> <span class="n">primaryKey</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Table.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.core.Exp" title="MercurySQL.core.Exp"><span class="pre">Exp</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.core.Table.update" title="Permalink to this definition"></a></dt>
+<dd><p>Update the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exp</strong> (<a class="reference internal" href="#MercurySQL.core.Exp" title="MercurySQL.core.Exp"><em>Exp</em></a>) – The query expression.</p></li>
+<li><p><strong>**kwargs</strong> – The data to update.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">table</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Bernie&#39;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.core.Exp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.core.</span></span><span class="sig-name descname"><span class="pre">Exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">o2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.core.Exp" title="Permalink to this definition"></a></dt>
+<dd><p>Subclass of BasicExp, representing a query expression, which can be used to construct complex queries.</p>
+<ul class="simple">
+<li><p>Supported Operations:
+* <cite>==</cite>: equality
+* <cite>!=</cite>: inequality
+* <cite>&lt;</cite>: less than
+* <cite>&lt;=</cite>: less than or equal to
+* <cite>&gt;</cite>: greater than
+* <cite>&gt;=</cite>: greater than or equal to
+* <cite>.in_()</cite>: in
+* <cite>.like()</cite>: like
+* <cite>&amp;</cite>: and
+* <cite>|</cite>: or
+* <cite>not</cite>: not</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>you should mind the priority of operations when using some of the operators, especially <cite>&amp;</cite> and <cite>|</cite>.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Exp.__eq__">
+<span class="sig-name descname"><span class="pre">__eq__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Exp__value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.core.Exp" title="MercurySQL.core.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.core.Exp" title="MercurySQL.core.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQL.core.Exp.__eq__" title="Permalink to this definition"></a></dt>
+<dd><p>Return self==value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Exp.__ge__">
+<span class="sig-name descname"><span class="pre">__ge__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Exp__value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.core.Exp" title="MercurySQL.core.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.core.Exp" title="MercurySQL.core.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQL.core.Exp.__ge__" title="Permalink to this definition"></a></dt>
+<dd><p>Return self&gt;=value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Exp.__gt__">
+<span class="sig-name descname"><span class="pre">__gt__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Exp__value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.core.Exp" title="MercurySQL.core.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.core.Exp" title="MercurySQL.core.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQL.core.Exp.__gt__" title="Permalink to this definition"></a></dt>
+<dd><p>Return self&gt;value.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MercurySQL.core.Exp.__hash__">
+<span class="sig-name descname"><span class="pre">__hash__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#MercurySQL.core.Exp.__hash__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Exp.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">o2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.core.Exp.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Acceptable addition attributes:
+- table: Table …………………. the table to search
+- _str: str ……………………. the string to show when print the object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Exp.__iter__">
+<span class="sig-name descname"><span class="pre">__iter__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.core.Exp.__iter__" title="Permalink to this definition"></a></dt>
+<dd><p>use magic method <cite>__iter__</cite> to search.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Exp.__le__">
+<span class="sig-name descname"><span class="pre">__le__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Exp__value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.core.Exp" title="MercurySQL.core.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.core.Exp" title="MercurySQL.core.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQL.core.Exp.__le__" title="Permalink to this definition"></a></dt>
+<dd><p>Return self&lt;=value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Exp.__lt__">
+<span class="sig-name descname"><span class="pre">__lt__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Exp__value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.core.Exp" title="MercurySQL.core.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.core.Exp" title="MercurySQL.core.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQL.core.Exp.__lt__" title="Permalink to this definition"></a></dt>
+<dd><p>Return self&lt;value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Exp.__ne__">
+<span class="sig-name descname"><span class="pre">__ne__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Exp__value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.core.Exp" title="MercurySQL.core.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.core.Exp" title="MercurySQL.core.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQL.core.Exp.__ne__" title="Permalink to this definition"></a></dt>
+<dd><p>Return self!=value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Exp.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.core.Exp.__str__" title="Permalink to this definition"></a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Exp.convert">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQL.core.Exp.convert" title="Permalink to this definition"></a></dt>
+<dd><p>Convert value into a form that can be used in a SQL query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>Any</em>) – The value to convert.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The converted value in the form of <cite>(sql_command, paras)</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[str, tuple]</p>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">BasicExp</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>                 <span class="c1"># (&#39;?&#39;, (1,))</span>
+<span class="n">BasicExp</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;Bernie&#39;</span><span class="p">)</span>          <span class="c1"># (&#39;?&#39;, (&#39;Bernie&#39;,))</span>
+<span class="n">BasicExp</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>              <span class="c1"># (&#39;&#39;, ())</span>
+<span class="n">BasicExp</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">Exp</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>    <span class="c1"># (&#39;(id = ?)&#39;, (1,))</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Exp.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.core.Exp.delete" title="Permalink to this definition"></a></dt>
+<dd><p>Execute delete.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Exp.formula">
+<span class="sig-name descname"><span class="pre">formula</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQL.core.Exp.formula" title="Permalink to this definition"></a></dt>
+<dd><p>Return the formula of the expression in the form of (sql_command, paras).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Exp.gen_formula">
+<span class="sig-name descname"><span class="pre">gen_formula</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.core.Exp.gen_formula" title="Permalink to this definition"></a></dt>
+<dd><p>[Helper] Generate the formula of the expression.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also construct a formula by yourself, just set the <cite>_formula</cite> attribute to a tuple in the form of <cite>(sql_command, paras)</cite>.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.Exp.query">
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'*'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#MercurySQL.core.Exp.query" title="Permalink to this definition"></a></dt>
+<dd><p>Execute query.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="low-level-helper-apis">
+<h2>Low-level (Helper) APIs<a class="headerlink" href="#low-level-helper-apis" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.core.BasicExp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.core.</span></span><span class="sig-name descname"><span class="pre">BasicExp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.core.BasicExp" title="Permalink to this definition"></a></dt>
+<dd><p>Basic class of Exp, representing a basic query expression that can be used to construct complex queries.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MercurySQL.core.BasicExp.__dict__">
+<span class="sig-name descname"><span class="pre">__dict__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">mappingproxy({'__module__':</span> <span class="pre">'MercurySQL.core',</span> <span class="pre">'__init__':</span> <span class="pre">&lt;function</span> <span class="pre">BasicExp.__init__&gt;,</span> <span class="pre">'convert':</span> <span class="pre">&lt;staticmethod</span> <span class="pre">object&gt;,</span> <span class="pre">'gen_formula':</span> <span class="pre">&lt;function</span> <span class="pre">BasicExp.gen_formula&gt;,</span> <span class="pre">'formula':</span> <span class="pre">&lt;function</span> <span class="pre">BasicExp.formula&gt;,</span> <span class="pre">'__dict__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__dict__'</span> <span class="pre">of</span> <span class="pre">'BasicExp'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__weakref__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__weakref__'</span> <span class="pre">of</span> <span class="pre">'BasicExp'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__doc__':</span> <span class="pre">None,</span> <span class="pre">'__annotations__':</span> <span class="pre">{}})</span></em><a class="headerlink" href="#MercurySQL.core.BasicExp.__dict__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.BasicExp.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.core.BasicExp.__init__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.BasicExp.convert">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQL.core.BasicExp.convert" title="Permalink to this definition"></a></dt>
+<dd><p>Convert value into a form that can be used in a SQL query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>Any</em>) – The value to convert.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The converted value in the form of <cite>(sql_command, paras)</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[str, tuple]</p>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">BasicExp</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>                 <span class="c1"># (&#39;?&#39;, (1,))</span>
+<span class="n">BasicExp</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;Bernie&#39;</span><span class="p">)</span>          <span class="c1"># (&#39;?&#39;, (&#39;Bernie&#39;,))</span>
+<span class="n">BasicExp</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>              <span class="c1"># (&#39;&#39;, ())</span>
+<span class="n">BasicExp</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">Exp</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>    <span class="c1"># (&#39;(id = ?)&#39;, (1,))</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.BasicExp.formula">
+<span class="sig-name descname"><span class="pre">formula</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQL.core.BasicExp.formula" title="Permalink to this definition"></a></dt>
+<dd><p>Return the formula of the expression in the form of (sql_command, paras).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.BasicExp.gen_formula">
+<span class="sig-name descname"><span class="pre">gen_formula</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.core.BasicExp.gen_formula" title="Permalink to this definition"></a></dt>
+<dd><p>[Helper] Generate the formula of the expression.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also construct a formula by yourself, just set the <cite>_formula</cite> attribute to a tuple in the form of <cite>(sql_command, paras)</cite>.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.core.TypeParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.core.</span></span><span class="sig-name descname"><span class="pre">TypeParser</span></span><a class="headerlink" href="#MercurySQL.core.TypeParser" title="Permalink to this definition"></a></dt>
+<dd><p>[Helper]
+Parse the type of a column.</p>
+<blockquote>
+<div><p>Class for parsing Python standard types to SQL types. TODO: move it to the driver.</p>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MercurySQL.core.TypeParser.__dict__">
+<span class="sig-name descname"><span class="pre">__dict__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">mappingproxy({'__module__':</span> <span class="pre">'MercurySQL.core',</span> <span class="pre">'__doc__':</span> <span class="pre">'\n</span>&#160;&#160;&#160; <span class="pre">[Helper]\n</span>&#160;&#160;&#160; <span class="pre">Parse</span> <span class="pre">the</span> <span class="pre">type</span> <span class="pre">of</span> <span class="pre">a</span> <span class="pre">column.\n</span>&#160;&#160;&#160; <span class="pre">',</span> <span class="pre">'parse':</span> <span class="pre">&lt;staticmethod</span> <span class="pre">object&gt;,</span> <span class="pre">'__dict__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__dict__'</span> <span class="pre">of</span> <span class="pre">'TypeParser'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__weakref__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__weakref__'</span> <span class="pre">of</span> <span class="pre">'TypeParser'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__annotations__':</span> <span class="pre">{}})</span></em><a class="headerlink" href="#MercurySQL.core.TypeParser.__dict__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.core.TypeParser.parse">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#MercurySQL.core.TypeParser.parse" title="Permalink to this definition"></a></dt>
+<dd><p>Compile the type to SQLite type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>type</strong> (<em>Any</em>) – The type to parse.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The SQLite type.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Supported Types</p></th>
+<th class="head"><p>SQLite Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>str</p></td>
+<td><p>TEXT</p></td>
+</tr>
+<tr class="row-odd"><td><p>int</p></td>
+<td><p>INTEGER</p></td>
+</tr>
+<tr class="row-even"><td><p>float</p></td>
+<td><p>REAL</p></td>
+</tr>
+<tr class="row-odd"><td><p>bool</p></td>
+<td><p>BOOLEAN</p></td>
+</tr>
+<tr class="row-even"><td><p>bytes</p></td>
+<td><p>BLOB</p></td>
+</tr>
+</tbody>
+</table>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">TypeParser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>       <span class="c1"># TEXT</span>
+<span class="n">TypeParser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>       <span class="c1"># INTEGER</span>
+<span class="n">TypeParser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>     <span class="c1"># REAL</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Documentation of Mercury SQL" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Bernie J. Huang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
