@@ -9,7 +9,7 @@ Requirements:
 # # <--- Test Head End --->
 
 import sqlite3
-from typing import Any, Union, List, Tuple
+from typing import Any, List
 
 
 class Driver_SQLite:
@@ -21,6 +21,8 @@ class Driver_SQLite:
 
 
 class Driver_SQLite:
+    payload = '?'
+
     Conn = sqlite3.Connection
     Cursor = sqlite3.Cursor
 
