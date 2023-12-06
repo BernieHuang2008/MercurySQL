@@ -1,10 +1,13 @@
+# <--- Test Head --->
 import sys
-import os
+sys.path.insert(0, 'g:\git\BernieHuang2008\MercurySQL')
+# <--- Test Head End --->
 
-# Add the parent directory of 'tests' to the Python path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from MercurySQLite import DataBase
+from MercurySQL import DataBase, set_driver, Driver_SQLite
+
+# Set the driver to Driver_SQLite
+set_driver(Driver_SQLite)
 
 if __name__ == '__main__':
     # Create a new database object for a database named "test.db"
@@ -18,6 +21,7 @@ if __name__ == '__main__':
     print("Tables in the database:", db.tables)
 
     # Set the structure of 'test' table
+    print(Driver_SQLite.APIs.get_all_columns(db.conn, 'test'))
     test_table.struct({
         'id': int,
         'name': str
@@ -29,21 +33,20 @@ if __name__ == '__main__':
     print("Columns in the 'test' table:", test_table.columns)
 
     # Access the column definition of 'id' in 'test' table
-    print("Accessing 'id' column :", test_table['id'])
+    print("Definition of 'id' column:", test_table['id'])
+    print("Definition of 'name' column:", test_table['name'])
 
+    print(Driver_SQLite.APIs.get_all_columns(db.conn, 'test'))
     # Uncomment the following line to insert a new row into the 'test' table
-    # test_table.insert(id=1, name='test')
+    test_table.insert(id=1, name='test', __auto=True)
 
     # Query the 'test' table for rows where 'id==1 AND name==test'
-    e = (db['test']['id'] == 1) & \
-        (db['test']['name'] == 'test')
+    e = (test_table['id'] == 1) & \
+        (test_table['name'] == 'test')
 
-    print("Query result:", list(e))
+    print("Query result:", list(test_table.select(e)))
 
     # Delete the data
-    del e
+    e.delete()
 
-    print("After deleting the query result:", list(
-        (db['test']['id'] == 1) &
-        (db['test']['name'] == 'test'))
-    )
+    print("After deleting the query result:", list(test_table.select(e)))

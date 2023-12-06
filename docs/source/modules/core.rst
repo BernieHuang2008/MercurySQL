@@ -1,5 +1,5 @@
-MercurySQLite.base
-==================
+MercurySQL.core
+===============
 
 Operate SQL in a more pythonic way.
 
@@ -9,27 +9,27 @@ This file contains the implementation of a common SQL database wrapper class, an
 
 .. warning::
    This module will not perform any inspection on DB names, Table names or Column names etc.
-   However, all the query values are replaced with safe queries ('`?`'). Therefore, it is recommended to hardcode Column names to prevent SQL injection.
+   However, all the query values are replaced with safe queries ('`?`' or else). Therefore, it is recommended to hardcode Column names to prevent SQL injection.
 
 
 Advanced APIs
 -------------
 
-.. autoclass:: MercurySQLite.base.DataBase
+.. autoclass:: MercurySQL.core.DataBase
    :members:
    :special-members:
    :exclude-members: __weakref__, __module__
 
    Represents a SQL database. It provides methods for creating tables, executing SQL commands, and retrieving table objects, etc.
 
-.. autoclass:: MercurySQLite.base.Table
+.. autoclass:: MercurySQL.core.Table
    :members:
    :special-members: 
    :exclude-members: __weakref__, __module__
 
    Represents a table in a SQL database. Can be created by `db.createTable()`. It provides methods for adding columns, deleting columns, inserting rows, and executing queries, etc.
 
-.. autoclass:: MercurySQLite.base.Exp
+.. autoclass:: MercurySQL.core.Exp
    :members:
    :special-members: 
    :exclude-members: __weakref__, __module__
@@ -56,7 +56,7 @@ Advanced APIs
 Low-level (Helper) APIs
 -----------------------
 
-.. autoclass:: MercurySQLite.base.BasicExp
+.. autoclass:: MercurySQL.core.BasicExp
    :members:
    :undoc-members:
    :special-members: 
@@ -64,7 +64,7 @@ Low-level (Helper) APIs
 
    Basic class of Exp, representing a basic query expression that can be used to construct complex queries.
 
-.. autoclass:: MercurySQLite.base.TypeParser
+.. autoclass:: MercurySQL.core.TypeParser
    :members:
    :undoc-members:
    :special-members: 

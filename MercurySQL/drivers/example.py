@@ -38,36 +38,36 @@ class BaseDriver:
     class APIs:
         class gensql:
             @staticmethod
-            def drop_table(table_name: str) -> str:
+            def drop_table(table_name: str) -> Union[str, List[str]]:
                 pass
                 # return f"DROP TABLE {table_name}"
 
             @staticmethod
-            def get_all_tables() -> str:
+            def get_all_tables() -> Union[str, List[str]]:
                 pass
                 # return "SELECT name FROM sqlite_master WHERE type='table';"
 
             @staticmethod
-            def get_all_columns(table_name: str) -> str:
+            def get_all_columns(table_name: str) -> Union[str, List[str]]:
                 pass
                 # return f"PRAGMA table_info({table_name});"
 
             @staticmethod
-            def create_table_if_not_exists(table_name: str, column_name: str, column_type: str, primaryKey=False) -> str:
+            def create_table_if_not_exists(table_name: str, column_name: str, column_type: str, primaryKey=False) -> Union[str, List[str]]:
                 pass
                 # return f"""
                 #     CREATE TABLE IF NOT EXISTS {table_name} ({column_name} {column_type} {'PRIMARY KEY' if primaryKey else ''})
                 # """
 
             @staticmethod
-            def add_column(table_name: str, column_name: str, column_type: str) -> str:
+            def add_column(table_name: str, column_name: str, column_type: str) -> Union[str, List[str]]:
                 pass
                 # return f"""
                 #     ALTER TABLE {table_name} ADD COLUMN {column_name} {column_type}
                 # """
 
             @staticmethod
-            def drop_column(table_name: str, column_name: str) -> str:
+            def drop_column(table_name: str, column_name: str) -> Union[str, List[str]]:
                 pass
                 # return f"""
                 #     ALTER TABLE {table_name} DROP COLUMN {column_name}
@@ -84,27 +84,27 @@ class BaseDriver:
                 # ]
 
             @staticmethod
-            def insert(table_name: str, columns: str, values: str) -> str:
+            def insert(table_name: str, columns: str, values: str) -> Union[str, List[str]]:
                 pass
                 # return f"INSERT INTO {table_name} ({columns}) VALUES ({values})"
 
             @staticmethod
-            def insert_or_update(table_name: str, columns: str, values: str) -> str:
+            def insert_or_update(table_name: str, columns: str, values: str) -> Union[str, List[str]]:
                 pass
                 # return f"INSERT OR REPLACE INTO {table_name} ({columns}) VALUES ({values})"
 
             @staticmethod
-            def update(table_name: str, columns: str, condition: str) -> str:
+            def update(table_name: str, columns: str, condition: str) -> Union[str, List[str]]:
                 pass
                 # return f"UPDATE {table_name} SET {columns} WHERE {condition}"
 
             @staticmethod
-            def query(table_name: str, selection: str, condition: str) -> str:
+            def query(table_name: str, selection: str, condition: str) -> Union[str, List[str]]:
                 pass
                 # return f"SELECT {selection} FROM {table_name} WHERE {condition}"
 
             @staticmethod
-            def delete(table_name: str, condition: str) -> str:
+            def delete(table_name: str, condition: str) -> Union[str, List[str]]:
                 pass
                 # return f"DELETE FROM {table_name} WHERE {condition}"
 

@@ -11,10 +11,8 @@ Requirements:
 import sqlite3
 from typing import Any, Union, List, Tuple
 
-from .base import BaseDriver
 
-
-class Driver_SQLite(BaseDriver):
+class Driver_SQLite:
     class Cursor:
         pass
 
@@ -22,7 +20,7 @@ class Driver_SQLite(BaseDriver):
         pass
 
 
-class Driver_SQLite(BaseDriver):
+class Driver_SQLite:
     Conn = sqlite3.Connection
     Cursor = sqlite3.Cursor
 

@@ -1,91 +1,37 @@
 """
-MercurySQLite.gensql
-=======================
-Use built-in sqlite3 library to operate sql in a more pythonic way.
+Copyright (c) Bernie Huang 2023, all rights reserved.
 
-This file contains the implementation of a SQLite database wrapper class and related classes for table and query expressions.
+MercurySQL.core
+===============
+Core logic of MercurySQL.
+
+This file contains the implementation of a SQL database wrapper class and related classes for table and query expressions.
 
 (Note): This code is a simplified implementation and may not cover all possible use cases. Please refer to the official documentation for more information.
 
 
 Classes
 -------
+- `DataBase`: Represents a SQL database and provides methods for creating tables, executing SQL commands, and retrieving table objects.
+- `Table`: Represents a table in the SQL database and provides methods for adding columns, deleting columns, inserting rows, and executing queries.
 
-### DataBase:
-    Represents a SQLite database and provides methods for creating tables, executing SQL commands, and retrieving table objects.
-    
-    - Methods:
-        * `__init__(db_name: str)`:
-            Create a new database object.
-        * `do(*sql: str, paras: List[tuple] = []) -> sqlite3.Cursor`:
-            Execute a sql command on the database.
-        * `createTable(*table_names: str, allowExist: bool = True) -> Table`:
-            Create a table in the database.
-        * `__getitem__(key: str) -> Table`:
-            Get a table from the database.
-        * `deleteTable(*table_names: str) -> None`:
-            Delete a table from the database.
-        * `__delitem__(key: str) -> None`:
-            Delete a table from the database.
-
-        
-### Table:
-    Represents a table in the SQLite database and provides methods for adding columns, deleting columns, inserting rows, and executing queries.
-
-    - Methods:
-        * `__init__(db: DataBase, table_name: str)`:
-            Create a new table object.
-        * `__getitem__(key: str) -> Exp`:
-            Get a column from the table, it's '__str__' method will print out the definition.
-        * `__setitem__(key: str, value: Any) -> None`:
-            Create a new column in the table.
-        * `newColumn(name: str, type, primaryKey=False, allowExist=True) -> None`:
-            Add a new column to the table.
-        * `__delitem__(key: str) -> None`:
-            Delete an existing column in this table.
-        * `delColumn(name: str) -> None`:
-            Delete an existing column in this table.
-        * `select(exp: Exp, select: str = '*') -> Table.QueryResult`:
-            Select data from the table.
-        * `setPrimaryKey(keyname: str) -> None`:
-            Set a column as the primary key of the table.
-        * `insert(**kwargs) -> None`:
-            Insert a row into the table.
-
-
-### Exp:
-    Subclass of BasicExp, representing a query expression that can be used to construct complex queries.
-
-    - Methods:
-      * `__init__(o1, op='', o2='', **kwargs)`:
-        Create a new query expression object.
-      * `formula() -> Tuple[str, tuple]`:
-        Return the formula of the expression in the form of (sql_command, paras).
-      * `__iter__()`:
-        Search in the database.
-      * `delete(table=None) -> None`:
-        Execute delete.
-
-    - Supported Operations:
-      * `==`: equality
-      * `!=`: inequality
-      * `<`: less than
-      * `<=`: less than or equal to
-      * `>`: greater than
-      * `>=`: greater than or equal to
-      * `.in_()`: in
-      * `.like()`: like
-      * `&`: and
-      * `|`: or
-      * `not`: not
-
-      (Note): you should mind the priority of operations when using `&` and `|`.
+Methods
+-------
+- `set_driver`: Set the default driver for the `DataBase` class.
 """
-from .drivers.base import BaseDriver
 from typing import Any, Union, List, Tuple
 
+# ========= Tool Functions =========
+default_driver = None
+def set_driver(driver):
+    global default_driver
+    default_driver = driver
 
-# class decoration
+
+
+# ========= Class Decorations =========
+
+
 class BasicExp:
     pass    # [Helper Class]
 
@@ -106,13 +52,13 @@ class Exp:
     pass
 
 
-# class definition
+# ========= Classes =========
 class DataBase:
     """
-    select/create a SQLite database using python's built-in library `sqlite3`.
+    Select/Create/Connect a SQL database.
     """
 
-    def __init__(self, driver: BaseDriver, db_name: str, **kwargs):
+    def __init__(self, db_name: str, driver=None, **kwargs):
         """
         Create a new database object.
 
@@ -126,11 +72,14 @@ class DataBase:
             db = DataBase('test.db')
 
         How It Works:
-            - start a connection to the SQLite database
-            - get a cursor to execute sql commands
-            - gather all infomations of the database
+            - start a connection to the SQL database, using the driver specified by `driver` parameter or `set_driver()` method.
+            - get a cursor to execute sql commands.
+            - gather all infomations of the database, for further usages.
         """
-        self.driver = driver
+        if driver is None:
+            driver = default_driver
+
+        self.driver = driver()
         self.conn = driver.connect(db_name, **kwargs)
         self.cursor = self.conn.cursor()
 
@@ -152,7 +101,7 @@ class DataBase:
         self.tables = self.driver.APIs.get_all_tables(self.conn)
         self.tables = {tname: Table(self, tname) for tname in self.tables}
 
-    def do(self, *sql: str, paras: List[tuple] = []) -> BaseDriver.Cursor:
+    def do(self, *sql: str, paras: List[tuple] = []):
         """
         Execute a sql command on the database.
 
@@ -162,7 +111,7 @@ class DataBase:
         :type paras: List[tuple]
 
         :return: The cursor of the database.
-        :rtype: sqlite3.Cursor
+        :rtype: Driver.Cursor
 
         Example Usage:
 
@@ -192,8 +141,9 @@ class DataBase:
 
         # for each sql command
         for i in range(len(sql)):
-            cmd = sql[i].replace('___!!!PAYLOAD!!!___', self.driver.payload)  # replace payload
-            
+            cmd = sql[i].replace('___!!!PAYLOAD!!!___',
+                                 self.driver.payload)  # replace payload
+
             self.cursor.execute(cmd, paras[i])
 
         self.conn.commit()
@@ -356,7 +306,7 @@ class DataBase:
 
 class Table:
     """
-    A table in the SQLite database.
+    A table in a SQL database.
     """
 
     def __init__(self, db: DataBase, table_name: str):
@@ -631,11 +581,13 @@ class Table:
 
         if self.isEmpty:
             # create it first
-            cmd = self.driver.APIs.gensql.create_table_if_not_exists(self.table_name, name, type_, primaryKey=primaryKey)
+            cmd = self.driver.APIs.gensql.create_table_if_not_exists(
+                self.table_name, name, type_, primaryKey=primaryKey)
             self.db.do(cmd)
             self.isEmpty = False
         else:
-            cmd = self.driver.APIs.gensql.add_column(self.table_name, name, type_)
+            cmd = self.driver.APIs.gensql.add_column(
+                self.table_name, name, type_)
             self.db.do(cmd)
 
             if primaryKey:
@@ -738,9 +690,11 @@ class Table:
 
         # Determine the SQL command based on the value of `__auto`
         if __auto:
-            cmd = self.driver.APIs.gensql.insert_or_update(self.table_name, columns, values)
+            cmd = self.driver.APIs.gensql.insert_or_update(
+                self.table_name, columns, values)
         else:
-            cmd = self.driver.APIs.gensql.insert(self.table_name, columns, values)
+            cmd = self.driver.APIs.gensql.insert(
+                self.table_name, columns, values)
 
         self.db.do(cmd, paras=[tuple(kwargs[k] for k in keys)])
 
@@ -843,7 +797,7 @@ class Exp(BasicExp):
         super().__init__(o1, op, o2)
 
         self.table = kwargs.get('table', None)
-        self._str = kwargs.get('_str', '<MercurySQLite.gensql.Exp object>')
+        self._str = kwargs.get('_str', '<MercurySQL.core.Exp object>')
 
         if isinstance(o1, Exp):
             self.table = self.table or o1.table

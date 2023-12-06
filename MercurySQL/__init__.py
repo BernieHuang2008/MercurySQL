@@ -14,5 +14,5 @@ This package provides classes for interacting with a SQLite database, including:
 
 Please refer to the individual class documentation for more details.
 """
-from .base import DataBase, Table
+from .core import DataBase, Table, set_driver
 from .drivers.sqlite import Driver_SQLite

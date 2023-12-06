@@ -4,13 +4,13 @@
    contain the root `toctree` directive.
 
 Documentation of Mercury SQL
-==========================================
+============================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   modules/base
+   modules/core
 
 
 Indices and tables
