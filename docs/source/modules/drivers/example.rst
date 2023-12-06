@@ -1,5 +1,5 @@
-Driver: (Template)
-=========================
+**[Driver]**: (Template)
+========================
 
 .. warning::
    All Drivers **MUST** implement the following methods.

@@ -7,12 +7,11 @@ Documentation of Mercury SQL
 ============================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
    modules/core
-   modules/drivers/example
-   modules/drivers/sqlite
+   modules/drivers/index
 
 
 Indices and tables

@@ -1,5 +1,5 @@
-Driver: SQLite
-==============
+**[Driver]**: SQLite
+====================
 
 A driver for `SQLite <https://www.sqlite.org/>`_ databases.
 

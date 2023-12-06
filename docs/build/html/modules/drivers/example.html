@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Driver: (Template) &mdash; Mercury SQL https://pypi.org/project/mercurysql documentation</title>
+  <title>[Driver]: (Template) &mdash; Mercury SQL https://pypi.org/project/mercurysql documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/cite.css" type="text/css" />
@@ -20,8 +20,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Driver: SQLite" href="sqlite.html" />
-    <link rel="prev" title="MercurySQL.core" href="../core.html" /> 
+    <link rel="next" title="[Driver]: SQLite" href="sqlite.html" />
+    <link rel="prev" title="MercurySQL.drivers (Drivers)" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,32 +46,20 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../core.html">MercurySQL.core</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Driver: (Template)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#subclasses-methods">Subclasses / Methods</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.drivers.example.BaseDriver.Conn"><code class="docutils literal notranslate"><span class="pre">Conn</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.example.BaseDriver.Conn.close"><code class="docutils literal notranslate"><span class="pre">Conn.close()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.example.BaseDriver.Conn.commit"><code class="docutils literal notranslate"><span class="pre">Conn.commit()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.example.BaseDriver.Conn.cursor"><code class="docutils literal notranslate"><span class="pre">Conn.cursor()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.drivers.example.BaseDriver.Cursor"><code class="docutils literal notranslate"><span class="pre">Cursor</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.example.BaseDriver.Cursor.execute"><code class="docutils literal notranslate"><span class="pre">Cursor.execute()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.example.BaseDriver.Cursor.fetchall"><code class="docutils literal notranslate"><span class="pre">Cursor.fetchall()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.example.BaseDriver.Cursor.fetchone"><code class="docutils literal notranslate"><span class="pre">Cursor.fetchone()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.drivers.example.BaseDriver.APIs"><code class="docutils literal notranslate"><span class="pre">APIs</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.example.BaseDriver.APIs.gensql"><code class="docutils literal notranslate"><span class="pre">APIs.gensql</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.example.BaseDriver.APIs.get_all_columns"><code class="docutils literal notranslate"><span class="pre">APIs.get_all_columns()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.example.BaseDriver.APIs.get_all_tables"><code class="docutils literal notranslate"><span class="pre">APIs.get_all_tables()</span></code></a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">MercurySQL.drivers (Drivers)</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><strong>[Driver]</strong>: (Template)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#subclasses-methods">Subclasses / Methods</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.example.BaseDriver.Conn"><code class="docutils literal notranslate"><span class="pre">Conn</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.example.BaseDriver.Cursor"><code class="docutils literal notranslate"><span class="pre">Cursor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.example.BaseDriver.APIs"><code class="docutils literal notranslate"><span class="pre">APIs</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="sqlite.html"><strong>[Driver]</strong>: SQLite</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="sqlite.html">Driver: SQLite</a></li>
 </ul>
 
         </div>
@@ -88,7 +76,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Driver: (Template)</li>
+          <li class="breadcrumb-item"><a href="index.html">MercurySQL.drivers (Drivers)</a></li>
+      <li class="breadcrumb-item active"><strong>[Driver]</strong>: (Template)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/modules/drivers/example.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -99,7 +88,7 @@
            <div itemprop="articleBody">
              
   <section id="driver-template">
-<h1>Driver: (Template)<a class="headerlink" href="#driver-template" title="Permalink to this heading"></a></h1>
+<h1><strong>[Driver]</strong>: (Template)<a class="headerlink" href="#driver-template" title="Permalink to this heading"></a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>All Drivers <strong>MUST</strong> implement the following methods.</p>
@@ -478,8 +467,8 @@ Generally, these returned codes will be executed <strong>DIRECTLY</strong>.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../core.html" class="btn btn-neutral float-left" title="MercurySQL.core" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="sqlite.html" class="btn btn-neutral float-right" title="Driver: SQLite" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="MercurySQL.drivers (Drivers)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sqlite.html" class="btn btn-neutral float-right" title="[Driver]: SQLite" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
