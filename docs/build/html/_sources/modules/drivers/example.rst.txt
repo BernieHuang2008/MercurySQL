@@ -29,3 +29,8 @@ Subclasses / Methods
    :special-members:
    :exclude-members: __weakref__, __module__, __dict__
 
+.. autoclass:: MercurySQL.drivers.example.BaseDriver.TypeParser
+   :members:
+   :undoc-members:
+   :special-members:
+   :exclude-members: __weakref__, __module__, __dict__
