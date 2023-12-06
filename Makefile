@@ -13,7 +13,7 @@ docs.commit: always
 	git commit -m "[docs] /build"
 
 docs.clear: always
-	git checkout -f -- docs
+	git checkout -f -- docs/build
 
 commit: docs
 
