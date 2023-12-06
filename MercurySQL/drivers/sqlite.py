@@ -84,7 +84,6 @@ class Driver_SQLite:
             @staticmethod
             def delete(table_name: str, condition: str) -> str:
                 return f"DELETE FROM {table_name} WHERE {condition}"
-        
 
         @classmethod
         def get_all_tables(cls, conn) -> List[str]:
@@ -98,6 +97,74 @@ class Driver_SQLite:
             cursor.execute(cls.gensql.get_all_columns(table_name))
             return cursor.fetchall()
 
+    class TypeParser:
+        """
+        Parse the type from `Python Type` -> `SQL Type`.
+        """
+
+        @staticmethod
+        def parse(type_: Any) -> str:
+            """
+            Compile the type to SQLite type.
+
+            :param type_: The type to parse.
+            :type type_: Any
+
+            :return: The SQLite type.
+            :rtype: str
+
+            +----------------+-------------+
+            | Supported Types| SQLite Type |
+            +================+=============+
+            | str            | TEXT        |
+            +----------------+-------------+
+            | int            | INTEGER     |
+            +----------------+-------------+
+            | float          | REAL        |
+            +----------------+-------------+
+            | bool           | BOOLEAN     |
+            +----------------+-------------+
+            | bytes          | BLOB        |
+            +----------------+-------------+
+
+            Example Usage:
+
+            .. code-block:: python
+
+                TypeParser.parse(str)       # TEXT
+                TypeParser.parse(int)       # INTEGER
+                TypeParser.parse(float)     # REAL
+                ...
+
+            """
+            supported_types = {
+                str: 'TEXT',
+                int: 'INTEGER',
+                float: 'REAL',
+                bool: 'BOOLEAN',
+                bytes: 'BLOB'
+            }
+
+            # round 1: Built-in Types
+            if type_ in supported_types:
+                return supported_types[type_]
+
+            # round 2: 'Not Null' Types
+            """ 
+            === !!! Not Supported By SQLite !!! ===
+
+            for t in supported_types:
+                if isinstance(type_, t):
+                    if type_ == t(not None):
+                        return supported_types[t] + ' NOT NULL'
+            """
+
+            # round 3: Custom Types
+            if isinstance(type_, str):    # custom type
+                return type_
+
+            # Not Supported
+            raise Exception(f"Type `{str(type_)}` not supported.")
 
     @staticmethod
     def connect(db_name: str, **kwargs) -> Driver_SQLite.Conn:

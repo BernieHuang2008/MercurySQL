@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List, Union, Any
 
 
 class BaseDriver:
@@ -20,9 +20,10 @@ class BaseDriver:
         A cursor object for database operations.
         Usually, SQL libraries will provide these methods for executing SQL queries and interacting with databases.
         E.g., `sqlite3.Cursor <https://docs.python.org/3/library/sqlite3.html#cursor-objects>`_ or `pymysql.cursors.Cursor <https://pymysql.readthedocs.io/en/latest/modules/cursors.html>`_.
-        
+
         If it's not provided, you can implement it yourself.
         """
+
         def execute(self, sql: str, paras: List[tuple] = []) -> BaseDriver.Cursor:
             """
             This method is used to execute SQL queries.
@@ -58,6 +59,7 @@ class BaseDriver:
 
         And you can also implement it yourself.
         """
+
         def cursor(self) -> BaseDriver.Cursor:
             """
             This method is used to create a cursor object for database operations.
@@ -166,7 +168,7 @@ class BaseDriver:
                     \"\"\"
 
                 """
-                
+
                 pass
                 # return f"""
                 #     CREATE TABLE IF NOT EXISTS {table_name} ({column_name} {column_type} {'PRIMARY KEY' if primaryKey else ''})
@@ -191,7 +193,7 @@ class BaseDriver:
                     return f\"\"\"
                         ALTER TABLE {table_name} ADD COLUMN {column_name} {column_type}
                     \"\"\"
-                
+
                 """
                 pass
                 # return f"""
@@ -401,6 +403,75 @@ class BaseDriver:
             cursor.execute(cls.gensql.get_all_columns(table_name))
             return cursor.fetchall()
 
+    class TypeParser:
+        """
+        Parse the type from `Python Type` -> `SQL Type`.
+        """
+
+        @staticmethod
+        def parse(type_: Any) -> str:
+            """
+            Compile the type to SQLite type.
+
+            :param type_: The type to parse.
+            :type type_: Any
+
+            :return: The SQLite type.
+            :rtype: str
+
+            .. note::
+                I've provided a example implementation of this method, for SQLite.
+                Look at the source code.
+
+            Example Usage:
+
+            .. code-block:: python
+
+                TypeParser.parse(str)       # TEXT
+                TypeParser.parse(int)       # INTEGER
+                TypeParser.parse(float)     # REAL
+                ...
+
+            """
+            supported_types = {
+                str: 'TEXT',
+                int: 'INTEGER',
+                float: 'REAL',
+                bool: 'BOOLEAN',
+                bytes: 'BLOB'
+            }
+
+            # round 1: Built-in Types
+            if type_ in supported_types:
+                return supported_types[type_]
+
+            # round 2: 'Not Null' Types
+            """ 
+            === !!! Not Supported By SQLite !!! ===
+
+            for t in supported_types:
+                if isinstance(type_, t):
+                    if type_ == t(not None):
+                        return supported_types[t] + ' NOT NULL'
+            """
+
+            # round 3: Custom Types
+            if isinstance(type_, str):    # custom type
+                return type_
+
+            # Not Supported
+            raise Exception(f"Type `{str(type_)}` not supported.")
+
     @staticmethod
     def connect(db_name: str, **kwargs) -> BaseDriver.Conn:
+        """
+        Connect to the database.
+
+        :param db_name: The name of the database to connect.
+        :type db_name: str
+        :param kwargs: The parameters of the connection. E.g., `host`, `port`, `user`, `password`, ...
+        
+        :return: The connection object of the database.
+        :rtype: BaseDriver.Conn
+        """
         pass

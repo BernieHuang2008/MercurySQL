@@ -26,3 +26,9 @@ Subclasses / Methods
    :undoc-members:
    :special-members:
    :exclude-members: __weakref__, __module__, __dict__
+
+.. autoclass:: MercurySQL.drivers.sqlite.Driver_SQLite.TypeParser
+   :members:
+   :undoc-members:
+   :special-members:
+   :exclude-members: __weakref__, __module__, __dict__
