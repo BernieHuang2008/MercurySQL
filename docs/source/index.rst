@@ -11,6 +11,8 @@ Documentation of Mercury SQL
    :caption: Contents:
 
    modules/core
+   modules/drivers/example
+   modules/drivers/sqlite
 
 
 Indices and tables
