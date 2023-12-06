@@ -36,10 +36,6 @@ class BasicExp:
     pass    # [Helper Class]
 
 
-class TypeParser:
-    pass  # [Helper Class]
-
-
 class DataBase:
     pass
 
@@ -577,7 +573,7 @@ class Table:
             else:
                 return
 
-        type_ = TypeParser.parse(type_)
+        type_ = self.driver.TypeParser.parse(type_)
 
         if self.isEmpty:
             # create it first
@@ -619,7 +615,7 @@ class Table:
 
         """
         for name, type_ in columns.items():
-            type_ = TypeParser.parse(type_)
+            type_ = self.driver.TypeParser.parse(type_)
             isPrimaryKey = (name == primaryKey)
 
             if name in self.columns:

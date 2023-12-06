@@ -1,6 +1,7 @@
 # <--- Test Head --->
+import os
 import sys
-sys.path.insert(0, 'g:\git\BernieHuang2008\MercurySQL')
+sys.path.insert(0, './')
 # <--- Test Head End --->
 
 
