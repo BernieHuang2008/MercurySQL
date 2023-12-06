@@ -17,4 +17,7 @@ docs.clear: always
 
 commit: docs
 
+venv: always
+	.venv\Scripts\activate 
+
 always:
