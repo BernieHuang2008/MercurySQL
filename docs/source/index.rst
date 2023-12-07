@@ -13,6 +13,8 @@ Documentation of Mercury SQL
    modules/core
    modules/drivers/index
 
+   devguide/index
+
 
 Indices and tables
 ==================
