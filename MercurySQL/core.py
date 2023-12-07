@@ -20,6 +20,12 @@ Methods
 - `set_driver`: Set the default driver for the `DataBase` class.
 """
 from typing import Any, Union, List, Tuple
+from .drivers.base import BaseDriver
+from .errors import *
+
+
+# ========= Basic Info =========
+__version__ = '0.1.0'
 
 # ========= Tool Functions =========
 default_driver = None
@@ -27,6 +33,30 @@ def set_driver(driver):
     global default_driver
     default_driver = driver
 
+def check_version(version: str) -> bool:
+    """
+    Check whether the version is supported.
+
+    :param version: The version to check.
+    :type version: str
+
+    :return: Whether the version is supported.
+    :rtype: bool
+    """
+    cv = list(map(int, __version__.split('.'))) # current version
+    dv = list(map(int, version.split('.')))     # driver version
+
+    vdiff = [cv[i] - dv[i] for i in range(len(cv))]
+    print(vdiff)
+
+    # major version
+    if vdiff[0] != 0:
+        return False
+    # minor version (driver is older)
+    if vdiff[1] > 0:
+        return False
+    
+    return True
 
 
 # ========= Class Decorations =========
@@ -75,8 +105,11 @@ class DataBase:
         if driver is None:
             driver = default_driver
 
-        if driver is None:
-            raise Exception("Driver not specified.")
+        if driver is None or not issubclass(driver, BaseDriver):
+            raise NotSpecifiedError("Driver not specified.")
+        
+        if not check_version(driver.version):    # check version
+            raise DriverIncompatibleError(driver.__name__, driver.version, __version__)
 
         self.driver = driver()
         self.conn = driver.connect(db_name, **kwargs)
@@ -209,7 +242,7 @@ class DataBase:
             if table_name in self.tables:
                 already_exists = True
                 if not allowExist:
-                    raise Exception(f"Table `{table_name}` already exists.")
+                    raise DuplicateError(f"Table `{table_name}` already exists.")
 
             table = Table(self, table_name)
 
@@ -272,7 +305,7 @@ class DataBase:
         """
         for table_name in table_names:
             if table_name not in self.tables:
-                raise Exception(f"Table `{table_name}` not exists.")
+                raise NotExistsError(f"Table `{table_name}` not exists.")
 
             cmd = self.driver.APIs.gensql.drop_table(table_name)
             self.do(cmd)
@@ -300,7 +333,11 @@ class DataBase:
         """
         Close the connection when the object is deleted.
         """
-        self.conn.close()
+        try:
+            self.conn.close()
+        except AttributeError:
+            # Not initialized
+            pass
 
 
 class Table:
@@ -386,7 +423,7 @@ class Table:
             - raise an Exception if column not exists.
         """
         if key not in self.columns:
-            raise Exception(f"Column `{key}` not exists.")
+            raise NotExistsError(f"Column `{key}` not exists.")
 
         return Exp(key, table=self, _str=self.columnsType[key])
 
@@ -572,7 +609,7 @@ class Table:
         """
         if name in self.columns:
             if not allowExist:
-                raise Exception(f"Column `{name}` already exists.")
+                raise DuplicateError(f"Column `{name}` already exists.")
             else:
                 return
 
@@ -623,10 +660,10 @@ class Table:
 
             if name in self.columns:
                 if type_ != self.columnsType[name]:
-                    raise Exception(
+                    raise ConfilictError(
                         f"Column `{name}` with different types (`{self.columnsType[name]}`) already exists. While trying to add column `{name}` with type `{type_}`.")
                 elif not allowExist:
-                    raise Exception(
+                    raise DuplicateError(
                         f"Column `{name}` already exists. You can use `allowExist=True` to avoid this error.")
             else:
                 self.newColumn(name, type_, primaryKey=isPrimaryKey)
@@ -634,7 +671,7 @@ class Table:
     def delColumn(self, name: str) -> None:
         if name not in self.columns:
             # column not exist
-            raise Exception(f"Column `{name}` not exist!")
+            raise NotExistsError(f"Column `{name}` not exist!")
         elif len(self.columns) == 1:
             # the last column, delete the table instead
             self.db.deleteTable(self.table_name)
@@ -856,9 +893,9 @@ class Exp(BasicExp):
         self.driver = self.table.db.driver
 
         if self.table is None:
-            raise Exception("Table not specified.")
+            raise NotSpecifiedError("Table not specified.")
         if not isinstance(self.table, Table):
-            raise Exception(f"Table `{self.table.table_name}` not exists.")
+            raise NotExistsError(f"Table `{self.table.table_name}` not exists.")
 
         condition, paras = self.formula()
 
@@ -880,9 +917,9 @@ class Exp(BasicExp):
         self.table = table or self.table
 
         if self.table is None:
-            raise Exception("Table not specified.")
+            raise NotSpecifiedError("Table not specified.")
         if not isinstance(self.table, Table):
-            raise Exception(f"Table `{self.table.table_name}` not exists.")
+            raise NotExistsError(f"Table `{self.table.table_name}` not exists.")
 
         condition, paras = self.formula()
 

@@ -13,6 +13,7 @@ class Driver_SQLite(BaseDriver):
 
 
 class Driver_SQLite(BaseDriver):
+    version = '0.0.9'
     payload = '?'
 
     Conn = sqlite3.Connection

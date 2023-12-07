@@ -2,7 +2,11 @@
 ==================
 
 .. warning::
-   All Drivers **MUST** be defined as a subclasses of this `BaseDriver` class.
+   All Drivers **MUST** be defined as subclasses of this `BaseDriver` class.
+
+Version & Informations
+----------------------
+.. autoattribute:: MercurySQL.drivers.base.BaseDriver.version
 
 Dependencies
 ------------
@@ -10,6 +14,8 @@ Dependencies
 
 Subclasses / Methods
 --------------------
+
+.. autoattribute:: MercurySQL.drivers.base.BaseDriver.payload
 
 .. autoclass:: MercurySQL.drivers.base.BaseDriver.Conn
    :members:

@@ -13,6 +13,7 @@ class BaseDriver:
 
 
 class BaseDriver:
+    version = '0.0.0'
     payload = '?'
 
     class Cursor:
