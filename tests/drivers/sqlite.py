@@ -5,7 +5,8 @@ sys.path.insert(0, './')
 # <--- Test Head End --->
 
 
-from MercurySQL import DataBase, set_driver, Driver_SQLite
+from MercurySQL import DataBase, set_driver
+from MercurySQL.drivers import Driver_SQLite
 
 # Set the driver to Driver_SQLite
 set_driver(Driver_SQLite)
