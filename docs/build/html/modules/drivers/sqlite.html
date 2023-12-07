@@ -20,7 +20,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="[Driver]: (Template)" href="example.html" /> 
+    <link rel="next" title="Developer Guide" href="../../devguide/index.html" />
+    <link rel="prev" title="[Driver]: Base" href="base.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,10 +47,16 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../core.html">MercurySQL.core</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">MercurySQL.drivers (Drivers)</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="example.html"><strong>[Driver]</strong>: (Template)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html">Introduction to MercurySQL Drivers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base.html"><strong>[Driver]</strong>: Base</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><strong>[Driver]</strong>: SQLite</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#version-informations">Version &amp; Informations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.sqlite.Driver_SQLite.version"><code class="docutils literal notranslate"><span class="pre">Driver_SQLite.version</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#subclasses-methods">Subclasses / Methods</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.sqlite.Driver_SQLite.payload"><code class="docutils literal notranslate"><span class="pre">Driver_SQLite.payload</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.sqlite.Driver_SQLite.Conn"><code class="docutils literal notranslate"><span class="pre">Conn</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.sqlite.Driver_SQLite.Cursor"><code class="docutils literal notranslate"><span class="pre">Cursor</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.sqlite.Driver_SQLite.APIs"><code class="docutils literal notranslate"><span class="pre">APIs</span></code></a></li>
@@ -60,6 +67,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../devguide/index.html">Developer Guide</a></li>
 </ul>
 
         </div>
@@ -90,6 +98,14 @@
   <section id="driver-sqlite">
 <h1><strong>[Driver]</strong>: SQLite<a class="headerlink" href="#driver-sqlite" title="Permalink to this heading"></a></h1>
 <p>A driver for <a class="reference external" href="https://www.sqlite.org/">SQLite</a> databases.</p>
+<section id="version-informations">
+<h2>Version &amp; Informations<a class="headerlink" href="#version-informations" title="Permalink to this heading"></a></h2>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MercurySQL.drivers.sqlite.Driver_SQLite.version">
+<span class="sig-prename descclassname"><span class="pre">Driver_SQLite.</span></span><span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'0.1.0'</span></em><a class="headerlink" href="#MercurySQL.drivers.sqlite.Driver_SQLite.version" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
 <section id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h2>
 <ul class="simple">
@@ -98,6 +114,11 @@
 </section>
 <section id="subclasses-methods">
 <h2>Subclasses / Methods<a class="headerlink" href="#subclasses-methods" title="Permalink to this heading"></a></h2>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MercurySQL.drivers.sqlite.Driver_SQLite.payload">
+<span class="sig-prename descclassname"><span class="pre">Driver_SQLite.</span></span><span class="sig-name descname"><span class="pre">payload</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'?'</span></em><a class="headerlink" href="#MercurySQL.drivers.sqlite.Driver_SQLite.payload" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="MercurySQL.drivers.sqlite.Driver_SQLite.Conn">
 <span class="sig-prename descclassname"><span class="pre">MercurySQL.drivers.sqlite.Driver_SQLite.</span></span><span class="sig-name descname"><span class="pre">Conn</span></span><a class="headerlink" href="#MercurySQL.drivers.sqlite.Driver_SQLite.Conn" title="Permalink to this definition"></a></dt>
@@ -251,7 +272,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="example.html" class="btn btn-neutral float-left" title="[Driver]: (Template)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="base.html" class="btn btn-neutral float-left" title="[Driver]: Base" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../devguide/index.html" class="btn btn-neutral float-right" title="Developer Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

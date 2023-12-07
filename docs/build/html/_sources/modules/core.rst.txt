@@ -53,8 +53,8 @@ Advanced APIs
    .. note:: you should mind the priority of operations when using some of the operators, especially `&` and `|`.
 
 
-Low-level (Helper) APIs
------------------------
+Low-level APIs
+--------------
 
 .. autoclass:: MercurySQL.core.BasicExp
    :members:
@@ -63,12 +63,3 @@ Low-level (Helper) APIs
    :exclude-members: __weakref__, __module__
 
    Basic class of Exp, representing a basic query expression that can be used to construct complex queries.
-
-.. autoclass:: MercurySQL.core.TypeParser
-   :members:
-   :undoc-members:
-   :special-members: 
-   :exclude-members: __weakref__, __module__
-
-    Class for parsing Python standard types to SQL types. TODO: move it to the driver.
-

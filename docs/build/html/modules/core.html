@@ -92,7 +92,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#low-level-helper-apis">Low-level (Helper) APIs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#low-level-apis">Low-level APIs</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#MercurySQL.core.BasicExp"><code class="docutils literal notranslate"><span class="pre">BasicExp</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.BasicExp.__dict__"><code class="docutils literal notranslate"><span class="pre">BasicExp.__dict__</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.BasicExp.__init__"><code class="docutils literal notranslate"><span class="pre">BasicExp.__init__()</span></code></a></li>
@@ -101,15 +101,12 @@
 <li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.BasicExp.gen_formula"><code class="docutils literal notranslate"><span class="pre">BasicExp.gen_formula()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.core.TypeParser"><code class="docutils literal notranslate"><span class="pre">TypeParser</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.core.TypeParser.__dict__"><code class="docutils literal notranslate"><span class="pre">TypeParser.__dict__</span></code></a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="drivers/index.html">MercurySQL.drivers (Drivers)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/index.html">Developer Guide</a></li>
 </ul>
 
         </div>
@@ -814,8 +811,8 @@ Same as <cite>delColumn()</cite>.</p>
 </dd></dl>
 
 </section>
-<section id="low-level-helper-apis">
-<h2>Low-level (Helper) APIs<a class="headerlink" href="#low-level-helper-apis" title="Permalink to this heading"></a></h2>
+<section id="low-level-apis">
+<h2>Low-level APIs<a class="headerlink" href="#low-level-apis" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="MercurySQL.core.BasicExp">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.core.</span></span><span class="sig-name descname"><span class="pre">BasicExp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.core.BasicExp" title="Permalink to this definition"></a></dt>
@@ -870,19 +867,6 @@ Same as <cite>delColumn()</cite>.</p>
 <p>You can also construct a formula by yourself, just set the <cite>_formula</cite> attribute to a tuple in the form of <cite>(sql_command, paras)</cite>.</p>
 </div>
 </dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="MercurySQL.core.TypeParser">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.core.</span></span><span class="sig-name descname"><span class="pre">TypeParser</span></span><a class="headerlink" href="#MercurySQL.core.TypeParser" title="Permalink to this definition"></a></dt>
-<dd><blockquote>
-<div><p>Class for parsing Python standard types to SQL types. TODO: move it to the driver.</p>
-</div></blockquote>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="MercurySQL.core.TypeParser.__dict__">
-<span class="sig-name descname"><span class="pre">__dict__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">mappingproxy({'__module__':</span> <span class="pre">'MercurySQL.core',</span> <span class="pre">'__dict__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__dict__'</span> <span class="pre">of</span> <span class="pre">'TypeParser'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__weakref__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__weakref__'</span> <span class="pre">of</span> <span class="pre">'TypeParser'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__doc__':</span> <span class="pre">None,</span> <span class="pre">'__annotations__':</span> <span class="pre">{}})</span></em><a class="headerlink" href="#MercurySQL.core.TypeParser.__dict__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 

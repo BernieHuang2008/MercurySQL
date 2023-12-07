@@ -3,6 +3,10 @@
 
 A driver for `SQLite <https://www.sqlite.org/>`_ databases.
 
+Version & Informations
+----------------------
+.. autoattribute:: MercurySQL.drivers.sqlite.Driver_SQLite.version
+
 Dependencies
 ------------
 - `sqlite3` (Python Built-in)
@@ -10,6 +14,8 @@ Dependencies
 
 Subclasses / Methods
 --------------------
+
+.. autoattribute:: MercurySQL.drivers.sqlite.Driver_SQLite.payload
 
 .. autoclass:: MercurySQL.drivers.sqlite.Driver_SQLite.Conn
    :no-members:
