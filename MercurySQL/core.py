@@ -52,7 +52,6 @@ def check_version(version: str) -> bool:
     dv = list(map(int, version.split('.')))     # driver version
 
     vdiff = [cv[i] - dv[i] for i in range(len(cv))]
-    print(vdiff)
 
     # major version
     if vdiff[0] != 0:
