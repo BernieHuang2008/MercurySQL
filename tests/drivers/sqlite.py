@@ -1,4 +1,7 @@
 # <--- Test Head --->
+import re
+from MercurySQL.drivers.sqlite import Driver_SQLite
+from MercurySQL import DataBase, set_driver
 import io
 import sys
 sys.path.insert(0, './')
@@ -9,10 +12,6 @@ sys.stdout = TEST_OUTPUT
 
 # <--- Test Head End --->
 
-
-from MercurySQL import DataBase, set_driver
-from MercurySQL.drivers.sqlite import Driver_SQLite
-import re
 
 # Set the driver to Driver_SQLite
 set_driver(Driver_SQLite)
@@ -53,6 +52,8 @@ if __name__ == '__main__':
     print("After deleting the query result:", list(test_table.select(e)))
 
 # <--- Check Test --->
+
+
 def process_output(s):
     s = s.strip()
 
@@ -60,6 +61,7 @@ def process_output(s):
     s = re.sub(pattern, ' object at 0xPYTHON_ADDRESS>', s)
 
     return s
+
 
 EXPECTED_OUTPUT = """
 Database Information: {'name': 'test.db'}
@@ -73,4 +75,14 @@ Query result: [{'id': 1, 'name': 'test', 'score': None}]
 After deleting the query result: []
 """
 
-print(process_output(TEST_OUTPUT.getvalue()) == process_output(EXPECTED_OUTPUT), file=SCREEN_OUTPUT)
+if process_output(TEST_OUTPUT.getvalue()) == process_output(EXPECTED_OUTPUT):
+    print("\033[32mTest Passed!\033[0m", file=SCREEN_OUTPUT)
+else:
+    print("\033[31mTest Failed!\033[0m", file=SCREEN_OUTPUT)
+    print("Expected Output:", file=SCREEN_OUTPUT)
+    print(EXPECTED_OUTPUT, file=SCREEN_OUTPUT)
+    print(('='*30+'\n')*3, file=SCREEN_OUTPUT)
+    print("Test Output:", file=SCREEN_OUTPUT)
+    print(TEST_OUTPUT.getvalue(), file=SCREEN_OUTPUT)
+
+    raise Exception("Test Failed!")
