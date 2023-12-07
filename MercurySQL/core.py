@@ -25,7 +25,11 @@ from .errors import *
 
 
 # ========= Basic Info =========
-with open('VERSION', encoding='utf-8') as f:
+import os
+
+real_path = os.path.dirname(os.path.realpath(__file__))
+
+with open(os.path.join(real_path, 'VERSION'), encoding='utf-8') as f:
     __version__ = f.read().strip()
 
 # ========= Tool Functions =========
