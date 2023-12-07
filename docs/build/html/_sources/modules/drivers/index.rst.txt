@@ -5,6 +5,7 @@ MercurySQL.drivers (Drivers)
    :maxdepth: 2
    :caption: Contents:
 
-   example
+   intro
+   base
    sqlite
 
