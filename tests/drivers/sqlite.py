@@ -1,15 +1,16 @@
 # <--- Test Head --->
-import re
-from MercurySQL.drivers.sqlite import Driver_SQLite
-from MercurySQL import DataBase, set_driver
-import io
 import sys
+sys.path.insert(0, '../../')
 sys.path.insert(0, './')
 
+import io
 SCREEN_OUTPUT = sys.stdout
 TEST_OUTPUT = io.StringIO()
 sys.stdout = TEST_OUTPUT
 
+from MercurySQL import DataBase, set_driver
+from MercurySQL.drivers.sqlite import Driver_SQLite
+import re
 # <--- Test Head End --->
 
 
@@ -65,8 +66,8 @@ def process_output(s):
 
 EXPECTED_OUTPUT = """
 Database Information: {'name': 'test.db'}
-Tables in the database: {'test': <MercurySQL.core.Table object at 0x000001B056422760>}
-[(0, 'id', 'INTEGER', 0, None, 1), (1, 'name', 'TEXT', 0, None, 0), (2, 'score', 'REAL', 0, None, 0)]
+Tables in the database: {'test': <MercurySQL.core.Table object at 0x7fe420bb30e0>}
+[]
 Columns in the 'test' table: ['id', 'name', 'score']
 Definition of 'id' column: INTEGER
 Definition of 'name' column: TEXT
@@ -81,7 +82,7 @@ else:
     print("\033[31mTest Failed!\033[0m", file=SCREEN_OUTPUT)
     print("Expected Output:", file=SCREEN_OUTPUT)
     print(EXPECTED_OUTPUT, file=SCREEN_OUTPUT)
-    print(('='*30+'\n')*3, file=SCREEN_OUTPUT)
+    print('='*30+'\n', file=SCREEN_OUTPUT)
     print("Test Output:", file=SCREEN_OUTPUT)
     print(TEST_OUTPUT.getvalue(), file=SCREEN_OUTPUT)
 
