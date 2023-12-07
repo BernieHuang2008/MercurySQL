@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[Driver]: Base &mdash; Mercury SQL https://pypi.org/project/mercurysql documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/cite.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=5686b3ab"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="[Driver]: SQLite" href="sqlite.html" />
+    <link rel="prev" title="MercurySQL.drivers (Drivers)" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Mercury SQL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../core.html">MercurySQL.core</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">MercurySQL.drivers (Drivers)</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><strong>[Driver]</strong>: Base</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#subclasses-methods">Subclasses / Methods</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.base.BaseDriver.Conn"><code class="docutils literal notranslate"><span class="pre">Conn</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.base.BaseDriver.Cursor"><code class="docutils literal notranslate"><span class="pre">Cursor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.base.BaseDriver.APIs"><code class="docutils literal notranslate"><span class="pre">APIs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.base.BaseDriver.TypeParser"><code class="docutils literal notranslate"><span class="pre">TypeParser</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sqlite.html"><strong>[Driver]</strong>: SQLite</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Mercury SQL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">MercurySQL.drivers (Drivers)</a></li>
+      <li class="breadcrumb-item active"><strong>[Driver]</strong>: Base</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/modules/drivers/base.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="driver-base">
+<h1><strong>[Driver]</strong>: Base<a class="headerlink" href="#driver-base" title="Permalink to this heading"></a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>All Drivers <strong>MUST</strong> be defined as a subclasses of this <cite>BaseDriver</cite> class.</p>
+</div>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><cite>None</cite></p></li>
+</ul>
+</section>
+<section id="subclasses-methods">
+<h2>Subclasses / Methods<a class="headerlink" href="#subclasses-methods" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.Conn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.drivers.base.BaseDriver.</span></span><span class="sig-name descname"><span class="pre">Conn</span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.Conn" title="Permalink to this definition"></a></dt>
+<dd><p>A Connection object for database operations.</p>
+<p>Also, a SQL library will provide these methods for interacting with databases.
+E.g., <a class="reference external" href="https://docs.python.org/3/library/sqlite3.html#sqlite3.Connection">sqlite3.Connection</a> or <a class="reference external" href="https://pymysql.readthedocs.io/en/latest/modules/connections.html">pymysql.connections.Connection</a>.</p>
+<p>And you can also implement it yourself.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.Conn.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.Conn.close" title="Permalink to this definition"></a></dt>
+<dd><p>This method is used to close the connection to the database.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.Conn.commit">
+<span class="sig-name descname"><span class="pre">commit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.Conn.commit" title="Permalink to this definition"></a></dt>
+<dd><p>This method is used to commit (it means ‘save’) the changes to the database.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.Conn.cursor">
+<span class="sig-name descname"><span class="pre">cursor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.drivers.base.BaseDriver.Cursor" title="MercurySQL.drivers.base.BaseDriver.Cursor"><span class="pre">Cursor</span></a></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.Conn.cursor" title="Permalink to this definition"></a></dt>
+<dd><p>This method is used to create a cursor object for database operations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A cursor object for database operations.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.Cursor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.drivers.base.BaseDriver.</span></span><span class="sig-name descname"><span class="pre">Cursor</span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.Cursor" title="Permalink to this definition"></a></dt>
+<dd><p>A cursor object for database operations.
+Usually, SQL libraries will provide these methods for executing SQL queries and interacting with databases.
+E.g., <a class="reference external" href="https://docs.python.org/3/library/sqlite3.html#cursor-objects">sqlite3.Cursor</a> or <a class="reference external" href="https://pymysql.readthedocs.io/en/latest/modules/cursors.html">pymysql.cursors.Cursor</a>.</p>
+<p>If it’s not provided, you can implement it yourself.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.Cursor.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sql</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paras</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.drivers.base.BaseDriver.Cursor" title="MercurySQL.drivers.base.BaseDriver.Cursor"><span class="pre">Cursor</span></a></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.Cursor.execute" title="Permalink to this definition"></a></dt>
+<dd><p>This method is used to execute SQL queries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sql</strong> – The SQL query to be executed.</p></li>
+<li><p><strong>paras</strong> – The parameters of the SQL query.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The cursor object itself.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.Cursor.fetchall">
+<span class="sig-name descname"><span class="pre">fetchall</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.Cursor.fetchall" title="Permalink to this definition"></a></dt>
+<dd><p>This method is used to fetch all rows of the query result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>All rows of the query result.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.Cursor.fetchone">
+<span class="sig-name descname"><span class="pre">fetchone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.Cursor.fetchone" title="Permalink to this definition"></a></dt>
+<dd><p>This method is used to fetch the next row of the query result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The next row of the query result.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.APIs">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.drivers.base.BaseDriver.</span></span><span class="sig-name descname"><span class="pre">APIs</span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.APIs" title="Permalink to this definition"></a></dt>
+<dd><p>APIs is a class that provides SQL statements for database operations.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You must implement all the methods in this class.</p>
+</div>
+<p>Every definition will be followed by an example of it’s return value (in SQLite).</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.APIs.gensql">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gensql</span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.APIs.gensql" title="Permalink to this definition"></a></dt>
+<dd><p>APIs in this class will return a SQL code for database operations.
+Generally, these returned codes will be executed <strong>DIRECTLY</strong>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.APIs.gensql.add_column">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.APIs.gensql.add_column" title="Permalink to this definition"></a></dt>
+<dd><p>Add a column to a table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table_name</strong> (<em>str</em>) – The name of the table to be added.</p></li>
+<li><p><strong>column_name</strong> (<em>str</em>) – The name of the column to be added.</p></li>
+<li><p><strong>column_type</strong> (<em>str</em>) – The type of the column to be added (has been parsed by TypeParser).</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Implementation (SQLite):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    ALTER TABLE </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2"> ADD COLUMN </span><span class="si">{</span><span class="n">column_name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">column_type</span><span class="si">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.APIs.gensql.create_table_if_not_exists">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_table_if_not_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primaryKey</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.APIs.gensql.create_table_if_not_exists" title="Permalink to this definition"></a></dt>
+<dd><p>Create a table if it does not exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table_name</strong> (<em>str</em>) – The name of the table to be created.</p></li>
+<li><p><strong>column_name</strong> (<em>str</em>) – The name of the column to be created.</p></li>
+<li><p><strong>column_type</strong> (<em>str</em>) – The type of the column to be created.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Implementation (SQLite):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    CREATE TABLE IF NOT EXISTS </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">column_name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">column_type</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;PRIMARY KEY&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">primaryKey</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">)</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.APIs.gensql.delete">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.APIs.gensql.delete" title="Permalink to this definition"></a></dt>
+<dd><p>Delete the rows in specified table, which matches the condition.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table_name</strong> (<em>str</em>) – The name of the table to be deleted.</p></li>
+<li><p><strong>condition</strong> (<em>str</em>) – The condition of the delete, in the general SQL format, generated by Exp.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Implementation (SQLite):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;DELETE FROM </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2"> WHERE </span><span class="si">{</span><span class="n">condition</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.APIs.gensql.drop_column">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">drop_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.APIs.gensql.drop_column" title="Permalink to this definition"></a></dt>
+<dd><p>Drop (Delete) a column from a table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table_name</strong> (<em>str</em>) – The name of the target table.</p></li>
+<li><p><strong>column_name</strong> (<em>str</em>) – The name of the column to be dropped.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Implementation (SQLite):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    ALTER TABLE </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2"> DROP COLUMN </span><span class="si">{</span><span class="n">column_name</span><span class="si">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.APIs.gensql.drop_table">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">drop_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.APIs.gensql.drop_table" title="Permalink to this definition"></a></dt>
+<dd><p>Drop (Delete) a table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table_name</strong> (<em>str</em>) – The name of the table to be dropped.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The SQL statement to drop the table.</p>
+</dd>
+</dl>
+<p>Example Implementation (SQLite):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;DROP TABLE </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.APIs.gensql.get_all_columns">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.APIs.gensql.get_all_columns" title="Permalink to this definition"></a></dt>
+<dd><p>Get all column’s informations in the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table_name</strong> (<em>str</em>) – The name of the table.</p>
+</dd>
+</dl>
+<p>Example Implementation (SQLite):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;PRAGMA table_info(</span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2">);&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.APIs.gensql.get_all_tables">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all_tables</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.APIs.gensql.get_all_tables" title="Permalink to this definition"></a></dt>
+<dd><p>Get all table’s informations in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The SQL statement to get all table’s informations in the database.</p>
+</dd>
+</dl>
+<p>Example Implementation (SQLite):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="s2">&quot;SELECT name FROM sqlite_master WHERE type=&#39;table&#39;;&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.APIs.gensql.insert">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.APIs.gensql.insert" title="Permalink to this definition"></a></dt>
+<dd><p>Insert a row into the specified table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table_name</strong> (<em>str</em>) – The name of the table to be inserted.</p></li>
+<li><p><strong>columns</strong> (<em>str</em>) – The columns to be inserted.</p></li>
+<li><p><strong>values</strong> (<em>str</em>) – The values to be inserted.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Implementation (SQLite):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;INSERT INTO </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">columns</span><span class="si">}</span><span class="s2">) VALUES (</span><span class="si">{</span><span class="n">values</span><span class="si">}</span><span class="s2">)&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.APIs.gensql.insert_or_update">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">insert_or_update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.APIs.gensql.insert_or_update" title="Permalink to this definition"></a></dt>
+<dd><p>Insert a row into the specified table or update it if it already exists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table_name</strong> (<em>str</em>) – The name of the table to be inserted.</p></li>
+<li><p><strong>columns</strong> (<em>str</em>) – The columns to be inserted, already been seperated by ‘,’.</p></li>
+<li><p><strong>values</strong> (<em>str</em>) – The values to be inserted, already been seperated by ‘,’.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Implementation (SQLite):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;INSERT OR REPLACE INTO </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">columns</span><span class="si">}</span><span class="s2">) VALUES (</span><span class="si">{</span><span class="n">values</span><span class="si">}</span><span class="s2">)&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.APIs.gensql.query">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.APIs.gensql.query" title="Permalink to this definition"></a></dt>
+<dd><p>Query the specified table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table_name</strong> (<em>str</em>) – The name of the table to be queried.</p></li>
+<li><p><strong>selection</strong> (<em>str</em>) – The columns to be selected, seperated by ‘,’.</p></li>
+<li><p><strong>condition</strong> (<em>str</em>) – The condition of the query, in the general SQL format, generated by Exp.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Implementation (SQLite):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;SELECT </span><span class="si">{</span><span class="n">selection</span><span class="si">}</span><span class="s2"> FROM </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2"> WHERE </span><span class="si">{</span><span class="n">condition</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.APIs.gensql.set_primary_key">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_primary_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keyname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keytype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.APIs.gensql.set_primary_key" title="Permalink to this definition"></a></dt>
+<dd><p>Set a primary key for the specified table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table</strong> (<a class="reference internal" href="../core.html#MercurySQL.core.Table" title="MercurySQL.core.Table"><em>Table</em></a>) – The table to be set.</p></li>
+<li><p><strong>keyname</strong> (<em>str</em>) – The name of the primary key.</p></li>
+<li><p><strong>keytype</strong> (<em>str</em>) – The type of the primary key.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Implementation (SQLite):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="p">[</span>
+    <span class="sa">f</span><span class="s2">&quot;CREATE TABLE new_table (</span><span class="si">{</span><span class="n">keyname</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">keytype</span><span class="si">}</span><span class="s2"> PRIMARY KEY, </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">type_</span><span class="si">}</span><span class="s1">&#39;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">type_</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">items</span><span class="p">()</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">keyname</span><span class="p">])</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;INSERT INTO new_table SELECT * FROM </span><span class="si">{</span><span class="n">table</span><span class="o">.</span><span class="n">table_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;DROP TABLE </span><span class="si">{</span><span class="n">table</span><span class="o">.</span><span class="n">table_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;ALTER TABLE new_table RENAME TO </span><span class="si">{</span><span class="n">table</span><span class="o">.</span><span class="n">table_name</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.APIs.gensql.update">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.APIs.gensql.update" title="Permalink to this definition"></a></dt>
+<dd><p>Update the specified table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table_name</strong> (<em>str</em>) – The name of the table to be updated.</p></li>
+<li><p><strong>columns</strong> (<em>str</em>) – The columns to be updated. Values are already in the format of ‘column1=value1, column2=value2, …’, seperated by ‘,’.</p></li>
+<li><p><strong>condition</strong> (<em>str</em>) – The condition of the update, in the general SQL format, generated by Exp.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Implementation (SQLite):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;UPDATE </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2"> SET </span><span class="si">{</span><span class="n">columns</span><span class="si">}</span><span class="s2"> WHERE </span><span class="si">{</span><span class="n">condition</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.APIs.get_all_columns">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.drivers.base.BaseDriver.Conn" title="MercurySQL.drivers.base.BaseDriver.Conn"><span class="pre">Conn</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.APIs.get_all_columns" title="Permalink to this definition"></a></dt>
+<dd><p>Get all column’s informations in the table.</p>
+<p>The default implementation is based on the <cite>cls.gensql.get_all_columns(table_name)</cite> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conn</strong> (<a class="reference internal" href="#MercurySQL.drivers.base.BaseDriver.Conn" title="MercurySQL.drivers.base.BaseDriver.Conn"><em>BaseDriver.Conn</em></a>) – The connection object of the database.</p></li>
+<li><p><strong>table_name</strong> (<em>str</em>) – The name of the table.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>All column’s informations in the table.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.APIs.get_all_tables">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all_tables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.drivers.base.BaseDriver.Conn" title="MercurySQL.drivers.base.BaseDriver.Conn"><span class="pre">Conn</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.APIs.get_all_tables" title="Permalink to this definition"></a></dt>
+<dd><p>Get all table’s informations in the database.</p>
+<p>The default implementation is based on the <cite>cls.gensql.get_all_tables()</cite> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>conn</strong> (<a class="reference internal" href="#MercurySQL.drivers.base.BaseDriver.Conn" title="MercurySQL.drivers.base.BaseDriver.Conn"><em>BaseDriver.Conn</em></a>) – The connection object of the database.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>All table’s informations in the database</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.TypeParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.drivers.base.BaseDriver.</span></span><span class="sig-name descname"><span class="pre">TypeParser</span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.TypeParser" title="Permalink to this definition"></a></dt>
+<dd><p>Parse the type from <cite>Python Type</cite> -&gt; <cite>SQL Type</cite>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.TypeParser.parse">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.TypeParser.parse" title="Permalink to this definition"></a></dt>
+<dd><p>Compile the type to SQLite type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>type</strong> (<em>Any</em>) – The type to parse.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The SQLite type.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I’ve provided a example implementation of this method, for SQLite.
+Look at the source code.</p>
+</div>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">TypeParser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>       <span class="c1"># TEXT</span>
+<span class="n">TypeParser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>       <span class="c1"># INTEGER</span>
+<span class="n">TypeParser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>     <span class="c1"># REAL</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="MercurySQL.drivers (Drivers)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sqlite.html" class="btn btn-neutral float-right" title="[Driver]: SQLite" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Bernie J. Huang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,8 +1,8 @@
-**[Driver]**: (Template)
-========================
+**[Driver]**: Base
+==================
 
 .. warning::
-   All Drivers **MUST** implement the following methods.
+   All Drivers **MUST** be defined as a subclasses of this `BaseDriver` class.
 
 Dependencies
 ------------
@@ -11,25 +11,25 @@ Dependencies
 Subclasses / Methods
 --------------------
 
-.. autoclass:: MercurySQL.drivers.example.BaseDriver.Conn
+.. autoclass:: MercurySQL.drivers.base.BaseDriver.Conn
    :members:
    :undoc-members:
    :special-members:
    :exclude-members: __weakref__, __module__, __dict__
 
-.. autoclass:: MercurySQL.drivers.example.BaseDriver.Cursor
+.. autoclass:: MercurySQL.drivers.base.BaseDriver.Cursor
    :members:
    :undoc-members:
    :special-members:
    :exclude-members: __weakref__, __module__, __dict__
 
-.. autoclass:: MercurySQL.drivers.example.BaseDriver.APIs
+.. autoclass:: MercurySQL.drivers.base.BaseDriver.APIs
    :members:
    :undoc-members:
    :special-members:
    :exclude-members: __weakref__, __module__, __dict__
 
-.. autoclass:: MercurySQL.drivers.example.BaseDriver.TypeParser
+.. autoclass:: MercurySQL.drivers.base.BaseDriver.TypeParser
    :members:
    :undoc-members:
    :special-members:

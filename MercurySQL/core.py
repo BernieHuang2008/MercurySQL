@@ -75,6 +75,9 @@ class DataBase:
         if driver is None:
             driver = default_driver
 
+        if driver is None:
+            raise Exception("Driver not specified.")
+
         self.driver = driver()
         self.conn = driver.connect(db_name, **kwargs)
         self.cursor = self.conn.cursor()

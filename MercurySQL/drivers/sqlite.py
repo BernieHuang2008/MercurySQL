@@ -2,25 +2,17 @@
 Requirements: 
   - sqlite3
 """
-
-# # <--- Test Head --->
-# import sys
-# sys.path.insert(0, 'g:\git\BernieHuang2008\MercurySQLite')
-# # <--- Test Head End --->
+from .base import BaseDriver
 
 import sqlite3
 from typing import Any, List
 
 
-class Driver_SQLite:
-    class Cursor:
-        pass
-
-    class Conn:
-        pass
+class Driver_SQLite(BaseDriver):
+    pass
 
 
-class Driver_SQLite:
+class Driver_SQLite(BaseDriver):
     payload = '?'
 
     Conn = sqlite3.Connection
