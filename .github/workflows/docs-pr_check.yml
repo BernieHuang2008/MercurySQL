@@ -6,6 +6,8 @@ on:
       - opened
       - synchronize
       - reopened
+    paths:
+      - "docs/**"
 
 jobs:
   build:
