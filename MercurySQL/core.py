@@ -25,7 +25,8 @@ from .errors import *
 
 
 # ========= Basic Info =========
-__version__ = '0.1.0'
+with open('VERSION', encoding='utf-8') as f:
+    __version__ = f.read().strip()
 
 # ========= Tool Functions =========
 default_driver = None

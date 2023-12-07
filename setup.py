@@ -3,12 +3,16 @@ from setuptools import setup, find_packages
 # Read the contents of your README file
 from os import path
 this_directory = path.abspath(path.dirname(__file__))
-with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+
+with open('README.md', encoding='utf-8') as f:
     long_description = f.read()
+
+with open('MercurySQL/VERSION', encoding='utf-8') as f:
+    version = f.read().strip()
 
 setup(
     name='MercurySQL',
-    version='0.1.0',
+    version=version,
     description='Operate sql in a more pythonic way.',
     long_description=long_description,
     long_description_content_type='text/markdown',
