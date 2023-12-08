@@ -90,7 +90,7 @@ class Driver_SQLite(BaseDriver):
         def get_all_columns(cls, conn, table_name: str) -> List[str]:
             cursor = conn.cursor()
             cursor.execute(cls.gensql.get_all_columns(table_name))
-            return cursor.fetchall()
+            return list(map(lambda x: [x[1], x[2]], cursor.fetchall()))
 
     class TypeParser:
         """
