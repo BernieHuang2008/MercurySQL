@@ -211,14 +211,14 @@ class DataBase:
         self.template = template
         self.template_params = kwargs
 
-    def createTable(self, *table_names: str, allowExist: bool = False, template=None) -> Table:
+    def createTable(self, *table_names: str, force: bool = False, template=None) -> Table:
         """
         create a table in the database.
 
         :param table_names: The name of the table.
         :type table_names: str
-        :param allowExist: Allow to return an existing table.
-        :type allowExist: bool
+        :param force: Allow to return an existing table.
+        :type force: bool
 
         :return: A Table object.
         :rtype: Table
@@ -233,7 +233,7 @@ class DataBase:
         How It Works:
             - create table(s) if not exists
             - if already exists, return the existing table(s) in a NEW `Table` Object.
-            - if exists and `allowExist` set to False, raise an Exception.
+            - if exists and `force` set to False, raise an Exception.
         """
         # using template in `self.template` if not specified
         if template is None:
@@ -245,7 +245,7 @@ class DataBase:
         for table_name in table_names:
             if table_name in self.tables:
                 already_exists = True
-                if not allowExist:
+                if not force:
                     raise DuplicateError(f"Table `{table_name}` already exists.")
 
             table = Table(self, table_name)
@@ -287,7 +287,7 @@ class DataBase:
         if key in self.tables:
             return self.tables[key]
         else:
-            return self.createTable(key, allowExist=True)
+            return self.createTable(key, force=True)
 
     def deleteTable(self, *table_names: str) -> None:
         """
@@ -463,7 +463,7 @@ class Table:
             value = value[0]
 
         self.newColumn(
-            key, value, primaryKey=options['primary key'], allowExist=True)
+            key, value, primaryKey=options['primary key'], force=True)
 
     def __delitem__(self, key: str) -> None:
         """ 
@@ -584,7 +584,7 @@ class Table:
 
         return self.QueryResult(self, exp, selection)
 
-    def newColumn(self, name: str, type_: Any, primaryKey=False, allowExist=False) -> None:
+    def newColumn(self, name: str, type_: Any, primaryKey=False, force=False) -> None:
         """
         Add a new column to the table.
 
@@ -594,8 +594,8 @@ class Table:
         :type type_: Any
         :param primaryKey: Whether the column is a primary key.
         :type primaryKey: bool
-        :param allowExist: Allow to skip when processing an existing column.
-        :type allowExist: bool
+        :param force: Allow to skip when processing an existing column.
+        :type force: bool
 
         Example Usage:
 
@@ -612,7 +612,7 @@ class Table:
             - Record its name and type in `self.columns` and `self.columnsType`.
         """
         if name in self.columns:
-            if not allowExist:
+            if not force:
                 raise DuplicateError(f"Column `{name}` already exists.")
             else:
                 return
@@ -636,7 +636,7 @@ class Table:
         self.columns.append(name)
         self.columnsType[name] = type_
 
-    def struct(self, columns: dict, primaryKey: str = None, allowExist=True) -> None:
+    def struct(self, columns: dict, primaryKey: str = None, force=True) -> None:
         """
         Set the structure of the table.
 
@@ -644,8 +644,8 @@ class Table:
         :type columns: dict
         :param primaryKey: The primary key of the table.
         :type primaryKey: str
-        :param allowExist: Allow to skip when column exist and have the same type at the same time.
-        :type allowExist: bool
+        :param force: Allow to skip when column exist and have the same type at the same time.
+        :type force: bool
 
         Example Usage:
 
@@ -666,9 +666,9 @@ class Table:
                 if type_ != self.columnsType[name]:
                     raise ConfilictError(
                         f"Column `{name}` with different types (`{self.columnsType[name]}`) already exists. While trying to add column `{name}` with type `{type_}`.")
-                elif not allowExist:
+                elif not force:
                     raise DuplicateError(
-                        f"Column `{name}` already exists. You can use `allowExist=True` to avoid this error.")
+                        f"Column `{name}` already exists. You can use `force=True` to avoid this error.")
             else:
                 self.newColumn(name, type_, primaryKey=isPrimaryKey)
 
