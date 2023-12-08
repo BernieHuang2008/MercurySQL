@@ -682,7 +682,7 @@ class Table:
             isPrimaryKey = (name == primaryKey)
 
             if name in self.columns:
-                if type_ != self.columnsType[name]:
+                if type_.lower() != self.columnsType[name].lower():
                     raise ConfilictError(
                         f"Column `{name}` with different types (`{self.columnsType[name]}`) already exists. While trying to add column `{name}` with type `{type_}`.")
                 elif not force:
