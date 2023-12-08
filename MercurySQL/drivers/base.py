@@ -18,11 +18,12 @@ class BaseDriver:
 
     class Cursor:
         """
+        .. note::
+            The `Cursor` class here is only used for type hints, indicating the return type or parameter type of functions. In practice, instances of the `Cursor` class are not directly created or called.
+
         A cursor object for database operations.
         Usually, SQL libraries will provide these methods for executing SQL queries and interacting with databases.
         E.g., `sqlite3.Cursor <https://docs.python.org/3/library/sqlite3.html#cursor-objects>`_ or `pymysql.cursors.Cursor <https://pymysql.readthedocs.io/en/latest/modules/cursors.html>`_.
-
-        If it's not provided, you can implement it yourself.
         """
 
         def execute(self, sql: str, paras: List[tuple] = []) -> BaseDriver.Cursor:
@@ -53,12 +54,13 @@ class BaseDriver:
 
     class Conn:
         """
+        .. note::
+            The `Conn` class here is only used for type hints, indicating the return type or parameter type of functions. In practice, instances of the `Cursor` class are not directly created or called.
+
         A Connection object for database operations.
 
         Also, a SQL library will provide these methods for interacting with databases.
         E.g., `sqlite3.Connection <https://docs.python.org/3/library/sqlite3.html#sqlite3.Connection>`_ or `pymysql.connections.Connection <https://pymysql.readthedocs.io/en/latest/modules/connections.html>`_.
-
-        And you can also implement it yourself.
         """
 
         def cursor(self) -> BaseDriver.Cursor:
@@ -399,6 +401,7 @@ class BaseDriver:
             :type table_name: str
 
             :return: All column's informations in the table.
+            :rtype: List[str]. Each element is a list of `[column_name, column_type]`.
             """
             cursor = conn.cursor()
             cursor.execute(cls.gensql.get_all_columns(table_name))
