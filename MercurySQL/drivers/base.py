@@ -151,7 +151,7 @@ class BaseDriver:
                 # return f"PRAGMA table_info({table_name});"
 
             @staticmethod
-            def create_table_if_not_exists(table_name: str, column_name: str, column_type: str, primaryKey=False) -> Union[str, List[str]]:
+            def create_table_if_not_exists(table_name: str, column_name: str, column_type: str, primaryKey=False, autoIncrement=False) -> Union[str, List[str]]:
                 """
                 Create a table if it does not exist.
 
