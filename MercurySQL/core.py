@@ -175,16 +175,23 @@ class DataBase:
         if len(paras) < len(sql):
             paras += [()] * (len(sql) - len(paras))
 
+        # start a new cursor
+        c = self.conn.cursor()
+
         # for each sql command
         for i in range(len(sql)):
             cmd = sql[i].replace('___!!!PAYLOAD!!!___',
                                  self.driver.payload)  # replace payload
 
-            self.cursor.execute(cmd, paras[i])
+            c.execute(cmd, paras[i])
 
-        self.conn.commit()
+        # commit changes
+        try:
+            self.conn.commit()
+        except: # unread errors
+            pass
 
-        return self.cursor
+        return c
 
     def setTemplate(self, template: dict, **kwargs) -> None:
         """
@@ -385,13 +392,12 @@ class Table:
             - `columnsType`: dict[str, str] .......... the type of each column
         """
         if not self.isEmpty:
-            self.column_info = self.driver.APIs.get_all_columns(
-                self.db.conn, self.table_name)
+            self.column_info = self.driver.APIs.get_all_columns(self.db.conn, self.table_name)
         else:
             self.column_info = []
 
-        self.columns = list(map(lambda x: x[1], self.column_info))
-        self.columnsType = {self.column_info[i][1]: self.column_info[i][2] for i in range(
+        self.columns = list(map(lambda x: x[0], self.column_info))  # [name, type]
+        self.columnsType = {self.column_info[i][0]: self.column_info[i][1] for i in range(
             len(self.column_info))}
 
     def __getitem__(self, key: str) -> Exp:
@@ -438,7 +444,11 @@ class Table:
         :param key: The name of the column.
         :type key: str
         :param value: The type of the column.
-        :type value: Any
+        :type value: Any. Can be single un-parsed type (e.g. `int`, `str(5)`, ...) OR a tuple in the form of `(type, options)`. (e.g. `(int, 'primary key', 'auto increment')`)
+
+        Options in `value`:
+        - 'primary key': Set the column as the primary key of the table.
+        - 'auto increment': Set the column as an auto-incremented column.
 
         Example Usage:
 
@@ -446,14 +456,15 @@ class Table:
 
             table = db['test']
             table['name'] = str
-            table['id'] = int, 'primary key'
+            table['id'] = int, 'primary key', 'auto increment'
 
         How It Works:
             - get options from `value` if it has parameters (Judge it by whether it's a tuple, so you can use it as the L3 of example showed).
             - Actually create the column, using `newColumn()` method.
         """
         options = {
-            'primary key': False
+            'primary key': False,
+            'auto increment': False,
         }
 
         if isinstance(value, tuple):
@@ -463,7 +474,11 @@ class Table:
             value = value[0]
 
         self.newColumn(
-            key, value, primaryKey=options['primary key'], force=True)
+            key, value, 
+            primaryKey=options['primary key'], 
+            autoIncrement=options['auto increment'],
+            force=True
+        )
 
     def __delitem__(self, key: str) -> None:
         """ 
@@ -584,7 +599,7 @@ class Table:
 
         return self.QueryResult(self, exp, selection)
 
-    def newColumn(self, name: str, type_: Any, primaryKey=False, force=False) -> None:
+    def newColumn(self, name: str, type_: Any, force=False, primaryKey=False, autoIncrement=False) -> None:
         """
         Add a new column to the table.
 
@@ -592,10 +607,12 @@ class Table:
         :type name: str
         :param type_: The type of the column.
         :type type_: Any
-        :param primaryKey: Whether the column is a primary key.
-        :type primaryKey: bool
         :param force: Allow to skip when processing an existing column.
         :type force: bool
+        :param primaryKey: Whether the column is a primary key.
+        :type primaryKey: bool
+        :param autoIncrement: Whether the column is auto-incremented.
+        :type autoIncrement: bool
 
         Example Usage:
 
@@ -622,12 +639,14 @@ class Table:
         if self.isEmpty:
             # create it first
             cmd = self.driver.APIs.gensql.create_table_if_not_exists(
-                self.table_name, name, type_, primaryKey=primaryKey)
+                self.table_name, name, type_, 
+                primaryKey=primaryKey,
+                autoIncrement=autoIncrement,
+            )
             self.db.do(cmd)
             self.isEmpty = False
         else:
-            cmd = self.driver.APIs.gensql.add_column(
-                self.table_name, name, type_)
+            cmd = self.driver.APIs.gensql.add_column(self.table_name, name, type_)
             self.db.do(cmd)
 
             if primaryKey:
