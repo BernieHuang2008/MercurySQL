@@ -159,7 +159,7 @@ class Driver_SQLite(BaseDriver):
                 return type_
 
             # Not Supported
-            raise Exception(f"Type `{str(type_)}` not supported.")
+            raise TypeError(f"Type `{str(type_)}` not supported.")
 
     @staticmethod
     def connect(db_name: str, **kwargs) -> Driver_SQLite.Conn:
