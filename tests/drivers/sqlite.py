@@ -71,7 +71,7 @@ Tables in the database: {'test': <MercurySQL.core.Table object at 0x7fe420bb30e0
 Columns in the 'test' table: ['id', 'name', 'score']
 Definition of 'id' column: INTEGER
 Definition of 'name' column: TEXT
-[(0, 'id', 'INTEGER', 0, None, 1), (1, 'name', 'TEXT', 0, None, 0), (2, 'score', 'REAL', 0, None, 0)]
+[['id', 'INTEGER'], ['name', 'TEXT'], ['score', 'REAL']]
 Query result: [{'id': 1, 'name': 'test', 'score': None}]
 After deleting the query result: []
 """
