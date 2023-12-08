@@ -655,16 +655,16 @@ class Table:
         self.columns.append(name)
         self.columnsType[name] = type_
 
-    def struct(self, columns: dict, primaryKey: str = None, force=True) -> None:
+    def struct(self, columns: dict, force=True, primaryKey: str = None, autoIncrement=False) -> None:
         """
         Set the structure of the table.
 
         :param columns: The structure of the table.
         :type columns: dict
-        :param primaryKey: The primary key of the table.
-        :type primaryKey: str
         :param force: Allow to skip when column exist and have the same type at the same time.
         :type force: bool
+        :param primaryKey: The primary key of the table.
+        :type primaryKey: str
 
         Example Usage:
 
@@ -689,7 +689,7 @@ class Table:
                     raise DuplicateError(
                         f"Column `{name}` already exists. You can use `force=True` to avoid this error.")
             else:
-                self.newColumn(name, type_, primaryKey=isPrimaryKey)
+                self.newColumn(name, type_, primaryKey=isPrimaryKey, autoIncrement=autoIncrement)
 
     def delColumn(self, name: str) -> None:
         if name not in self.columns:
