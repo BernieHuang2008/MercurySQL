@@ -34,9 +34,9 @@ class Driver_SQLite(BaseDriver):
                 return f"PRAGMA table_info({table_name});"
 
             @staticmethod
-            def create_table_if_not_exists(table_name: str, column_name: str, column_type: str, primaryKey=False) -> str:
+            def create_table_if_not_exists(table_name: str, column_name: str, column_type: str, primaryKey=False, autoIncrement=False) -> str:
                 return f"""
-                    CREATE TABLE IF NOT EXISTS {table_name} ({column_name} {column_type} {'PRIMARY KEY' if primaryKey else ''})
+                    CREATE TABLE IF NOT EXISTS {table_name} ({column_name} {column_type} {'PRIMARY KEY' if primaryKey else ''} {'AUTOINCREMENT' if autoIncrement else ''})
                 """
 
             @staticmethod
