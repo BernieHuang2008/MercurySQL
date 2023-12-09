@@ -47,6 +47,7 @@ jobs:
         mysql password: 'test'
     - name: Run test
       run: |
-        echo "GRANT ALL PRIVILEGES ON test.* TO 'test'@'%'; FLUSH PRIVILEGES;" | mysql -h 127.0.0.1 -P 3306 -u root -proot
+        echo "GRANT ALL PRIVILEGES ON test.* TO 'test'@'%'; FLUSH PRIVILEGES;" | mysql -h 127.0.0.1 -P 3306 -u root -p
+        sleep 20
         python tests/drivers/mysql_connector.py
     
