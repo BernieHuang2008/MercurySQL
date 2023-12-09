@@ -214,6 +214,7 @@ class Driver_MySQLConnector(BaseDriver):
                     c.execute(f'USE {db_name};')
                 except mysql.connector.errors.ProgrammingError:
                     c.execute(f'CREATE DATABASE {db_name};')
+                    c.execute(f'USE {db_name};')
 
                 return c
 
