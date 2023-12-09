@@ -52,6 +52,11 @@ if __name__ == '__main__':
     e.delete()
     print("After deleting the query result:", list(test_table.select(e)))
 
+    # Delete table
+    del db['test']
+    print("Tables in the database:", db.tables)
+
+
 # <--- Check Test --->
 
 
@@ -74,6 +79,7 @@ Definition of 'name' column: TEXT
 [['id', 'INTEGER'], ['name', 'TEXT'], ['score', 'REAL']]
 Query result: [{'id': 1, 'name': 'test', 'score': None}]
 After deleting the query result: []
+Tables in the database: {}
 """
 
 if process_output(TEST_OUTPUT.getvalue()) == process_output(EXPECTED_OUTPUT):

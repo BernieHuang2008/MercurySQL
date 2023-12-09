@@ -678,6 +678,7 @@ class Table:
 
         """
         for name, type_ in columns.items():
+            type_origin = type_
             type_ = self.driver.TypeParser.parse(type_)
             isPrimaryKey = (name == primaryKey)
 
@@ -689,7 +690,7 @@ class Table:
                     raise DuplicateError(
                         f"Column `{name}` already exists. You can use `force=True` to avoid this error.")
             else:
-                self.newColumn(name, type_, primaryKey=isPrimaryKey, autoIncrement=autoIncrement)
+                self.newColumn(name, type_origin, primaryKey=isPrimaryKey, autoIncrement=autoIncrement)
 
     def delColumn(self, name: str) -> None:
         if name not in self.columns:
