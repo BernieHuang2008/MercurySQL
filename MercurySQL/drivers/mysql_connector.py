@@ -31,51 +31,51 @@ class Driver_MySQLConnector(BaseDriver):
 
             @staticmethod
             def get_all_columns(table_name: str) -> str:
-                return f"DESCRIBE {table_name};"
+                return f"DESCRIBE `{table_name}`;"
 
             @staticmethod
             def create_table_if_not_exists(table_name: str, column_name: str, column_type: str, primaryKey=False, autoIncrement=False, engine='', charset='') -> str:
                 return f"""
-                    CREATE TABLE IF NOT EXISTS {table_name} (
-                        {column_name} {column_type} {'PRIMARY KEY' if primaryKey else ''} {'AUTO_INCREMENT' if autoIncrement else ''}
+                    CREATE TABLE IF NOT EXISTS `{table_name}` (
+                        `{column_name}` {column_type} {'PRIMARY KEY' if primaryKey else ''} {'AUTO_INCREMENT' if autoIncrement else ''}
                     ) {engine} {f'DEFAULT CHARSET={charset}' if charset else ''};
                 """
 
             @staticmethod
             def add_column(table_name: str, column_name: str, column_type: str) -> str:
-                return f"ALTER TABLE {table_name} ADD COLUMN {column_name} {column_type};"
+                return f"ALTER TABLE `{table_name}` ADD COLUMN `{column_name}` {column_type};"
 
             @staticmethod
             def drop_column(table_name: str, column_name: str) -> str:
-                return f"ALTER TABLE {table_name} DROP COLUMN {column_name};"
+                return f"ALTER TABLE `{table_name}` DROP COLUMN `{column_name}`;"
 
             @staticmethod
             def set_primary_key(table, keyname: str, keytype: str) -> list:
                 return [
-                    f"ALTER TABLE DROP PRIMARY KEY;",
-                    f"ALTER TABLE {table.table_name} ADD PRIMARY KEY ({keyname});"
+                    f"ALTER TABLE `{table.table_name}` DROP PRIMARY KEY;",
+                    f"ALTER TABLE `{table.table_name}` ADD PRIMARY KEY (`{keyname}`);"
                 ]
 
             @staticmethod
             def insert(table_name: str, columns: str, values: str) -> str:
-                return f"INSERT INTO {table_name} ({columns}) VALUES ({values});"
+                return f"INSERT INTO `{table_name}` ({columns}) VALUES ({values});"
             
             @staticmethod
             def insert_or_update(table_name: str, columns: str, values: str) -> str:
                 update_columns = ', '.join(f'{col}=VALUES({col})' for col in columns.split(', '))
-                return f"INSERT INTO {table_name} ({columns}) VALUES ({values}) ON DUPLICATE KEY UPDATE {update_columns};"
+                return f"INSERT INTO `{table_name}` ({columns}) VALUES ({values}) ON DUPLICATE KEY UPDATE {update_columns};"
 
             @staticmethod
             def update(table_name: str, columns: str, condition: str) -> str:
-                return f"UPDATE {table_name} SET {columns} WHERE {condition};"
+                return f"UPDATE `{table_name}` SET {columns} WHERE {condition};"
 
             @staticmethod
             def query(table_name: str, selection: str, condition: str) -> str:
-                return f"SELECT {selection} FROM {table_name} WHERE {condition};"
+                return f"SELECT {selection} FROM `{table_name}` WHERE {condition};"
 
             @staticmethod
             def delete(table_name: str, condition: str) -> str:
-                return f"DELETE FROM {table_name} WHERE {condition};"
+                return f"DELETE FROM `{table_name}` WHERE {condition};"
 
         @classmethod
         def get_all_tables(cls, conn) -> List[str]:
@@ -87,7 +87,8 @@ class Driver_MySQLConnector(BaseDriver):
         def get_all_columns(cls, conn, table_name: str) -> List[str]:
             cursor = conn.cursor()
             cursor.execute(cls.gensql.get_all_columns(table_name))
-            return list(map(lambda x: [x[0], x[1]], cursor.fetchall()))
+            # [name, type, null, key, default, extra]
+            return list(map(lambda x: [x[0], x[1], x[2], x[3], x[4], x[5]], cursor.fetchall()))
 
     class TypeParser:
         """
@@ -112,39 +113,11 @@ class Driver_MySQLConnector(BaseDriver):
             +-------------------+-------------+
             | int               | INTEGER     |
             +-------------------+-------------+
-            | int(1)            | TINYINT     |
-            +-------------------+-------------+
-            | int(2)            | SMALLINT    |
-            +-------------------+-------------+
-            | int(3)            | MEDIUMINT   |
-            +-------------------+-------------+
-            | int(4)            | INT         |
-            +-------------------+-------------+
-            | int(8)            | BIGINT      |
-            +-------------------+-------------+
             | float             | FLOAT       |
-            +-------------------+-------------+
-            | float(4)          | FLOAT       |
-            +-------------------+-------------+
-            | float(8)          | DOUBLE      |
             +-------------------+-------------+
             | str               | VARCHAR(225)|
             +-------------------+-------------+
-            | str('char')       | CHAR        |
-            +-------------------+-------------+
-            | str('tiny')       | TINYTEXT    |
-            +-------------------+-------------+
-            | str('medium')     | MEDIUMTEXT  |
-            +-------------------+-------------+
-            | str('long')       | LONGTEXT    |
-            +-------------------+-------------+
             | bytes             | BLOB        |
-            +-------------------+-------------+
-            | bytes(b'tiny')    | TINYBLOB    |
-            +-------------------+-------------+
-            | bytes(b'medium')  | MEDIUMBLOB  |
-            +-------------------+-------------+
-            | bytes(b'long')    | LONGBLOB    |
             +-------------------+-------------+
             | datetime.datetime | DATETIME    |
             +-------------------+-------------+
@@ -158,9 +131,10 @@ class Driver_MySQLConnector(BaseDriver):
 
             .. code-block:: python
 
-                TypeParser.parse(int(8))       # BIGINT
-                TypeParser.parse(str)         # VARCHAR
-                TypeParser.parse(float)       # FLOAT
+                TypeParser.parse(int(10))      # INT DEFAULT 10
+                TypeParser.parse(str)          # VARCHAR
+                TypeParser.parse(float(1.3))   # FLOAT DEFAULT 1.3
+                TypeParser.parse('\t DOUBLE DEFAULT 1.23')    # DOUBLE DEFAULT 1.23
                 ...
 
             """
@@ -168,28 +142,10 @@ class Driver_MySQLConnector(BaseDriver):
 
             supported_types = {
                 bool: 'BOOLEAN',
-
                 int: 'INT',
-                int(1): 'TINYINT',
-                int(2): 'SMALLINT',
-                int(3): 'MEDIUMINT',
-                int(4): 'INT',
-                int(8): 'BIGINT',
-
                 float: 'FLOAT',
-                float(4): 'FLOAT',
-                float(8): 'DOUBLE',
-
                 str: 'VARCHAR(225)',
-                str('char'): 'CHAR',
-                str('tiny'): 'TINYTEXT',
-                str('medium'): 'MEDIUMTEXT',
-                str('long'): 'LONGTEXT',
-                
                 bytes: 'BLOB',
-                bytes(b'tiny'): 'TINYBLOB',
-                bytes(b'medium'): 'MEDIUMBLOB',
-                bytes(b'long'): 'LONGBLOB',
 
                 datetime.datetime: 'DATETIME',
                 datetime.date: 'DATE',
@@ -206,13 +162,21 @@ class Driver_MySQLConnector(BaseDriver):
                 res = supported_types[type_[0]]
 
             # round 2: Custom Types
-            if res == "" and isinstance(type_[0], str):    # custom type
-                return type_[0]
+            if res == "" and isinstance(type_[0], str) and type_[0].startswith('\t'):    # custom type
+                return type_[0].strip()
+            
+            # round 3: Built-in Types With Default Value
+            if type(type_[0]) != type:
+                if isinstance(type_[0], bytes):
+                    type_[0] = type_[0].decode()
+                res = f"{supported_types[type(type_[0])]} DEFAULT {type_[0]}"
 
-            # round 3: Not Null
+            # round 4: Not Null
             for i in range(1, len(type_)):
-                if i == (not None):
+                if type_[i] == 'not null':
                     res += ' NOT NULL'
+                else:
+                    res += f" DFAULT {type_[i]}"
 
             # Not Supported
             if res == "":
@@ -223,7 +187,7 @@ class Driver_MySQLConnector(BaseDriver):
     @staticmethod
     def connect(db_name: str, host: str, user: str, passwd: str = '', force=False) -> Conn:
         """
-        Connect to a 
+        Connect to a MySQL database.
         """
         if force:
             return mysql.connector.connect(
