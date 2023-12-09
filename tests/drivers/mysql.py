@@ -19,8 +19,16 @@ if 'import':
 set_driver(Driver_MySQL)
 
 if __name__ == '__main__':
+    import sys
+    if len(sys.argv) == 3:
+        user = sys.argv[1]
+        passwd = sys.argv[2]
+    else:
+        user = 'test'
+        passwd = 'test'
+
     # Create db
-    db = DataBase("test", host='localhost', user='root', passwd='root')
+    db = DataBase("test", host='localhost', user=user, passwd=passwd)
     print("Database Information:", db.info)
 
     # Create table
@@ -108,9 +116,11 @@ else:
 
         for line in diff_str.splitlines():
             if line.startswith('+'):
-                print('\033[32m' + line + '\033[0m', file=SCREEN_OUTPUT)  # Green for added lines
+                # Green for added lines
+                print('\033[32m' + line + '\033[0m', file=SCREEN_OUTPUT)
             elif line.startswith('-'):
-                print('\033[31m' + line + '\033[0m', file=SCREEN_OUTPUT)  # Red for removed lines
+                # Red for removed lines
+                print('\033[31m' + line + '\033[0m', file=SCREEN_OUTPUT)
             else:
                 print(line, file=SCREEN_OUTPUT)
 
