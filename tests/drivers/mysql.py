@@ -10,13 +10,13 @@ if 'set io':
     sys.stdout = TEST_OUTPUT
 if 'import':
     import re
-    from MercurySQL.drivers.mysql import Driver_MySQLConnector
+    from MercurySQL.drivers.mysql import Driver_MySQL
     from MercurySQL import DataBase, set_driver
 # <--- Test Head End --->
 
 
-# Set the driver to Driver_MySQLConnector
-set_driver(Driver_MySQLConnector)
+# Set the driver to Driver_MySQL
+set_driver(Driver_MySQL)
 
 if __name__ == '__main__':
     # Create db
@@ -40,7 +40,7 @@ if __name__ == '__main__':
     # Access column definition
     print("Definition of 'id' column:", test_table['id'])
     print("Definition of 'name' column:", test_table['name'])
-    print(Driver_MySQLConnector.APIs.get_all_columns(db.conn, 'test'))
+    print(Driver_MySQL.APIs.get_all_columns(db.conn, 'test'))
 
     # Insert data
     test_table.insert(id=1, name='test', __auto=True)
