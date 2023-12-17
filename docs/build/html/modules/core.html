@@ -233,13 +233,13 @@ However, all the query values are replaced with safe queries (’<cite>?</cite>�
 
 <dl class="py method">
 <dt class="sig sig-object py" id="MercurySQL.core.DataBase.createTable">
-<span class="sig-name descname"><span class="pre">createTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">table_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowExist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.core.Table" title="MercurySQL.core.Table"><span class="pre">Table</span></a></span></span><a class="headerlink" href="#MercurySQL.core.DataBase.createTable" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">createTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">table_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.core.Table" title="MercurySQL.core.Table"><span class="pre">Table</span></a></span></span><a class="headerlink" href="#MercurySQL.core.DataBase.createTable" title="Permalink to this definition"></a></dt>
 <dd><p>create a table in the database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>table_names</strong> (<em>str</em>) – The name of the table.</p></li>
-<li><p><strong>allowExist</strong> (<em>bool</em>) – Allow to return an existing table.</p></li>
+<li><p><strong>force</strong> (<em>bool</em>) – Allow to return an existing table.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -258,7 +258,7 @@ However, all the query values are replaced with safe queries (’<cite>?</cite>�
 <dt>How It Works:</dt><dd><ul class="simple">
 <li><p>create table(s) if not exists</p></li>
 <li><p>if already exists, return the existing table(s) in a NEW <cite>Table</cite> Object.</p></li>
-<li><p>if exists and <cite>allowExist</cite> set to False, raise an Exception.</p></li>
+<li><p>if exists and <cite>force</cite> set to False, raise an Exception.</p></li>
 </ul>
 </dd>
 </dl>
@@ -508,14 +508,17 @@ Same as <cite>delColumn()</cite>.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>key</strong> (<em>str</em>) – The name of the column.</p></li>
-<li><p><strong>value</strong> (<em>Any</em>) – The type of the column.</p></li>
+<li><p><strong>value</strong> (Any. Can be single un-parsed type (e.g. <cite>int</cite>, <cite>str(5)</cite>, …) OR a tuple in the form of <cite>(type, options)</cite>. (e.g. <cite>(int, ‘primary key’, ‘auto increment’)</cite>)) – The type of the column.</p></li>
 </ul>
 </dd>
 </dl>
+<p>Options in <cite>value</cite>:
+- ‘primary key’: Set the column as the primary key of the table.
+- ‘auto increment’: Set the column as an auto-incremented column.</p>
 <p>Example Usage:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
 <span class="n">table</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span>
-<span class="n">table</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;primary key&#39;</span>
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;primary key&#39;</span><span class="p">,</span> <span class="s1">&#39;auto increment&#39;</span>
 </pre></div>
 </div>
 <dl class="simple">
@@ -548,15 +551,16 @@ Same as <cite>delColumn()</cite>.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="MercurySQL.core.Table.newColumn">
-<span class="sig-name descname"><span class="pre">newColumn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primaryKey</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowExist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.core.Table.newColumn" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">newColumn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primaryKey</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoIncrement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.core.Table.newColumn" title="Permalink to this definition"></a></dt>
 <dd><p>Add a new column to the table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<em>str</em>) – The name of the column.</p></li>
 <li><p><strong>type</strong> (<em>Any</em>) – The type of the column.</p></li>
+<li><p><strong>force</strong> (<em>bool</em>) – Allow to skip when processing an existing column.</p></li>
 <li><p><strong>primaryKey</strong> (<em>bool</em>) – Whether the column is a primary key.</p></li>
-<li><p><strong>allowExist</strong> (<em>bool</em>) – Allow to skip when processing an existing column.</p></li>
+<li><p><strong>autoIncrement</strong> (<em>bool</em>) – Whether the column is auto-incremented.</p></li>
 </ul>
 </dd>
 </dl>
@@ -630,14 +634,14 @@ Same as <cite>delColumn()</cite>.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="MercurySQL.core.Table.struct">
-<span class="sig-name descname"><span class="pre">struct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primaryKey</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowExist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.core.Table.struct" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">struct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primaryKey</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoIncrement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.core.Table.struct" title="Permalink to this definition"></a></dt>
 <dd><p>Set the structure of the table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>columns</strong> (<em>dict</em>) – The structure of the table.</p></li>
+<li><p><strong>force</strong> (<em>bool</em>) – Allow to skip when column exist and have the same type at the same time.</p></li>
 <li><p><strong>primaryKey</strong> (<em>str</em>) – The primary key of the table.</p></li>
-<li><p><strong>allowExist</strong> (<em>bool</em>) – Allow to skip when column exist and have the same type at the same time.</p></li>
 </ul>
 </dd>
 </dl>

@@ -46,9 +46,11 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../core.html">MercurySQL.core</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">MercurySQL.drivers (Drivers)</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="intro.html">Introduction to MercurySQL Drivers</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"><strong>[Driver]</strong>: Base</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">MercurySQL.drivers (Drivers)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../devguide/index.html">Developer Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../devguide/intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html">Drivers: Intro</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Drivers: Definition &amp; Example</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#version-informations">Version &amp; Informations</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#MercurySQL.drivers.base.BaseDriver.version"><code class="docutils literal notranslate"><span class="pre">BaseDriver.version</span></code></a></li>
 </ul>
@@ -64,10 +66,8 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="sqlite.html"><strong>[Driver]</strong>: SQLite</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../devguide/index.html">Developer Guide</a></li>
 </ul>
 
         </div>
@@ -125,10 +125,13 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.Conn">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.drivers.base.BaseDriver.</span></span><span class="sig-name descname"><span class="pre">Conn</span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.Conn" title="Permalink to this definition"></a></dt>
-<dd><p>A Connection object for database operations.</p>
+<dd><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <cite>Conn</cite> class here is only used for type hints, indicating the return type or parameter type of functions. In practice, instances of the <cite>Cursor</cite> class are not directly created or called.</p>
+</div>
+<p>A Connection object for database operations.</p>
 <p>Also, a SQL library will provide these methods for interacting with databases.
 E.g., <a class="reference external" href="https://docs.python.org/3/library/sqlite3.html#sqlite3.Connection">sqlite3.Connection</a> or <a class="reference external" href="https://pymysql.readthedocs.io/en/latest/modules/connections.html">pymysql.connections.Connection</a>.</p>
-<p>And you can also implement it yourself.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.Conn.close">
 <span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.Conn.close" title="Permalink to this definition"></a></dt>
@@ -157,10 +160,13 @@ E.g., <a class="reference external" href="https://docs.python.org/3/library/sqli
 <dl class="py class">
 <dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.Cursor">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.drivers.base.BaseDriver.</span></span><span class="sig-name descname"><span class="pre">Cursor</span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.Cursor" title="Permalink to this definition"></a></dt>
-<dd><p>A cursor object for database operations.
+<dd><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <cite>Cursor</cite> class here is only used for type hints, indicating the return type or parameter type of functions. In practice, instances of the <cite>Cursor</cite> class are not directly created or called.</p>
+</div>
+<p>A cursor object for database operations.
 Usually, SQL libraries will provide these methods for executing SQL queries and interacting with databases.
 E.g., <a class="reference external" href="https://docs.python.org/3/library/sqlite3.html#cursor-objects">sqlite3.Cursor</a> or <a class="reference external" href="https://pymysql.readthedocs.io/en/latest/modules/cursors.html">pymysql.cursors.Cursor</a>.</p>
-<p>If it’s not provided, you can implement it yourself.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.Cursor.execute">
 <span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sql</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paras</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.drivers.base.BaseDriver.Cursor" title="MercurySQL.drivers.base.BaseDriver.Cursor"><span class="pre">Cursor</span></a></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.Cursor.execute" title="Permalink to this definition"></a></dt>
@@ -239,7 +245,7 @@ Generally, these returned codes will be executed <strong>DIRECTLY</strong>.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="MercurySQL.drivers.base.BaseDriver.APIs.gensql.create_table_if_not_exists">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_table_if_not_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primaryKey</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.APIs.gensql.create_table_if_not_exists" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_table_if_not_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primaryKey</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoIncrement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQL.drivers.base.BaseDriver.APIs.gensql.create_table_if_not_exists" title="Permalink to this definition"></a></dt>
 <dd><p>Create a table if it does not exist.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -460,6 +466,9 @@ Generally, these returned codes will be executed <strong>DIRECTLY</strong>.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>All column’s informations in the table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[str]. Each element is a list of <cite>[column_name, column_type]</cite>.</p>
 </dd>
 </dl>
 </dd></dl>
