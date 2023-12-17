@@ -13,6 +13,10 @@ class Driver_MySQL(BaseDriver):
 
 
 class Driver_MySQL(BaseDriver):
+    """
+    .. note::
+        Supported MySQL Version: **8.2**
+    """
     version = '0.1.0'
     payload = '%s'
 

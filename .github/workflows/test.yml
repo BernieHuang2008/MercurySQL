@@ -47,5 +47,5 @@ jobs:
     - name: Run test
       run: |
         sleep 20
-        python tests/drivers/mysql.py root root
+        python tests/drivers/mysql_.py root root
     
