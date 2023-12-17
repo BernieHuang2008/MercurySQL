@@ -34,9 +34,9 @@ class Driver_SQLite(BaseDriver):
                 return f"PRAGMA table_info({table_name});"
 
             @staticmethod
-            def create_table_if_not_exists(table_name: str, column_name: str, column_type: str, primaryKey=False) -> str:
+            def create_table_if_not_exists(table_name: str, column_name: str, column_type: str, primaryKey=False, autoIncrement=False) -> str:
                 return f"""
-                    CREATE TABLE IF NOT EXISTS {table_name} ({column_name} {column_type} {'PRIMARY KEY' if primaryKey else ''})
+                    CREATE TABLE IF NOT EXISTS {table_name} ({column_name} {column_type} {'PRIMARY KEY' if primaryKey else ''} {'AUTOINCREMENT' if autoIncrement else ''})
                 """
 
             @staticmethod
@@ -90,7 +90,7 @@ class Driver_SQLite(BaseDriver):
         def get_all_columns(cls, conn, table_name: str) -> List[str]:
             cursor = conn.cursor()
             cursor.execute(cls.gensql.get_all_columns(table_name))
-            return cursor.fetchall()
+            return list(map(lambda x: [x[1], x[2]], cursor.fetchall()))
 
     class TypeParser:
         """
@@ -159,7 +159,7 @@ class Driver_SQLite(BaseDriver):
                 return type_
 
             # Not Supported
-            raise Exception(f"Type `{str(type_)}` not supported.")
+            raise TypeError(f"Type `{str(type_)}` not supported.")
 
     @staticmethod
     def connect(db_name: str, **kwargs) -> Driver_SQLite.Conn:
