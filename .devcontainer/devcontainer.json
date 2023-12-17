@@ -19,5 +19,7 @@
       }
     }
   },
-	"postCreateCommand": "git pull"
+  "forwardPorts": [3306],
+  "postCreateCommand": "git pull & service mysql start",
+  "remoteUser": "root"
 }
