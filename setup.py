@@ -7,7 +7,7 @@ this_directory = path.abspath(path.dirname(__file__))
 with open('README.md', encoding='utf-8') as f:
     long_description = f.read()
 
-with open('MercurySQL/VERSION', encoding='utf-8') as f:
+with open(path.join(this_directory, 'MercurySQL', 'VERSION'), encoding='utf-8') as f:
     version = f.read().strip()
 
 setup(

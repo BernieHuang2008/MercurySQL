@@ -1,6 +1,8 @@
 on:
   workflow_dispatch:
   push:
+    paths:
+      - 'MercurySQL/**'
   pull_request_target:
     types:
       - open
