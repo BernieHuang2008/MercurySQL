@@ -41,8 +41,9 @@ CREATE TABLE IF NOT EXISTS test (
 ```
 MercurySQL
 ```py
-table = db['test']
-table.newColumn('id', int, primaryKey=True)
+tb = db['test']  # 如果没有，会自动创建
+tn.newColumn('id', int, primaryKey=True)
+tb['id'] = int, 'Primary Key  # 大小写不敏感
 ```
 
 ### 删除数据表
@@ -74,7 +75,7 @@ ADD COLUMN id INTEGER PRIMARY KEY;
 ```
 MercurySQL
 ```py
-table['id'] = int, 'Primary Key'  # 'Primary Key' 对大小写不敏感
+table['id'] = int, 'Primary Key'  # 'Primary Key' 这类参数对大小写不敏感
 ```
 
 ### 删除列
@@ -120,11 +121,32 @@ MercurySQL
 ((table['id'] == 1) & (table['name'] == 'test')).delete()
 ```
 
+# 驱动（drivers）
+MercurySQL 理论上可以兼容任何使用sql语言的数据库。
+这是因为我们的 drivers 思想。
+
+MercurySQL 的核心代码是通用的，但是，针对每一个数据库，都需要一个专门的驱动程序来做适配。
+这个驱动程序的功能很简单，可以参考read the docs上的“Drivers”部分进行开发。
+驱动程序将以一个类的形式提供服务，可以在DataBase中传入一个参数，或者使用内置api `set_driver()`一劳永逸地设置全局默认驱动。
+比如说：
+```python
+from MercurySQL.drivers.sqlite import Driver_SQlite   # 导入sqlite驱动
+from MercurySQL import set_driver  # 导入set_driver
+
+set_driver(Driver_SQLite)
+```
+或者是，在DataBase中传入驱动器：
+```python
+Database(... driver=Driver_SQLite)
+```
 
 # 依赖项：
-- sqlite3（sqlite驱动，Python自带）
-
-  所以……没有依赖项！
+MercurySQL可以使用不同的驱动器（driver），每个驱动器都有自己的依赖。
+自带驱动器的依赖项如下：
+* Sqlite Driver
+  - sqlite3（Python自带）
+* MySQL Driver
+  - mysql-connector
 
 ---
 
