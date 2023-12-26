@@ -128,7 +128,7 @@ MercurySQL 理论上可以兼容任何使用sql语言的数据库。
 
 MercurySQL 的核心代码是通用的，但是，针对每一个数据库，都需要一个专门的驱动程序来做适配。
 
-> Tips: 这个驱动程序的功能很简单，可以参考read the docs上的“Drivers”部分进行开发。
+> Tips: 这个驱动程序的功能很简单，可以参考[Read the Docs 上的“Drivers”部分](https://mercurysql.readthedocs.io/en/latest/modules/drivers/index.html)进行开发。
 
 设置驱动，有以下两种方法：
 - 使用内置api `set_driver()`，一劳永逸地设置全局默认驱动。
@@ -141,7 +141,7 @@ set_driver(Driver_SQLite)
 
 - 在DataBase类中指定驱动器：
 ```python
-Database(... driver=Driver_SQLite)
+Database(..., driver=Driver_SQLite)
 ```
 
 # 依赖项：
