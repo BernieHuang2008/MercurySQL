@@ -1,13 +1,22 @@
 # .github/release.yml
 
 changelog:
+  exclude:
+    labels:
+      - ignore-for-release
   categories:
-    - title: Major Version
+    - title: '🔥 Breaking Changes'
       labels:
-        - Major Version
-    - title: Minor Version
+        - 'breaking'
+    - title: 🏕 Features
       labels:
-        - Minor Version
-    - title: Bug fixes
+        - 'feat'
+    - title: '🐛 Bug Fixes'
       labels:
-        - Patch Version
+        - 'bug'
+    - title: 📦 Dependencies
+      labels:
+        - dependencies
+    - title: Other Changes
+      labels:
+        - "*"
