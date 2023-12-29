@@ -1,6 +1,9 @@
 # for docs build
 sphinx
 sphinx_rtd_theme
+
 # for tests
 pymysql
+
+# package dependencies
 mysql-connector-python

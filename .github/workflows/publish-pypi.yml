@@ -31,8 +31,6 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install setuptools wheel twine
         pip install build
-    - name: Build setup.py
-      run: python setup-builder.py
     - name: Build package
       run: python setup.py sdist
     - name: Publish package
