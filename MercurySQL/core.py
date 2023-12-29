@@ -543,7 +543,10 @@ class Table:
                 :return: The value of the column.
                 """
                 data = object.__getattribute__(self, 'data')
-                return data[__name]
+                if __name == 'data':
+                    return data
+                else:
+                    return data[__name]
 
             def __iter__(self):
                 """
@@ -743,7 +746,9 @@ class Table:
         """
         # get keys and clean them
         keys = list(kwargs.keys())
-        keys.remove('__auto')
+        if '__auto' in keys:
+            __auto = kwargs['__auto']
+            keys.remove('__auto')
 
         columns = ', '.join(keys)
         values = ', '.join([self.driver.payload for _ in range(len(keys))])
