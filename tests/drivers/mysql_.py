@@ -1,18 +1,7 @@
-# <--- Test Head --->
-if 'set path':
-    import sys
-    sys.path.insert(0, '../../')
-    sys.path.insert(0, './')
-if 'set io':
-    import io
-    SCREEN_OUTPUT = sys.stdout
-    TEST_OUTPUT = io.StringIO()
-    sys.stdout = TEST_OUTPUT
-if 'import':
-    import re
-    from MercurySQL.drivers.mysql import Driver_MySQL
-    from MercurySQL import DataBase, set_driver
-# <--- Test Head End --->
+import testlib
+
+from MercurySQL.drivers.mysql import Driver_MySQL
+from MercurySQL import DataBase, set_driver
 
 
 # Set the driver to Driver_MySQL
@@ -51,7 +40,10 @@ if __name__ == '__main__':
     print(Driver_MySQL.APIs.get_all_columns(db.conn, 'test'))
 
     # Insert data
-    test_table.insert(id=1, name='test', __auto=True)
+    test_table.insert(id=1, name='test')
+    print("Data [id=1]:", list(test_table.select(test_table['id'] == 1)))
+    test_table.insert(id=1, name='test2', __auto=True)
+    print("Data [id=1]:", list(test_table.select(test_table['id'] == 1)))
 
     # Query data
     e = (test_table['id'] == 1) & \
@@ -67,63 +59,18 @@ if __name__ == '__main__':
     print("Tables in the database:", db.tables)
 
 
-# <--- Check Test --->
 
-
-def process_output(s):
-    s = s.strip()
-
-    pattern = r' object at 0x[0-9A-Fa-f]+>'
-    s = re.sub(pattern, ' object at 0xPYTHON_ADDRESS>', s)
-
-    return s
-
-
-EXPECTED_OUTPUT = """
+testlib.check(EXPECTED_OUTPUT = """
 Database Information: {'name': 'test'}
-Tables in the database: {'test': <MercurySQL.core.Table object at 0x000002BC3B3024C0>}
+Tables in the database: {'test': <MercurySQL.core.Table object at 0x000002549D2F8550>}
 Columns in the 'test' table: []
 Columns in the 'test' table: ['id', 'name', 'score', 'index_']
 Definition of 'id' column: INT
 Definition of 'name' column: VARCHAR(225)
 [['id', 'int', 'NO', '', None, ''], ['name', 'varchar(225)', 'YES', '', None, ''], ['score', 'float', 'YES', '', None, ''], ['index_', 'int', 'NO', 'PRI', '1', '']]
-Query result: [{'id': 1, 'name': 'test', 'score': None, 'index_': 1}]
+Data [id=1]: [{'id': 1, 'name': 'test', 'score': None, 'index_': 1}]
+Data [id=1]: [{'id': 1, 'name': 'test2', 'score': None, 'index_': 1}]
+Query result: []
 After deleting the query result: []
 Tables in the database: {}
-"""
-
-TEST_OUTPUT = process_output(TEST_OUTPUT.getvalue())
-EXPECTED_OUTPUT = process_output(EXPECTED_OUTPUT)
-
-if TEST_OUTPUT == EXPECTED_OUTPUT:
-    print("\033[32mTest Passed!\033[0m", file=SCREEN_OUTPUT)
-else:
-    print("\033[31mTest Failed!\033[0m", file=SCREEN_OUTPUT)
-    print("Expected Output:", file=SCREEN_OUTPUT)
-    print(EXPECTED_OUTPUT, file=SCREEN_OUTPUT)
-    print('='*30+'\n', file=SCREEN_OUTPUT)
-    print("Test Output:", file=SCREEN_OUTPUT)
-    print(TEST_OUTPUT, file=SCREEN_OUTPUT)
-    print('='*30+'\n', file=SCREEN_OUTPUT)
-    print("Differences:", file=SCREEN_OUTPUT)
-
-    import difflib
-
-    def color_diff(expected, actual):
-        diff = difflib.unified_diff(
-            expected.splitlines(), actual.splitlines(), lineterm='')
-        diff_str = '\n'.join(diff)
-
-        for line in diff_str.splitlines():
-            if line.startswith('+'):
-                # Green for added lines
-                print('\033[32m' + line + '\033[0m', file=SCREEN_OUTPUT)
-            elif line.startswith('-'):
-                # Red for removed lines
-                print('\033[31m' + line + '\033[0m', file=SCREEN_OUTPUT)
-            else:
-                print(line, file=SCREEN_OUTPUT)
-
-    color_diff(EXPECTED_OUTPUT, TEST_OUTPUT)
-
-    raise Exception("Test Failed!")
+""")
