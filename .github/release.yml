@@ -1,0 +1,13 @@
+# .github/release.yml
+
+changelog:
+  categories:
+    - title: Major Version
+      labels:
+        - Major Version
+    - title: Minor Version
+      labels:
+        - Minor Version
+    - title: Bug fixes
+      labels:
+        - Patch Version
