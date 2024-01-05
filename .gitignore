@@ -4,3 +4,7 @@
 __local/*
 *.db
 .venv/*
+dist/*
+build/*
+MercurySQL.egg-info/*
+
