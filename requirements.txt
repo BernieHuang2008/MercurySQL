@@ -5,5 +5,5 @@ sphinx_rtd_theme
 # for tests
 pymysql
 
-# package dependencies
-mysql-connector-python
+# for release
+wheel

@@ -3,3 +3,8 @@
 *.pyc
 __local/*
 *.db
+.venv/*
+dist/*
+build/*
+MercurySQL.egg-info/*
+

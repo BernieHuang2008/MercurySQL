@@ -13,6 +13,7 @@ class Driver_SQLite(BaseDriver):
 
 
 class Driver_SQLite(BaseDriver):
+    dependencies = ['sqlite3']
     version = '0.1.0'
     payload = '?'
 
