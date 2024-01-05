@@ -1,8 +1,8 @@
+name: [CI] Driver Test
+run-name: ${{ format('[CI] Driver Test (PR \#{0})', github.event.pull_request.number) }}
+
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'MercurySQL/**'
   pull_request_target:
     types:
       - open
@@ -11,6 +11,7 @@ on:
 
 jobs:
   test_driver_sqlite:
+    name: Driver Test - SQLite
     runs-on: ubuntu-latest
 
     steps:
@@ -29,6 +30,7 @@ jobs:
         python tests/drivers/sqlite.py
 
   test_driver_mysql:
+    name: Driver Test - MySQL
     runs-on: ubuntu-latest
 
     steps:
@@ -48,8 +50,10 @@ jobs:
       with:
         mysql database: ''
         mysql root password: 'root'
-    - name: Run test
+    - name: Wait for MySQL to start
       run: |
         sleep 20
+    - name: Run test
+      run: |
         python tests/drivers/mysql_.py root root
     
