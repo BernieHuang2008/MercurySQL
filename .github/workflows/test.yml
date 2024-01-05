@@ -1,4 +1,5 @@
-name: [CI] Driver Test
+name: CI - Driver Test
+
 run-name: ${{ format('[CI] Driver Test (PR \#{0})', github.event.pull_request.number) }}
 
 on:

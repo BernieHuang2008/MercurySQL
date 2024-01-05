@@ -7,8 +7,8 @@ def set_path():
     """
     Set the path to the root directory of the project.
     """
-    sys.path.insert(0, '../../')
-    sys.path.insert(0, './')
+    sys.path.remove(os.path.abspath('../../'))
+    sys.path.remove(os.path.abspath('./'))
 
 def set_io():
     """
