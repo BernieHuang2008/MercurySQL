@@ -13,6 +13,10 @@ class BaseDriver:
 
 
 class BaseDriver:
+    """
+    The base class of all drivers.
+    """
+    dependencies = []   # just for hints about what dependencies are needed
     version = '0.0.0'
     payload = '?'
 
