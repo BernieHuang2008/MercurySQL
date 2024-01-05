@@ -3,3 +3,4 @@
 *.pyc
 __local/*
 *.db
+.venv/*

@@ -17,7 +17,11 @@ docs.clear: always
 
 commit: docs
 
-venv: always
-	.venv\Scripts\activate 
+venv.activate: always
+	.venv\Scripts\activate.bat
+
+venv.new: always
+	rm -rf .venv
+	python -m venv .venv
 
 always:
