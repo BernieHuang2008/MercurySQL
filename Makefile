@@ -21,7 +21,7 @@ venv.activate: always
 	.venv\Scripts\activate.bat
 
 venv.clear: always
-	rm -rf .venv
+	del /S /Q .venv
 
 venv.req: always
 	$(MAKE) venv.activate
@@ -37,7 +37,7 @@ pkg.build: always
 	python setup.py sdist bdist_wheel
 
 pkg.clear: always
-	rm -rf build dist *.egg-info
+	del /S /Q build dist *.egg-info
 
 pkg.install: always
 	pip install dist/*.whl
