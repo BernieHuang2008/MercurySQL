@@ -955,6 +955,17 @@ class Exp(BasicExp):
         cmd = self.driver.APIs.gensql.delete(self.table.table_name, condition)
         self.table.db.do(cmd, paras=[paras])
 
+    def query(self, table=None) -> Table.QueryResult:
+        """
+        Execute query.
+        """
+        self.table = table or self.table
+
+        if self.table is None:
+            raise NotSpecifiedError("Table not specified.")
+        
+        return self.table.select(self)
+
     def __str__(self):
         return self._str
 
