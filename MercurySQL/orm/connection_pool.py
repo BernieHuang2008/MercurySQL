@@ -1,4 +1,4 @@
-from .. import errors
+from ..errors import orm as orm_errors
 
 import threading
 
@@ -32,13 +32,16 @@ class ConnPool:
     def __del__(self):
         if len(self.pool) > 0:
             self.close()
-            raise errors.ConnPoolNotClosedError(
+            raise orm_errors.connection_pool.ConnPoolNotClosedError(
                 "The connection pool is not fully closed. Automatically closed all connections for you."
             )
 
     def _new_conn(self):
         """
         [Private] Create a new connection
+
+        .. warning::
+            THIS IS A PRIVATE METHOD, DO NOT CALL IT DIRECTLY OR IT WILL CAUSE UNEXPECTED BEHAVIOR
         """
         db_aname, conn_ops = self.conn_info
         conn = self.driver.connect(db_aname, **conn_ops)
@@ -48,12 +51,8 @@ class ConnPool:
         """
         [Private] Create a new connection for the target thread, and add it to the pool
 
-        :param thread: The target thread
-        :type thread: threading.Thread
-
         .. warning::
-            This method will not do cheks for the existence of the connection in the pool.
-            Using this method improperly can cause the pool to overwrite the connection of the target thread.
+            THIS IS A PRIVATE METHOD, DO NOT CALL IT DIRECTLY OR IT WILL CAUSE UNEXPECTED BEHAVIOR
         """
         # ensure the id is unique and predictable
         conn_id = id(thread)
@@ -68,13 +67,17 @@ class ConnPool:
     def _remove_conn(self, conn_id):
         """
         [Private] Remove the connection from the pool
+
+        .. warning::
+            THIS IS A PRIVATE METHOD, DO NOT CALL IT DIRECTLY OR IT WILL CAUSE UNEXPECTED BEHAVIOR
         """
         ref = self.pool.pop(conn_id)
         ref.conn.close()
 
     def get_ref(self) -> ConnPoolRef:
         """
-        Get the ConnPoolRef object for the current thread
+        Get the ConnPoolRef object for the current thread.
+        Create a new connection if the current thread is not in the pool.
 
         :return: The ConnPoolRef object
         :rtype: ConnPoolRef
@@ -90,12 +93,14 @@ class ConnPool:
     def get_conn(self):
         """
         Get the connection object for the current thread
+        Create a new connection if the current thread is not in the pool.
         """
         return self.get_ref().conn
 
     def get_cursor(self):
         """
         Get the cursor object for the current thread
+        Create a new connection if the current thread is not in the pool.
         """
         return self.get_ref().cursor
 
