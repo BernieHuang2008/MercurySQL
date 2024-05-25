@@ -4,23 +4,14 @@ import threading
 
 
 class ConnPoolRef:
-    def __init__(self, thread: threading.Thread, conn, cursor, callback):
+    def __init__(self, thread: threading.Thread, conn, cursor, cleanup: callable):
         self.thread = thread
         self.conn = conn
         self.cursor = cursor
+        self.cleanup = cleanup
 
-        # start monitoring the target thread
-        threading.Thread(target=self.start_monitor, args=(callback,)).start()
-
-    def start_monitor(self, callback: callable) -> None:
-        """
-        This function will monitor on the target thread, and call the 'callback' function when the thread is terminated.
-
-        :param callback: The function to call when the thread is terminated.
-        :type callback: callable
-        """
-        self.thread.join()
-        callback()
+    def __del__(self):
+        self.cleanup()
 
 
 class ConnPool:
@@ -65,9 +56,12 @@ class ConnPool:
         #       method will be called in the 'Monitor Thread' when 'Target Thread' is over.
         #       So the conn can only be closed in the 'Monitor Thread', which is not allow-
         #       ed in sqlite3.
+        #       I've tried the `threading.local()`, but its also executed in the Main thread.
         self.pool[conn_id] = ConnPoolRef(
             thread, conn, cursor, lambda: self._remove_conn(conn_id)
         )
+        t_local = threading.local()
+        t_local.conn_ref = self.pool[conn_id]
 
     def _remove_conn(self, conn_id):
         """

@@ -31,9 +31,14 @@ def thread2():
     test_table.insert(id=2, name='test2')
 
 # insert data
-threading.Thread(target=thread1).start()
-threading.Thread(target=thread2).start()
+t1 = threading.Thread(target=thread1)
+t2 = threading.Thread(target=thread2)
+
+print("the main thread is:", threading.current_thread().ident, id(threading.current_thread()))
+
+t1.start()
+# t2.start()
 
 # wait for the threads to finish
-thread1.join()
-thread2.join()
+t1.join()
+# t2.join()
