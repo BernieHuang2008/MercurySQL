@@ -204,7 +204,7 @@ class Table:
         if exp is None:
             exp = Exp(1, "=", 1)
 
-        return self.QueryResult(self, exp, selection)
+        return QueryResult(self, exp, selection)
 
     def newColumn(
         self, name: str, type_: Any, force=False, primaryKey=False, autoIncrement=False

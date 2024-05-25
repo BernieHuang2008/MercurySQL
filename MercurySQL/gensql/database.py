@@ -15,7 +15,7 @@ Methods
 """
 from typing import List
 
-# from ..orm.connection_pool import ConnPool
+from ..orm.connection_pool import ConnPool
 from ..drivers import BaseDriver
 from ..errors import *
 
@@ -32,7 +32,7 @@ import os
 
 real_path = os.path.dirname(os.path.realpath(__file__))
 
-with open(os.path.join(real_path, "VERSION"), encoding="utf-8") as f:
+with open(os.path.join(real_path, "..", "VERSION"), encoding="utf-8") as f:
     __version__ = f.read().strip()
 
 
@@ -101,14 +101,16 @@ class DataBase:
         if driver is None:
             driver = default_driver
 
-        if driver is None or not issubclass(driver, BaseDriver):
+        if not issubclass(driver, BaseDriver):
             raise NotSpecifiedError("Driver not specified.")
+        else:
+            self.driver = driver
 
         if not check_version(driver.version):  # check version
             raise DriverIncompatibleError(driver.__name__, driver.version, __version__)
 
-        self.driver = driver()
-        # self.conn_pool = ConnPool(self.driver, db_name, **kwargs)
+        # self.driver = driver()
+        self.conn_pool = ConnPool(self.driver, db_name, **kwargs)
         self.conn = driver.connect(db_name, **kwargs)
         self.cursor = self.conn.cursor()
 
@@ -167,8 +169,8 @@ class DataBase:
             paras += [()] * (len(sql) - len(paras))
 
         # start a new cursor
-        # c = self.conn_pool.get_cursor()
-        c = self.conn.cursor()
+        c = self.conn_pool.get_cursor()
+        # c = self.conn.cursor()
 
         # for each sql command
         for i in range(len(sql)):
@@ -180,8 +182,8 @@ class DataBase:
 
         # commit changes
         try:
-            # self.conn_pool.commit()
-            self.conn.commit()
+            self.conn_pool.commit()
+            # self.conn.commit()
         except:  # unread errors
             pass
 
@@ -341,8 +343,8 @@ class DataBase:
         Close the connection when the object is deleted.
         """
         try:
-            # self.conn_pool.close()
-            self.conn.close()
+            self.conn_pool.close_all()
+            # self.conn.close()
         except AttributeError:
             # Not initialized
             pass

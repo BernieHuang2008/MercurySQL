@@ -60,6 +60,11 @@ class ConnPool:
         conn = self._new_conn()
         cursor = conn.cursor()
 
+        # TODO: We can't close the connection in this way.
+        #       Because the conn is created in the 'Target Thread', while the _remove_conn
+        #       method will be called in the 'Monitor Thread' when 'Target Thread' is over.
+        #       So the conn can only be closed in the 'Monitor Thread', which is not allow-
+        #       ed in sqlite3.
         self.pool[conn_id] = ConnPoolRef(
             thread, conn, cursor, lambda: self._remove_conn(conn_id)
         )
@@ -103,8 +108,15 @@ class ConnPool:
         Create a new connection if the current thread is not in the pool.
         """
         return self.get_ref().cursor
+    
+    def commit(self):
+        """
+        Commit all the current thread's connections
+        """
+        conn = self.get_conn()
+        conn.commit()
 
-    def close(self):
+    def close_all(self):
         """
         Close all the connections in the pool
         """

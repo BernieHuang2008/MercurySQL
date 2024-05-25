@@ -12,8 +12,6 @@ from typing import Any, Union, Tuple
 
 from ..errors import *
 
-from .table import Table
-
 # ========= Class Decorations =========
 class BasicExp:
     pass
@@ -160,8 +158,6 @@ class Exp(BasicExp):
 
         if self.table is None:
             raise NotSpecifiedError("Table not specified.")
-        if not isinstance(self.table, Table):
-            raise NotExistsError(f"Table `{self.table.table_name}` not exists.")
 
         condition, paras = self.formula()
 
@@ -183,8 +179,6 @@ class Exp(BasicExp):
 
         if self.table is None:
             raise NotSpecifiedError("Table not specified.")
-        if not isinstance(self.table, Table):
-            raise NotExistsError(f"Table `{self.table.table_name}` not exists.")
 
         condition, paras = self.formula()
 
