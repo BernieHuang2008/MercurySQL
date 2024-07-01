@@ -1,0 +1,48 @@
+name: Auto Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - MercurySQL/VERSION
+
+jobs:
+  release:
+    name: Auto Release
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Get previous version
+      id: prev_version
+      run: |
+        echo "PREV_VERSION=$(git show HEAD^:MercurySQL/VERSION)" >> $GITHUB_ENV
+
+    - name: Get current version
+      id: current_version
+      run: |
+        echo "CURR_VERSION=$(cat MercurySQL/VERSION)" >> $GITHUB_ENV
+
+    - name: Generate release note
+      id: release_note
+      run: |
+        echo "From $PREV_VERSION -> $CURR_VERSION" > release_note.txt
+        echo "" >> release_note.txt
+        echo "RELEASE_NOTE=$(cat release_note.txt)" >> $GITHUB_ENV
+
+    - name: Create Release
+      uses: actions/create-release@v1
+      with:
+        tag_name: v${{ env.CURR_VERSION }}
+        release_name: v${{ env.CURR_VERSION }}
+        body: |
+          From ${{ env.PREV_VERSION }} -> ${{ env.CURR_VERSION }}
+
+          ${{ env.RELEASE_NOTE }}
+
+          **Full Changelog**: https://github.com/BernieHuang2008/MercurySQL/compare/v${{ env.PREV_VERSION }}...v${{ env.CURR_VERSION }}
+        draft: true
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
