@@ -1,4 +1,4 @@
-
+# [Abandoned]
 from MercurySQL import DataBase, set_driver
 from MercurySQL.drivers.sqlite import Driver_SQLite
 
