@@ -1,5 +1,13 @@
 MAKE = make
 
+ifeq ($(OS),Windows_NT)
+	DEL = del /S /Q
+	PIP = pip
+else
+	DEL = rm -rf
+	PIP = pip3
+endif
+
 
 .PHONY: docs, commit, docs.html, docs.commit, always
 
@@ -21,11 +29,11 @@ venv.activate: always
 	.venv\Scripts\activate.bat
 
 venv.clear: always
-	del /S /Q .venv
+	$(DEL) .venv
 
 venv.req: always
 	$(MAKE) venv.activate
-	pip install -r requirements.txt
+	$(PIP) install -r requirements.txt
 
 venv.new: always
 	$(MAKE) venv.clear
@@ -37,10 +45,10 @@ pkg.build: always
 	python setup.py sdist bdist_wheel
 
 pkg.clear: always
-	del /S /Q build dist *.egg-info
+	$(DEL) build dist *.egg-info
 
 pkg.install: always
-	pip install dist/*.whl
+	$(PIP) install dist/*.whl --force-reinstall
 
 pkg: pkg.build pkg.install
 

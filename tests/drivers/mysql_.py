@@ -1,3 +1,4 @@
+# [Abandoned]
 import testlib
 
 from MercurySQL.drivers.mysql import Driver_MySQL

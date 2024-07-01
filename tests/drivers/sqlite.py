@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
 testlib.check(EXPECTED_OUTPUT = """
 Database Information: {'name': 'test.db'}
-Tables in the database: {'test': <MercurySQL.core.Table object at 0xPYTHON_ADDRESS>}
+Tables in the database: {'test': <MercurySQL.gensql.table.Table object at 0xPYTHON_ADDRESS>}
 []
 Columns in the 'test' table: ['id', 'name', 'score']
 Definition of 'id' column: INTEGER
