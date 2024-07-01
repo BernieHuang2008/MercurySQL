@@ -45,27 +45,25 @@ class CommandQueue:
         # start a new thread
         def loop_thread():
             # start a new conn
-            db_aname, conn_ops = self.conn_info
-            conn = self.driver.connect(db_aname, **conn_ops)
+            db_name, conn_ops = self.conn_info
+            conn = self.driver.connect(db_name, **conn_ops)
             cursor = conn.cursor()
-            self.cursor = cursor
 
             while self.isRunning:
-                data, size, callback = self.queue.get()
-                query, param = data
+                query, param, callback = self.queue.get()
 
                 cursor.execute(query, param)
-                result = None
-                
-                if size == FETCHALL:
-                    result = cursor.fetchall()
-                else:
-                    result = cursor.fetchmany(size)
+                result = cursor.fetchall()
 
                 callback(result)
+                conn.commit()
                 self.queue.task_done()
+            
+            cursor.close()
+            conn.close()
 
-        threading.Thread(target=loop_thread).start()
+        # Start a Daemon thread, which will be killed when the main thread is over.
+        threading.Thread(target=loop_thread, daemon=True).start()
 
     def get_cursor(self):
         """
@@ -83,18 +81,23 @@ class CQFakeCursor:
         self.cq = cq
         self.event = threading.Event()
 
-    def execute(self, query: str, param: tuple):
+    def execute(self, query: str, param: tuple) -> None:
         """
         Execute a query.
-        The query will be executed when fetching results.
 
         :param query: The query to execute.
         :type query: str
         :param param: The parameters for the query.
         :type param: tuple
         """
-        self.data = (query, param)
-        self.result = None
+        def callback(result):
+            self.result = result
+            self.event.set()
+
+        self.cq.put((query, param, callback))
+        self.event.wait()  # wait
+
+        return None
 
     def fetchall(self):
         """
@@ -103,14 +106,6 @@ class CQFakeCursor:
         :return: The results.
         :rtype: list
         """
-
-        def callback(result):
-            self.result = result
-            self.event.set()
-
-        self.cq.put((self.data, FETCHALL, callback))
-        self.event.wait()  # wait
-
         return self.result
 
     def fetchone(self):
@@ -120,15 +115,7 @@ class CQFakeCursor:
         :return: The result.
         :rtype: Any
         """
-
-        def callback(result):
-            self.result = result
-            self.event.set()
-
-        self.cq.put((self.data, 1, callback))
-        self.event.wait()
-
-        return self.result
+        return self.result[0]
 
     def fetchmany(self, size: int):
         """
@@ -137,12 +124,4 @@ class CQFakeCursor:
         :param size: The number of results to fetch.
         :type size: int
         """
-
-        def callback(result):
-            self.result = result
-            self.event.set()
-
-        self.cq.put((self.data, size, callback))
-        self.event.wait()
-
-        return self.result
+        return self.result[:size]

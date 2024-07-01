@@ -111,9 +111,9 @@ class DataBase:
 
         # self.driver = driver()  # normal way
         # self.conn_pool = ConnPool(self.driver, db_name, **kwargs)  # connection pool
-        self.cq = CommandQueue(self.driver, db_name, **kwargs)  # command queue
+        self.cq = CommandQueue(driver, db_name, **kwargs)
         self.conn = driver.connect(db_name, **kwargs)
-        self.cursor = self.conn.cursor()
+        # self.cursor = self.conn.cursor()  # normal way
 
         self.info = {"name": db_name}
 
@@ -183,11 +183,11 @@ class DataBase:
             c.execute(cmd, paras[i])
 
         # commit changes
-        try:
-            self.conn_pool.commit()
-            # self.conn.commit()
-        except:  # unread errors
-            pass
+        # try:
+            # self.conn.commit()    # normal way
+            # self.conn_pool.commit()   # connection pool
+        # except:
+            # pass
 
         return c
 
@@ -340,13 +340,13 @@ class DataBase:
         """
         self.deleteTable(key)
 
-    def __del__(self):
-        """
-        Close the connection when the object is deleted.
-        """
-        try:
-            self.conn_pool.close_all()
-            # self.conn.close()
-        except AttributeError:
-            # Not initialized
-            pass
+    # def __del__(self):    # connection pool
+    #     """
+    #     Close the connection when the object is deleted.
+    #     """
+    #     try:
+    #         self.conn_pool.close_all()
+    #         # self.conn.close()
+    #     except AttributeError:
+    #         # Not initialized
+    #         pass
