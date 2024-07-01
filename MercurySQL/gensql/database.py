@@ -15,7 +15,7 @@ Methods
 """
 from typing import List
 
-from ..orm.connection_pool import ConnPool
+from ..orm.command_queue import CommandQueue
 from ..drivers import BaseDriver
 from ..errors import *
 
@@ -109,8 +109,9 @@ class DataBase:
         if not check_version(driver.version):  # check version
             raise DriverIncompatibleError(driver.__name__, driver.version, __version__)
 
-        # self.driver = driver()
-        self.conn_pool = ConnPool(self.driver, db_name, **kwargs)
+        # self.driver = driver()  # normal way
+        # self.conn_pool = ConnPool(self.driver, db_name, **kwargs)  # connection pool
+        self.cq = CommandQueue(self.driver, db_name, **kwargs)  # command queue
         self.conn = driver.connect(db_name, **kwargs)
         self.cursor = self.conn.cursor()
 
@@ -169,8 +170,9 @@ class DataBase:
             paras += [()] * (len(sql) - len(paras))
 
         # start a new cursor
-        c = self.conn_pool.get_cursor()
-        # c = self.conn.cursor()
+        # c = self.conn.cursor()    # normal way
+        # c = self.conn_pool.get_cursor()   # connection pool
+        c = self.cq.get_cursor()
 
         # for each sql command
         for i in range(len(sql)):
