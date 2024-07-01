@@ -37,10 +37,10 @@ def color_diff(expected, actual):
     for line in diff_str.splitlines():
         if line.startswith('+'):
             # Green for added lines
-            print('\033[32m' + line + '\033[0m')
+            print('\033[32m(excess) ' + line + '\033[0m')
         elif line.startswith('-'):
             # Red for removed lines
-            print('\033[31m' + line + '\033[0m')
+            print('\033[31m(missing)' + line + '\033[0m')
         else:
             print(line)
 
