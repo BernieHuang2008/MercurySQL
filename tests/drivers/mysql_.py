@@ -38,7 +38,7 @@ if __name__ == '__main__':
     # Access column definition
     print("Definition of 'id' column:", test_table['id'])
     print("Definition of 'name' column:", test_table['name'])
-    print(Driver_MySQL.APIs.get_all_columns(db.conn, 'test'))
+    print(Driver_MySQL.APIs.get_all_columns(db, 'test'))
 
     # Insert data
     test_table.insert(id=1, name='test')

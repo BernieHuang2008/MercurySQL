@@ -82,15 +82,13 @@ class Driver_SQLite(BaseDriver):
                 return f"DELETE FROM {table_name} WHERE {condition}"
 
         @classmethod
-        def get_all_tables(cls, conn) -> List[str]:
-            cursor = conn.cursor()
-            cursor.execute(cls.gensql.get_all_tables())
+        def get_all_tables(cls, db) -> List[str]:
+            cursor = db.do(cls.gensql.get_all_tables())
             return list(map(lambda x: x[0], cursor.fetchall()))
 
         @classmethod
-        def get_all_columns(cls, conn, table_name: str) -> List[str]:
-            cursor = conn.cursor()
-            cursor.execute(cls.gensql.get_all_columns(table_name))
+        def get_all_columns(cls, db, table_name: str) -> List[str]:
+            cursor = db.do(cls.gensql.get_all_columns(table_name))
             return list(map(lambda x: [x[1], x[2]], cursor.fetchall()))
 
     class TypeParser:

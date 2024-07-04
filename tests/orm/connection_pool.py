@@ -16,7 +16,7 @@ test_table = db['test']
 print("Tables in the database:", db.tables)
 
 # Set structure
-print(Driver_SQLite.APIs.get_all_columns(db.conn, 'test'))
+print(Driver_SQLite.APIs.get_all_columns(db, 'test'))
 test_table.struct({
     'id': int,
     'name': str

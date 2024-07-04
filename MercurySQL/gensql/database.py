@@ -112,8 +112,8 @@ class DataBase:
         # self.driver = driver()  # normal way
         # self.conn_pool = ConnPool(self.driver, db_name, **kwargs)  # connection pool
         self.cq = CommandQueue(driver, db_name, **kwargs)
-        self.conn = driver.connect(db_name, **kwargs)
-        # self.cursor = self.conn.cursor()  # normal way
+        # self.conn = driver.connect(db_name, **kwargs)  # normal way
+        # self.cursor = self.conn.cursor()
 
         self.info = {"name": db_name}
 
@@ -128,7 +128,7 @@ class DataBase:
         Gather all infomations of the database, including:
           - all tables
         """
-        self.tables = self.driver.APIs.get_all_tables(self.conn)
+        self.tables = self.driver.APIs.get_all_tables(self)
         self.tables = {tname: Table(self, tname) for tname in self.tables}
 
     def do(self, *sql: str, paras: List[tuple] = []):

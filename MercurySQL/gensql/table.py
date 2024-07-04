@@ -54,7 +54,7 @@ class Table:
         self.table_name = table_name
         self.driver = db.driver
 
-        all_tables = self.driver.APIs.get_all_tables(self.db.conn)
+        all_tables = self.driver.APIs.get_all_tables(self.db)
         self.isEmpty = table_name not in all_tables
 
         self._gather_info()
@@ -67,7 +67,7 @@ class Table:
         """
         if not self.isEmpty:
             self.column_info = self.driver.APIs.get_all_columns(
-                self.db.conn, self.table_name
+                self.db, self.table_name
             )
         else:
             self.column_info = []
