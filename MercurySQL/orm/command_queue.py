@@ -6,6 +6,7 @@ This is useful when you are working with multiple threads and want to execute co
 
 import queue
 import threading
+import sys
 
 FETCHALL = -1
 
@@ -50,12 +51,16 @@ class CommandQueue:
             cursor = conn.cursor()
 
             while self.isRunning:
-                query, param, callback = self.queue.get()
+                try:
+                    query, param, callback = self.queue.get()
 
-                cursor.execute(query, param)
-                result = cursor.fetchall()
+                    cursor.execute(query, param)
+                    result = cursor.fetchall()
 
-                callback(result)
+                    callback(result)
+                except Exception as e:
+                    print(e, file=sys.stderr)
+
                 conn.commit()
                 self.queue.task_done()
             
