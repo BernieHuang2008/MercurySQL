@@ -16,12 +16,12 @@ jobs:
     - name: Get previous version
       id: prev_version
       run: |
-        echo "PREV_VERSION=$(git show HEAD^:MercurySQL/MercurySQL/VERSION)" >> $GITHUB_ENV
+        echo "PREV_VERSION=$(git show HEAD^:MercurySQL/VERSION)" >> $GITHUB_ENV
 
     - name: Get current version
       id: current_version
       run: |
-        echo "CURR_VERSION=$(cat MercurySQL/MercurySQL/VERSION)" >> $GITHUB_ENV
+        echo "CURR_VERSION=$(cat MercurySQL/VERSION)" >> $GITHUB_ENV
 
     - name: Generate release note
       id: release_note
