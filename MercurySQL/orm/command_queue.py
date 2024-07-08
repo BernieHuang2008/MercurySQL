@@ -55,6 +55,7 @@ class CommandQueue:
                     query, param, callback = self.queue.get()
 
                     cursor.execute(query, param)
+                    conn.commit()
                     result = cursor.fetchall()
 
                     callback(result)
