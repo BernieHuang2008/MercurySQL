@@ -8,9 +8,11 @@ Classes
 - `BasicExp`: Base class for basic expressions.
 - `Exp`: Class for constructing complex query expressions.
 """
+
 from typing import Any, Union, Tuple
 
 from ..errors import *
+
 
 # ========= Class Decorations =========
 class BasicExp:
@@ -96,6 +98,7 @@ class Exp(BasicExp):
 
         self.table = kwargs.get("table", None)
         self._str = kwargs.get("_str", "<MercurySQL.core.Exp object>")
+        self.result = None
 
         if isinstance(o1, Exp):
             self.table = self.table or o1.table
@@ -169,7 +172,15 @@ class Exp(BasicExp):
         """
         use magic method `__iter__` to search.
         """
-        return iter(self.query())
+        if self.result is None:
+            if self.table is None:
+                raise NotSpecifiedError("Table not specified.")
+            
+            data = self.query()
+            keys = self.table.columns
+            self.result = [dict(zip(keys, row)) for row in data]
+
+        return iter(self.result)
 
     def delete(self, table=None) -> None:
         """

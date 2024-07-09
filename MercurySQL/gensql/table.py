@@ -468,7 +468,7 @@ class QueryResult:
             if selection == "*"
             else list(map(lambda x: x.strip(), selection.split(",")))
         )
-        self.data = [{keys[i]: value[i] for i in range(len(keys))} for value in values]
+        self.data = [dict(zip(keys, row)) for row in values]
 
     def __getitem__(self, index: int) -> Any:
         return self.QueryResultRow(self.data[index])
