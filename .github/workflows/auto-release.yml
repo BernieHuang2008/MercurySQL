@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: cd
+      run: cd MercurySQL
+
     - name: Get previous version
       id: prev_version
       run: |
