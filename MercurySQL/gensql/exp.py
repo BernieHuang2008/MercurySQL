@@ -157,10 +157,11 @@ class Exp(BasicExp):
         Execute query.
         """
         self.table = table or self.table
-        self.driver = self.table.db.driver
 
         if self.table is None:
             raise NotSpecifiedError("Table not specified.")
+        
+        self.driver = self.table.db.driver
 
         condition, paras = self.formula()
 
@@ -190,6 +191,8 @@ class Exp(BasicExp):
 
         if self.table is None:
             raise NotSpecifiedError("Table not specified.")
+        
+        self.driver = self.table.db.driver
 
         condition, paras = self.formula()
 
