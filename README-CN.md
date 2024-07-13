@@ -11,7 +11,7 @@
 
 [English](README.md) | 简体中文
 
-可以再此阅读 [详细文档](https://mercurysql.readthedocs.io/en/latest/)
+可以在此阅读 [详细文档](https://mercurysql.readthedocs.io/en/latest/)
 
 # MercurySQL (M.SQL)
 Operate SQL in a more pythonic way.
