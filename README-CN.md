@@ -1,8 +1,19 @@
-Also read in [English](README.md)
+<img src="./docs/source/_static/img/MercurySQL.png"></img>
+<br>
+<div style="text-align: center">
+<img alt="GitHub License" src="https://img.shields.io/github/license/BernieHuang2008/MercurySQL">
+<img alt="GitHub branch check runs" src="https://img.shields.io/github/check-runs/BernieHuang2008/MercurySQL/main">
+<img alt="Static Badge" src="https://img.shields.io/badge/Language-Python-blue">
+<img alt="GitHub Downloads (all assets, all releases)" src="https://img.shields.io/github/downloads/BernieHuang2008/MercurySQL/total">
 
-阅读完整文档 [Read the Docs](https://mercurysql.readthedocs.io/en/latest/)
+</div>
+<br>
 
-# MercurySQL
+[English](README.md) | 简体中文
+
+可以在此阅读 [详细文档](https://mercurysql.readthedocs.io/en/latest/)
+
+# MercurySQL (M.SQL)
 Operate SQL in a more pythonic way.
 
 # 是个啥
