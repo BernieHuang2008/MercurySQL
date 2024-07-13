@@ -1,12 +1,24 @@
-Also read in [中文](README-CN.md)
+<img src="./docs/source/_static/img/MercurySQL.png"></img>
+<br>
+<div style="text-align: center">
+<img alt="GitHub License" src="https://img.shields.io/github/license/BernieHuang2008/MercurySQL">
+<img alt="GitHub branch check runs" src="https://img.shields.io/github/check-runs/BernieHuang2008/MercurySQL/main">
+<img alt="Static Badge" src="https://img.shields.io/badge/Language-Python-blue">
+<img alt="GitHub Downloads (all assets, all releases)" src="https://img.shields.io/github/downloads/BernieHuang2008/MercurySQL/total">
+
+</div>
+<br>
+
+English | [简体中文](README-CN.md)
 
 Read full documentation at [Read the Docs](https://mercurysql.readthedocs.io/en/latest/)
 
-# MercurySQL
+
+# MercurySQL (M.SQL)
 Operate SQL in a more pythonic way.
 
 # What is it
-Operate SQL database in a more Pythonic way.
+Operate SQL database in a more **Pythonic way**.
 
 - Confused by complex SQL statements?
 - Lost data due to lack of commit?
