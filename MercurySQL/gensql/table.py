@@ -267,15 +267,15 @@ class Table:
         self.columnsType[name] = type_
 
     def struct(
-        self, columns: dict, force=True, primaryKey: str = None, autoIncrement=False
+        self, columns: dict, skipError=True, primaryKey: str = None, autoIncrement=False, force=True
     ) -> None:
         """
         Set the structure of the table.
 
         :param columns: The structure of the table.
         :type columns: dict
-        :param force: Allow to skip when column exist and have the same type at the same time.
-        :type force: bool
+        :param skipError: Allow to skip when column exist and have the same type at the same time.
+        :type skipError: bool
         :param primaryKey: The primary key of the table.
         :type primaryKey: str
 
@@ -290,6 +290,10 @@ class Table:
             }, primaryKey='id')
 
         """
+
+        # Warning: `force` will be removed in next big version
+        skipError = skipError and force
+
         for name, type_ in columns.items():
             type_origin = type_
             type_ = self.driver.TypeParser.parse(type_)
@@ -300,7 +304,7 @@ class Table:
                     raise ConfilictError(
                         f"Column `{name}` with different types (`{self.columnsType[name]}`) already exists. While trying to add column `{name}` with type `{type_}`."
                     )
-                elif not force:
+                elif not skipError:
                     raise DuplicateError(
                         f"Column `{name}` already exists. You can use `force=True` to avoid this error."
                     )
@@ -394,6 +398,11 @@ class Table:
 
             table = db['test']
             table.update(table['id'] == 1, name='Bernie', age=15)
+            
+            # OR
+            
+            (tb['id']==1).update()
+            
 
         """
         columns = ", ".join([f"{key} = {self.driver.payload}" for key in kwargs.keys()])
