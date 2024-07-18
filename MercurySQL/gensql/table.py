@@ -274,8 +274,8 @@ class Table:
 
         :param columns: The structure of the table.
         :type columns: dict
-        :param force: Allow to skip when column exist and have the same type at the same time.
-        :type force: bool
+        :param skipError: Allow to skip when column exist and have the same type at the same time.
+        :type skipError: bool
         :param primaryKey: The primary key of the table.
         :type primaryKey: str
 
@@ -398,6 +398,11 @@ class Table:
 
             table = db['test']
             table.update(table['id'] == 1, name='Bernie', age=15)
+            
+            # OR
+            
+            (tb['id']==1).update()
+            
 
         """
         columns = ", ".join([f"{key} = {self.driver.payload}" for key in kwargs.keys()])
