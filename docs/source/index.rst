@@ -10,7 +10,7 @@ Documentation of Mercury SQL
    :maxdepth: 3
    :caption: Contents:
 
-   modules/core
+   modules/gensql
    modules/drivers/index
 
    devguide/index

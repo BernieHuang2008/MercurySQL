@@ -1,5 +1,5 @@
-MercurySQLite package
-=====================
+MercurySQL package
+==================
 
 Submodules
 ----------
@@ -7,7 +7,7 @@ Submodules
 MercurySQL.base module
 ---------------------------
 
-.. automodule:: MercurySQLite.base
+.. automodule:: MercurySQL.base
    :members: 
    :undoc-members:
    :show-inheritance:
@@ -15,22 +15,22 @@ MercurySQL.base module
 Module contents
 ---------------
 
-.. automodule:: MercurySQLite
+.. automodule:: MercurySQL
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. autoclass:: MercurySQLite.DataBase
+.. autoclass:: MercurySQL.gensql.DataBase
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. autoclass:: MercurySQLite.Table
+.. autoclass:: MercurySQL.gensql.Table
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. autoclass:: MercurySQLite.Exp
+.. autoclass:: MercurySQL.gensql.Exp
    :members:
    :undoc-members:
    :show-inheritance:
