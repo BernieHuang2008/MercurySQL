@@ -178,7 +178,7 @@ class Table:
         """
         self.delColumn(key)
 
-    def select(self, exp: Exp = None, selection: str = "*") -> list:
+    def select(self, exp: Exp = None, selection: str = "*") -> QueryResult:
         """
         Select data from the table.
 
@@ -439,7 +439,7 @@ class QueryResult:
         def __init__(self, data: dict):
             self.data = data
 
-        def __getattribute__(self, __name: str) -> Any:
+        def __getitem__(self, __name: str) -> Any:
             """
             The main method of this class, used to get the value of a column.
 
@@ -470,7 +470,7 @@ class QueryResult:
         )
         self.data = [dict(zip(keys, row)) for row in values]
 
-    def __getitem__(self, index: int) -> Any:
+    def __getitem__(self, index: int) -> QueryResultRow:
         return self.QueryResultRow(self.data[index])
 
     def __iter__(self):
