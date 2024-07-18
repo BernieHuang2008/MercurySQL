@@ -384,13 +384,22 @@ class Table:
 
         self.db.do(cmd, paras=[tuple(kwargs[k] for k in keys)])
 
-    def update(self, exp: Exp, data = {}, **kwargs) -> None:
+    def update(self, exp: Exp, data: dict={}, **kwargs) -> None:
         """
         Update the table.
+
+        .. note:: We Recommend to use `(tb['id'] == 1).update(...)` then this function, for cleaner code style.
+
+        .. warning::
+           The argument of `Exp.update(...)` doesn't supports kwargs format (`name=bernie`). It only supports dict format (`{"name": "bernie"}`).
+           We recommended to use 'dict format' in both `table.update` and `Exp.update`.
+
+        ..
 
         :param exp: The query expression.
         :type exp: Exp
         :param data: The data to update.
+        :type data: dict
 
         Example Usage:
 
@@ -399,9 +408,7 @@ class Table:
             table = db['test']
             table.update(table['id'] == 1, name='Bernie', age=15)
             # OR
-            (tb['id'] == 1).update(name='Bernie', age=15)
-            # OR, both two methods' arguments can be dict/kwargs
-            (tb['id'] == 1).update({"name": "Bernie", "age": 15})
+            (table['id'] == 1).update({"name": "Bernie", "age": 15})    # recommended
             
         """
         
