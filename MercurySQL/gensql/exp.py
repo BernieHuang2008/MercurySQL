@@ -169,20 +169,6 @@ class Exp(BasicExp):
         res = self.table.db.do(cmd, paras=[paras])
         return res.fetchall()
 
-    def __iter__(self):
-        """
-        use magic method `__iter__` to search.
-        """
-        if self.result is None:
-            if self.table is None:
-                raise NotSpecifiedError("Table not specified.")
-            
-            data = self.query()
-            keys = self.table.columns
-            self.result = [dict(zip(keys, row)) for row in data]
-
-        return iter(self.result)
-
     def delete(self, table=None) -> None:
         """
         Execute delete.
@@ -198,6 +184,30 @@ class Exp(BasicExp):
 
         cmd = self.driver.APIs.gensql.delete(self.table.table_name, condition)
         self.table.db.do(cmd, paras=[paras])
+
+
+    def update(self, data, /, table=None) -> None:
+        """
+        Execute update.
+        """
+        self.table = table or self.table
+
+        self.table.update(self, data)
+
+
+    def __iter__(self):
+        """
+        use magic method `__iter__` to search.
+        """
+        if self.result is None:
+            if self.table is None:
+                raise NotSpecifiedError("Table not specified.")
+            
+            data = self.query()
+            keys = self.table.columns
+            self.result = [dict(zip(keys, row)) for row in data]
+
+        return iter(self.result)
 
     def __str__(self):
         return self._str
