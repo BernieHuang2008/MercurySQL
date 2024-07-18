@@ -267,7 +267,7 @@ class Table:
         self.columnsType[name] = type_
 
     def struct(
-        self, columns: dict, force=True, primaryKey: str = None, autoIncrement=False
+        self, columns: dict, skipError=True, primaryKey: str = None, autoIncrement=False, force=True
     ) -> None:
         """
         Set the structure of the table.
@@ -290,6 +290,10 @@ class Table:
             }, primaryKey='id')
 
         """
+
+        # Warning: `force` will be removed in next big version
+        skipError = skipError and force
+
         for name, type_ in columns.items():
             type_origin = type_
             type_ = self.driver.TypeParser.parse(type_)
@@ -300,7 +304,7 @@ class Table:
                     raise ConfilictError(
                         f"Column `{name}` with different types (`{self.columnsType[name]}`) already exists. While trying to add column `{name}` with type `{type_}`."
                     )
-                elif not force:
+                elif not skipError:
                     raise DuplicateError(
                         f"Column `{name}` already exists. You can use `force=True` to avoid this error."
                     )
