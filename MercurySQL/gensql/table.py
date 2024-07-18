@@ -384,13 +384,13 @@ class Table:
 
         self.db.do(cmd, paras=[tuple(kwargs[k] for k in keys)])
 
-    def update(self, exp: Exp, **kwargs) -> None:
+    def update(self, exp: Exp, data = {}, **kwargs) -> None:
         """
         Update the table.
 
         :param exp: The query expression.
         :type exp: Exp
-        :param \*\*kwargs: The data to update.
+        :param data: The data to update.
 
         Example Usage:
 
@@ -401,12 +401,15 @@ class Table:
             
             # OR
             
-            (tb['id']==1).update()
+            (tb['id']==1).update(name='Bernie', age=15)
             
-
         """
-        columns = ", ".join([f"{key} = {self.driver.payload}" for key in kwargs.keys()])
-        values = tuple(kwargs.values())
+        
+        if not data:
+            data = kwargs
+        
+        columns = ", ".join([f"{key} = {self.driver.payload}" for key in data.keys()])
+        values = tuple(data.values())
 
         condition, paras = exp.formula()
 
