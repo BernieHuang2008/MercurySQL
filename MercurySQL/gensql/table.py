@@ -398,10 +398,10 @@ class Table:
 
             table = db['test']
             table.update(table['id'] == 1, name='Bernie', age=15)
-            
             # OR
-            
-            (tb['id']==1).update(name='Bernie', age=15)
+            (tb['id'] == 1).update(name='Bernie', age=15)
+            # OR, both two methods' arguments can be dict/kwargs
+            (tb['id'] == 1).update({"name": "Bernie", "age": 15})
             
         """
         
