@@ -1,25 +1,29 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MercurySQLite.gensql &mdash; Mercury SQL https://pypi.org/project/mercurysql documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/cite.css" type="text/css" />
+  <title>MercurySQL.gensql &mdash; Mercury SQL https://pypi.org/project/mercurysql documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/cite.css?v=555e2f84" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=5686b3ab"></script>
+        <script src="../_static/documentation_options.js?v=d5e102cc"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
-        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="MercurySQL.drivers (Drivers)" href="drivers/index.html" />
+    <link rel="prev" title="Documentation of Mercury SQL" href="../index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,81 +45,73 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">MercurySQLite.gensql</a><ul>
-<li><a class="reference internal" href="#advanced-apis">Advanced APIs</a><ul>
-<li><a class="reference internal" href="#MercurySQLite.gensql.DataBase"><code class="docutils literal notranslate"><span class="pre">DataBase</span></code></a><ul>
-<li><a class="reference internal" href="#MercurySQLite.gensql.DataBase.__delitem__"><code class="docutils literal notranslate"><span class="pre">DataBase.__delitem__()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.DataBase.__getitem__"><code class="docutils literal notranslate"><span class="pre">DataBase.__getitem__()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.DataBase.__init__"><code class="docutils literal notranslate"><span class="pre">DataBase.__init__()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.DataBase.createTable"><code class="docutils literal notranslate"><span class="pre">DataBase.createTable()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.DataBase.deleteTable"><code class="docutils literal notranslate"><span class="pre">DataBase.deleteTable()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.DataBase.do"><code class="docutils literal notranslate"><span class="pre">DataBase.do()</span></code></a></li>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">MercurySQL.gensql</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-apis">Advanced APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.gensql.DataBase"><code class="docutils literal notranslate"><span class="pre">DataBase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.DataBase.__delitem__"><code class="docutils literal notranslate"><span class="pre">DataBase.__delitem__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.DataBase.__getitem__"><code class="docutils literal notranslate"><span class="pre">DataBase.__getitem__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.DataBase.__init__"><code class="docutils literal notranslate"><span class="pre">DataBase.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.DataBase.createTable"><code class="docutils literal notranslate"><span class="pre">DataBase.createTable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.DataBase.deleteTable"><code class="docutils literal notranslate"><span class="pre">DataBase.deleteTable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.DataBase.do"><code class="docutils literal notranslate"><span class="pre">DataBase.do()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.DataBase.setTemplate"><code class="docutils literal notranslate"><span class="pre">DataBase.setTemplate()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Table"><code class="docutils literal notranslate"><span class="pre">Table</span></code></a><ul>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Table.QueryResult"><code class="docutils literal notranslate"><span class="pre">Table.QueryResult</span></code></a><ul>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Table.QueryResult.QueryResultRow"><code class="docutils literal notranslate"><span class="pre">Table.QueryResult.QueryResultRow</span></code></a><ul>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Table.QueryResult.QueryResultRow.__getattribute__"><code class="docutils literal notranslate"><span class="pre">Table.QueryResult.QueryResultRow.__getattribute__()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Table.QueryResult.QueryResultRow.__init__"><code class="docutils literal notranslate"><span class="pre">Table.QueryResult.QueryResultRow.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.gensql.Table"><code class="docutils literal notranslate"><span class="pre">Table</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Table.__delitem__"><code class="docutils literal notranslate"><span class="pre">Table.__delitem__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Table.__getitem__"><code class="docutils literal notranslate"><span class="pre">Table.__getitem__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Table.__init__"><code class="docutils literal notranslate"><span class="pre">Table.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Table.__setitem__"><code class="docutils literal notranslate"><span class="pre">Table.__setitem__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Table.insert"><code class="docutils literal notranslate"><span class="pre">Table.insert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Table.newColumn"><code class="docutils literal notranslate"><span class="pre">Table.newColumn()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Table.select"><code class="docutils literal notranslate"><span class="pre">Table.select()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Table.setPrimaryKey"><code class="docutils literal notranslate"><span class="pre">Table.setPrimaryKey()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Table.struct"><code class="docutils literal notranslate"><span class="pre">Table.struct()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Table.update"><code class="docutils literal notranslate"><span class="pre">Table.update()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Table.QueryResult.__init__"><code class="docutils literal notranslate"><span class="pre">Table.QueryResult.__init__()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Table.__delitem__"><code class="docutils literal notranslate"><span class="pre">Table.__delitem__()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Table.__getitem__"><code class="docutils literal notranslate"><span class="pre">Table.__getitem__()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Table.__init__"><code class="docutils literal notranslate"><span class="pre">Table.__init__()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Table.__setitem__"><code class="docutils literal notranslate"><span class="pre">Table.__setitem__()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Table.insert"><code class="docutils literal notranslate"><span class="pre">Table.insert()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Table.newColumn"><code class="docutils literal notranslate"><span class="pre">Table.newColumn()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Table.select"><code class="docutils literal notranslate"><span class="pre">Table.select()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Table.setPrimaryKey"><code class="docutils literal notranslate"><span class="pre">Table.setPrimaryKey()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Table.struct"><code class="docutils literal notranslate"><span class="pre">Table.struct()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Exp"><code class="docutils literal notranslate"><span class="pre">Exp</span></code></a><ul>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Exp.__del__"><code class="docutils literal notranslate"><span class="pre">Exp.__del__()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Exp.__eq__"><code class="docutils literal notranslate"><span class="pre">Exp.__eq__()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Exp.__ge__"><code class="docutils literal notranslate"><span class="pre">Exp.__ge__()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Exp.__gt__"><code class="docutils literal notranslate"><span class="pre">Exp.__gt__()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Exp.__hash__"><code class="docutils literal notranslate"><span class="pre">Exp.__hash__</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Exp.__init__"><code class="docutils literal notranslate"><span class="pre">Exp.__init__()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Exp.__iter__"><code class="docutils literal notranslate"><span class="pre">Exp.__iter__()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Exp.__le__"><code class="docutils literal notranslate"><span class="pre">Exp.__le__()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Exp.__lt__"><code class="docutils literal notranslate"><span class="pre">Exp.__lt__()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Exp.__ne__"><code class="docutils literal notranslate"><span class="pre">Exp.__ne__()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Exp.__str__"><code class="docutils literal notranslate"><span class="pre">Exp.__str__()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Exp.convert"><code class="docutils literal notranslate"><span class="pre">Exp.convert()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Exp.delete"><code class="docutils literal notranslate"><span class="pre">Exp.delete()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Exp.formula"><code class="docutils literal notranslate"><span class="pre">Exp.formula()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Exp.gen_formula"><code class="docutils literal notranslate"><span class="pre">Exp.gen_formula()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.Exp.query"><code class="docutils literal notranslate"><span class="pre">Exp.query()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.gensql.Exp"><code class="docutils literal notranslate"><span class="pre">Exp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Exp.__eq__"><code class="docutils literal notranslate"><span class="pre">Exp.__eq__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Exp.__ge__"><code class="docutils literal notranslate"><span class="pre">Exp.__ge__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Exp.__gt__"><code class="docutils literal notranslate"><span class="pre">Exp.__gt__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Exp.__hash__"><code class="docutils literal notranslate"><span class="pre">Exp.__hash__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Exp.__init__"><code class="docutils literal notranslate"><span class="pre">Exp.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Exp.__iter__"><code class="docutils literal notranslate"><span class="pre">Exp.__iter__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Exp.__le__"><code class="docutils literal notranslate"><span class="pre">Exp.__le__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Exp.__lt__"><code class="docutils literal notranslate"><span class="pre">Exp.__lt__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Exp.__ne__"><code class="docutils literal notranslate"><span class="pre">Exp.__ne__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Exp.__or__"><code class="docutils literal notranslate"><span class="pre">Exp.__or__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Exp.__str__"><code class="docutils literal notranslate"><span class="pre">Exp.__str__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Exp.convert"><code class="docutils literal notranslate"><span class="pre">Exp.convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Exp.delete"><code class="docutils literal notranslate"><span class="pre">Exp.delete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Exp.formula"><code class="docutils literal notranslate"><span class="pre">Exp.formula()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Exp.gen_formula"><code class="docutils literal notranslate"><span class="pre">Exp.gen_formula()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.Exp.query"><code class="docutils literal notranslate"><span class="pre">Exp.query()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#low-level-helper-apis">Low-level (Helper) APIs</a><ul>
-<li><a class="reference internal" href="#MercurySQLite.gensql.BasicExp"><code class="docutils literal notranslate"><span class="pre">BasicExp</span></code></a><ul>
-<li><a class="reference internal" href="#MercurySQLite.gensql.BasicExp.__dict__"><code class="docutils literal notranslate"><span class="pre">BasicExp.__dict__</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.BasicExp.__init__"><code class="docutils literal notranslate"><span class="pre">BasicExp.__init__()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.BasicExp.convert"><code class="docutils literal notranslate"><span class="pre">BasicExp.convert()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.BasicExp.formula"><code class="docutils literal notranslate"><span class="pre">BasicExp.formula()</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.BasicExp.gen_formula"><code class="docutils literal notranslate"><span class="pre">BasicExp.gen_formula()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.TypeParser"><code class="docutils literal notranslate"><span class="pre">TypeParser</span></code></a><ul>
-<li><a class="reference internal" href="#MercurySQLite.gensql.TypeParser.__dict__"><code class="docutils literal notranslate"><span class="pre">TypeParser.__dict__</span></code></a></li>
-<li><a class="reference internal" href="#MercurySQLite.gensql.TypeParser.parse"><code class="docutils literal notranslate"><span class="pre">TypeParser.parse()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#low-level-apis">Low-level APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.gensql.exp.BasicExp"><code class="docutils literal notranslate"><span class="pre">BasicExp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.exp.BasicExp.__annotations__"><code class="docutils literal notranslate"><span class="pre">BasicExp.__annotations__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.exp.BasicExp.__dict__"><code class="docutils literal notranslate"><span class="pre">BasicExp.__dict__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.exp.BasicExp.__init__"><code class="docutils literal notranslate"><span class="pre">BasicExp.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.exp.BasicExp.convert"><code class="docutils literal notranslate"><span class="pre">BasicExp.convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.exp.BasicExp.formula"><code class="docutils literal notranslate"><span class="pre">BasicExp.formula()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MercurySQL.gensql.exp.BasicExp.gen_formula"><code class="docutils literal notranslate"><span class="pre">BasicExp.gen_formula()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="drivers/index.html">MercurySQL.drivers (Drivers)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html">MercurySQL.errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/index.html">Developer Guide</a></li>
 </ul>
-</div>
+
         </div>
       </div>
     </nav>
@@ -130,7 +126,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">MercurySQLite.gensql</li>
+      <li class="breadcrumb-item active">MercurySQL.gensql</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/modules/gensql.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -140,251 +136,486 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="mercurysqlite-gensql">
-<h1>MercurySQLite.gensql<a class="headerlink" href="#mercurysqlite-gensql" title="Permalink to this heading"></a></h1>
-<p>Use built-in sqlite3 library to operate sql in a more pythonic way.</p>
-<p>This file contains the implementation of a SQLite database wrapper class and related classes for table and query expressions.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This code is a simplified implementation and may not cover all possible use cases. Please refer to the official documentation for more information.</p>
-</div>
+  <section id="mercurysql-gensql">
+<h1>MercurySQL.gensql<a class="headerlink" href="#mercurysql-gensql" title="Link to this heading"></a></h1>
+<p>Operate SQL in a more pythonic way.</p>
+<p>This file contains the implementation of a common SQL database wrapper class, and for each sql (e.g. sqlite, mysql), a <cite>Driver</cite> is needed.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This module will not perform any inspection on DB names, Table names or Column names etc.
-However, all the query values are replaced with safe queries (’<cite>?</cite>’). Therefore, it is recommended to hardcode Column names to prevent SQL injection.</p>
+However, all the query values are replaced with safe queries (’<cite>?</cite>’ or else). Therefore, it is recommended to hardcode Column names to prevent SQL injection.</p>
 </div>
 <section id="advanced-apis">
-<h2>Advanced APIs<a class="headerlink" href="#advanced-apis" title="Permalink to this heading"></a></h2>
+<h2>Advanced APIs<a class="headerlink" href="#advanced-apis" title="Link to this heading"></a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.DataBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQLite.gensql.</span></span><span class="sig-name descname"><span class="pre">DataBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.DataBase" title="Permalink to this definition"></a></dt>
-<dd><p>select/create a SQLite database using python’s built-in library <cite>sqlite3</cite>.</p>
-<p>Represents a SQLite database and provides methods for creating tables, executing SQL commands, and retrieving table objects.</p>
+<dt class="sig sig-object py" id="MercurySQL.gensql.DataBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.gensql.</span></span><span class="sig-name descname"><span class="pre">DataBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">driver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.gensql.DataBase" title="Link to this definition"></a></dt>
+<dd><p>Select/Create/Connect a SQL database.
+Represents a SQL database and provides methods for creating tables, executing SQL commands, and retrieving table objects.</p>
+<p>Represents a SQL database. It provides methods for creating tables, executing SQL commands, and retrieving table objects, etc.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.DataBase.__delitem__">
-<span class="sig-name descname"><span class="pre">__delitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.DataBase.__delitem__" title="Permalink to this definition"></a></dt>
-<dd><p>Delete a table from the database.</p>
-<dl class="simple">
-<dt>Paras:</dt><dd><dl class="simple">
-<dt>key: str</dt><dd><p>The name of the table.</p>
+<dt class="sig sig-object py" id="MercurySQL.gensql.DataBase.__delitem__">
+<span class="sig-name descname"><span class="pre">__delitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.gensql.DataBase.__delitem__" title="Link to this definition"></a></dt>
+<dd><p>Delete a table from the database, same as <cite>deleteTable()</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – The name of the table.</p>
 </dd>
 </dl>
-</dd>
-</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="k">del</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>  <span class="c1"># same as db.deleteTable(&#39;test&#39;)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.DataBase.__getitem__">
-<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQLite.gensql.Table" title="MercurySQLite.gensql.Table"><span class="pre">Table</span></a></span></span><a class="headerlink" href="#MercurySQLite.gensql.DataBase.__getitem__" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.DataBase.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.gensql.Table" title="MercurySQL.gensql.table.Table"><span class="pre">Table</span></a></span></span><a class="headerlink" href="#MercurySQL.gensql.DataBase.__getitem__" title="Link to this definition"></a></dt>
 <dd><p>Create / Choose a table from the database.</p>
-<dl class="simple">
-<dt>Paras:</dt><dd><dl class="simple">
-<dt>key: str</dt><dd><p>The name of the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – The name of the table.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Table object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#MercurySQL.gensql.Table" title="MercurySQL.gensql.Table">Table</a></p>
 </dd>
 </dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>How It Works:</dt><dd><ul class="simple">
+<li><p>if exists, return the existing table (the OLD <cite>Table</cite> Object)</p></li>
+<li><p>if not exists, create a new table by <cite>createTable()</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The only difference between <cite>__getitem__()</cite> and <cite>createTable()</cite> is that <cite>__getitem__()</cite> will return the <strong>OLD</strong> <cite>Table</cite> Object if exists, while <cite>createTable()</cite> will return a <strong>NEW</strong> <cite>Table</cite> Object.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.gensql.DataBase.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">driver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.gensql.DataBase.__init__" title="Link to this definition"></a></dt>
+<dd><p>Create a new database object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>db_name</strong> (<em>str</em>) – The name of the database.</p>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>How It Works:</dt><dd><ul class="simple">
+<li><p>start a connection to the SQL database, using the driver specified by <cite>driver</cite> parameter or <cite>set_driver()</cite> method.</p></li>
+<li><p>get a cursor to execute sql commands.</p></li>
+<li><p>gather all infomations of the database, for further usages.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.DataBase.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.DataBase.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.DataBase.createTable">
-<span class="sig-name descname"><span class="pre">createTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">table_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowExist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQLite.gensql.Table" title="MercurySQLite.gensql.Table"><span class="pre">Table</span></a></span></span><a class="headerlink" href="#MercurySQLite.gensql.DataBase.createTable" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.DataBase.createTable">
+<span class="sig-name descname"><span class="pre">createTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">table_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.gensql.Table" title="MercurySQL.gensql.table.Table"><span class="pre">Table</span></a></span></span><a class="headerlink" href="#MercurySQL.gensql.DataBase.createTable" title="Link to this definition"></a></dt>
 <dd><p>create a table in the database.</p>
-<dl class="simple">
-<dt>Paras:</dt><dd><dl class="simple">
-<dt>table_names: str</dt><dd><p>The name of the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table_names</strong> (<em>str</em>) – The name of the table.</p></li>
+<li><p><strong>force</strong> (<em>bool</em>) – Allow to return an existing table.</p></li>
+</ul>
 </dd>
-<dt>allowExist: bool</dt><dd><p>Allow to return a existing table.</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Table object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#MercurySQL.gensql.Table" title="MercurySQL.gensql.Table">Table</a></p>
 </dd>
 </dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">createTable</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>How It Works:</dt><dd><ul class="simple">
+<li><p>create table(s) if not exists</p></li>
+<li><p>if already exists, return the existing table(s) in a NEW <cite>Table</cite> Object.</p></li>
+<li><p>if exists and <cite>force</cite> set to False, raise an Exception.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.DataBase.deleteTable">
-<span class="sig-name descname"><span class="pre">deleteTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">table_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.DataBase.deleteTable" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.DataBase.deleteTable">
+<span class="sig-name descname"><span class="pre">deleteTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">table_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.gensql.DataBase.deleteTable" title="Link to this definition"></a></dt>
 <dd><p>delete a table in the database.</p>
-<dl class="simple">
-<dt>Paras:</dt><dd><dl class="simple">
-<dt>table_names: str</dt><dd><p>The name of the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table_names</strong> (<em>str</em>) – The name of the table.</p>
 </dd>
 </dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="n">db</span><span class="o">.</span><span class="n">deleteTable</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>How It Works:</dt><dd><ul class="simple">
+<li><p>delete table(s) if exists</p></li>
+<li><p>raise an Exception if not exists.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.DataBase.do">
-<span class="sig-name descname"><span class="pre">do</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">sql</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paras</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Cursor</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.DataBase.do" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.DataBase.do">
+<span class="sig-name descname"><span class="pre">do</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">sql</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paras</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.gensql.DataBase.do" title="Link to this definition"></a></dt>
 <dd><p>Execute a sql command on the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sql</strong> (<em>str</em>) – The sql command(s).</p></li>
+<li><p><strong>paras</strong> (<em>List</em><em>[</em><em>tuple</em><em>]</em>) – The parameters for the sql command(s).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The cursor of the database.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Driver.Cursor</p>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="n">db</span><span class="o">.</span><span class="n">do</span><span class="p">(</span><span class="s2">&quot;CREATE TABLE test (id INTEGER PRIMARY KEY, name TEXT)&quot;</span><span class="p">)</span>
+<span class="n">db</span><span class="o">.</span><span class="n">do</span><span class="p">(</span><span class="s2">&quot;INSERT INTO test (name) VALUES (?)&quot;</span><span class="p">,</span> <span class="n">paras</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;Bernie&#39;</span><span class="p">,)])</span>
+<span class="n">db</span><span class="o">.</span><span class="n">do</span><span class="p">(</span>
+    <span class="s2">&quot;SQL1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SQL2&quot;</span><span class="p">,</span>
+    <span class="n">paras</span><span class="o">=</span><span class="p">[</span>
+           <span class="p">(</span><span class="n">paras1</span><span class="p">,</span> <span class="n">paras2</span><span class="p">),</span>
+           <span class="p">(</span><span class="n">paras3</span><span class="p">,</span> <span class="n">paras4</span><span class="p">)</span>
+    <span class="p">])</span>
+</pre></div>
+</div>
 <dl class="simple">
-<dt>Paras:</dt><dd><dl class="simple">
-<dt>sql: str</dt><dd><p>The sql command(s).</p>
-</dd>
-<dt>paras: tuple</dt><dd><p>The parameters for the sql command(s).</p>
-</dd>
-</dl>
+<dt>How It Works:</dt><dd><ul class="simple">
+<li><p>execute sql commands one by one, with parameters</p></li>
+<li><p>commit after all commands are executed</p></li>
+</ul>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.gensql.DataBase.setTemplate">
+<span class="sig-name descname"><span class="pre">setTemplate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.gensql.DataBase.setTemplate" title="Link to this definition"></a></dt>
+<dd><p>Set the template, so new table’s structure will be setted to this template.
+You can specifd the template by using <cite>template=…</cite> parameter into <cite>db.createTable()</cite> method.
+Or set it after the table is created, using <cite>table.struct()</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>template</strong> (<em>dict</em>) – The template to set.</p></li>
+<li><p><strong>**kwargs</strong> – The parameters for the template. E.g., <cite>primaryKey=’id’</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="n">db</span><span class="o">.</span><span class="n">setTemplate</span><span class="p">({</span>
+    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">})</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">createTable</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Table">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQLite.gensql.</span></span><span class="sig-name descname"><span class="pre">Table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.DataBase" title="MercurySQLite.gensql.DataBase"><span class="pre">DataBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.Table" title="Permalink to this definition"></a></dt>
-<dd><p>A table in the SQLite database.</p>
-<p>Represents a table in the SQLite database and provides methods for adding columns, deleting columns, inserting rows, and executing queries.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.QueryResult">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QueryResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.Table" title="MercurySQLite.gensql.Table"><span class="pre">Table</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'*'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.Table.QueryResult" title="Permalink to this definition"></a></dt>
-<dd><p>[Helper Class]
-The result of a query.</p>
-<dl>
-<dt>Usage:</dt><dd><p>res = table.select(exp)
-for row in res:</p>
-<blockquote>
-<div><p>print(row)</p>
-</div></blockquote>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Table">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.gensql.</span></span><span class="sig-name descname"><span class="pre">Table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.gensql.Table" title="Link to this definition"></a></dt>
+<dd><p>Represents a table in the SQL database and provides methods for adding columns, deleting columns, inserting rows, and executing queries.</p>
+<p>Represents a table in a SQL database. Can be created by <cite>db.createTable()</cite>. It provides methods for adding columns, deleting columns, inserting rows, and executing queries, etc.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.gensql.Table.__delitem__">
+<span class="sig-name descname"><span class="pre">__delitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.gensql.Table.__delitem__" title="Link to this definition"></a></dt>
+<dd><p>Delete an existing column in this table.
+An Exception will be raised if column not exist.
+Same as <cite>delColumn()</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – The name of the column.</p>
 </dd>
 </dl>
-<dl class="py class">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.QueryResult.QueryResultRow">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QueryResultRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.Table.QueryResult.QueryResultRow" title="Permalink to this definition"></a></dt>
-<dd><p>[Helper Class]</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.QueryResult.QueryResultRow.__getattribute__">
-<span class="sig-name descname"><span class="pre">__getattribute__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_QueryResultRow__name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.QueryResult.QueryResultRow.__getattribute__" title="Permalink to this definition"></a></dt>
-<dd><p>Return getattr(self, name).</p>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="k">del</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>  <span class="c1"># same as table.delColumn(&#39;name&#39;)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.QueryResult.QueryResultRow.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.Table.QueryResult.QueryResultRow.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.QueryResult.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.Table" title="MercurySQLite.gensql.Table"><span class="pre">Table</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'*'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.Table.QueryResult.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.__delitem__">
-<span class="sig-name descname"><span class="pre">__delitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.__delitem__" title="Permalink to this definition"></a></dt>
-<dd><p>Delete an existing column in this table. 
-An Exception will be raised if column not exist.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.__getitem__">
-<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.__getitem__" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Table.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.gensql.Exp" title="MercurySQL.gensql.exp.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQL.gensql.Table.__getitem__" title="Link to this definition"></a></dt>
 <dd><p>get a column from the table, mainly used to construct query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – The name of the column.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An Exp object.</p>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<ol class="arabic simple">
+<li><p>Construct a query expression.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">exp</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Get the definition of a column.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>  <span class="c1"># INTEGER PRIMARY KEY</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>How It Works:</dt><dd><ul class="simple">
+<li><p>return an <cite>Exp</cite> object with <cite>table</cite> and <cite>_str</cite> attributes setted.</p></li>
+<li><p><cite>table</cite> is used to execute the query using <cite>list(…)</cite>, even if table not specified. <strong>[NOT RECOMMENDED]</strong></p></li>
+<li><p><cite>_str</cite> is used to print the definition of a column using <cite>str(…)</cite>.</p></li>
+<li><p>raise an Exception if column not exists.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.DataBase" title="MercurySQLite.gensql.DataBase"><span class="pre">DataBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.Table.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Table.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.gensql.Table.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize a table object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> (<a class="reference internal" href="#MercurySQL.gensql.DataBase" title="MercurySQL.gensql.DataBase"><em>DataBase</em></a>) – The database object.</p></li>
+<li><p><strong>table_name</strong> (<em>str</em>) – The name of the table.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>How It Works:</dt><dd><ul class="simple">
+<li><p>gather all infomations of the table, including columns name and their types.</p></li>
+<li><p>set <cite>isEmpty</cite> to True if the table doesn’t have any columns. This variable will effect how the <cite>newColumn()</cite> method works.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.__setitem__">
-<span class="sig-name descname"><span class="pre">__setitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.__setitem__" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Table.__setitem__">
+<span class="sig-name descname"><span class="pre">__setitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.gensql.Table.__setitem__" title="Link to this definition"></a></dt>
 <dd><p>Create a new column in the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>str</em>) – The name of the column.</p></li>
+<li><p><strong>value</strong> (Any. Can be single un-parsed type (e.g. <cite>int</cite>, <cite>str(5)</cite>, …) OR a tuple in the form of <cite>(type, options)</cite>. (e.g. <cite>(int, ‘primary key’, ‘auto increment’)</cite>)) – The type of the column.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Options in <cite>value</cite>:
+- ‘primary key’: Set the column as the primary key of the table.
+- ‘auto increment’: Set the column as an auto-incremented column.</p>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span>
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;primary key&#39;</span><span class="p">,</span> <span class="s1">&#39;auto increment&#39;</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>How It Works:</dt><dd><ul class="simple">
+<li><p>get options from <cite>value</cite> if it has parameters (Judge it by whether it’s a tuple, so you can use it as the L3 of example showed).</p></li>
+<li><p>Actually create the column, using <cite>newColumn()</cite> method.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.insert">
-<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.insert" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Table.insert">
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Table__auto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.gensql.Table.insert" title="Link to this definition"></a></dt>
 <dd><p>Insert a row into the table.</p>
-<dl class="simple">
-<dt>Paras:</dt><dd><dl class="simple">
-<dt>kwargs: dict</dt><dd><p>The data to insert.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>__auto</strong> (<em>bool</em>) – Whether to update the row if it already exists.</p></li>
+<li><p><strong>**kwargs</strong> – The data to insert.</p></li>
+</ul>
 </dd>
 </dl>
-</dd>
-</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">table</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Bernie&#39;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">__auto</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.newColumn">
-<span class="sig-name descname"><span class="pre">newColumn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primaryKey</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowExist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.newColumn" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Table.newColumn">
+<span class="sig-name descname"><span class="pre">newColumn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primaryKey</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoIncrement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.gensql.Table.newColumn" title="Link to this definition"></a></dt>
 <dd><p>Add a new column to the table.</p>
-<dl class="simple">
-<dt>Paras:</dt><dd><dl class="simple">
-<dt>name: str</dt><dd><p>Name of the new column.</p>
-</dd>
-<dt><a href="#id5"><span class="problematic" id="id6">type_</span></a>: Any</dt><dd><p>Type of the new column.</p>
-</dd>
-<dt>primaryKey: bool</dt><dd><p>The column will be a primary key if set to <cite>True</cite>.</p>
-</dd>
-<dt>allowExist: bool</dt><dd><p>Allow to skip when processing an existing column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The name of the column.</p></li>
+<li><p><strong>type</strong> (<em>Any</em>) – The type of the column.</p></li>
+<li><p><strong>force</strong> (<em>bool</em>) – Allow to skip when processing an existing column.</p></li>
+<li><p><strong>primaryKey</strong> (<em>bool</em>) – Whether the column is a primary key.</p></li>
+<li><p><strong>autoIncrement</strong> (<em>bool</em>) – Whether the column is auto-incremented.</p></li>
+</ul>
 </dd>
 </dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">table</span><span class="o">.</span><span class="n">newColumn</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+<span class="n">table</span><span class="o">.</span><span class="n">newColumn</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">primaryKey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>How It Works:</dt><dd><ul class="simple">
+<li><p>Create a new table with this column, if table is empty.</p></li>
+<li><p>Add the column to an existing table.</p></li>
+<li><p>Set as the <cite>primary key</cite> column if <cite>primaryKey</cite> is True.</p></li>
+<li><p>Record its name and type in <cite>self.columns</cite> and <cite>self.columnsType</cite>.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.select">
-<span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'*'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.select" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Table.select">
+<span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.gensql.Exp" title="MercurySQL.gensql.exp.Exp"><span class="pre">Exp</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'*'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QueryResult</span></span></span><a class="headerlink" href="#MercurySQL.gensql.Table.select" title="Link to this definition"></a></dt>
 <dd><p>Select data from the table.</p>
-<dl class="simple">
-<dt>Paras:</dt><dd><dl class="simple">
-<dt>exp: Exp</dt><dd><p>The query expression.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exp</strong> (<a class="reference internal" href="#MercurySQL.gensql.Exp" title="MercurySQL.gensql.Exp"><em>Exp</em></a>) – The query expression.</p></li>
+<li><p><strong>selection</strong> (<em>str</em>) – The columns to select, default is ‘*’(all columns).</p></li>
+</ul>
 </dd>
-<dt>selection: str</dt><dd><p>The columns to select, default is ‘*’(all columns).</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">table</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># select all columns where id = 1</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>How It Works:</dt><dd><ul class="simple">
+<li><p>Construct a <cite>QueryResult</cite> object, which will execute the query whthin it’s <cite>QueryResult.__init__()</cite> method.</p></li>
+<li><p>return a <cite>QueryResult</cite> object with results.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.setPrimaryKey">
-<span class="sig-name descname"><span class="pre">setPrimaryKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.setPrimaryKey" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Table.setPrimaryKey">
+<span class="sig-name descname"><span class="pre">setPrimaryKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keytype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.gensql.Table.setPrimaryKey" title="Link to this definition"></a></dt>
 <dd><p>Set a column as the primary key of the table.</p>
-<dl class="simple">
-<dt>Paras:</dt><dd><dl class="simple">
-<dt>keyname: str</dt><dd><p>The name of the column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keyname</strong> (<em>str</em>) – The name of the column.</p></li>
+<li><p><strong>keytype</strong> (<em>str</em>) – The type of the column, been parsed by <cite>TypeParser</cite>.</p></li>
+</ul>
 </dd>
 </dl>
-</dd>
-</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">table</span><span class="o">.</span><span class="n">setPrimaryKey</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Table.struct">
-<span class="sig-name descname"><span class="pre">struct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primaryKey</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowExist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Table.struct" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Table.struct">
+<span class="sig-name descname"><span class="pre">struct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primaryKey</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoIncrement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.gensql.Table.struct" title="Link to this definition"></a></dt>
 <dd><p>Set the structure of the table.</p>
-<dl class="simple">
-<dt>Paras:</dt><dd><dl class="simple">
-<dt>columns: dict</dt><dd><p>The structure of the table.</p>
-</dd>
-<dt>primaryKey: str</dt><dd><p>The primary key of the table.</p>
-</dd>
-<dt>allowExist: bool</dt><dd><p>Allow to skip when column exist and have the same type.</p>
-</dd>
-</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>columns</strong> (<em>dict</em>) – The structure of the table.</p></li>
+<li><p><strong>force</strong> (<em>bool</em>) – Allow to skip when column exist and have the same type at the same time.</p></li>
+<li><p><strong>primaryKey</strong> (<em>str</em>) – The primary key of the table.</p></li>
+</ul>
 </dd>
 </dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">table</span><span class="o">.</span><span class="n">struct</span><span class="p">({</span>
+    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">},</span> <span class="n">primaryKey</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.gensql.Table.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.gensql.Exp" title="MercurySQL.gensql.exp.Exp"><span class="pre">Exp</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.gensql.Table.update" title="Link to this definition"></a></dt>
+<dd><p>Update the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exp</strong> (<a class="reference internal" href="#MercurySQL.gensql.Exp" title="MercurySQL.gensql.Exp"><em>Exp</em></a>) – The query expression.</p></li>
+<li><p><strong>**kwargs</strong> – The data to update.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+<span class="n">table</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Bernie&#39;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Exp">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQLite.gensql.</span></span><span class="sig-name descname"><span class="pre">Exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">o2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.Exp" title="Permalink to this definition"></a></dt>
-<dd><p>Subclass of BasicExp, representing a query expression that can be used to construct complex queries.</p>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Exp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.gensql.</span></span><span class="sig-name descname"><span class="pre">Exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">o2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.gensql.Exp" title="Link to this definition"></a></dt>
+<dd><p>Subclass of BasicExp, representing a query expression, which can be used to construct complex queries.</p>
 <ul class="simple">
 <li><p>Supported Operations:
 * <cite>==</cite>: equality
@@ -401,190 +632,191 @@ An Exception will be raised if column not exist.</p>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>you should mind the priority of operations when using <cite>&amp;</cite> and <cite>|</cite>.</p>
+<p>you should mind the priority of operations when using some of the operators, especially <cite>&amp;</cite> and <cite>|</cite>.</p>
 </div>
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Exp.__del__">
-<span class="sig-name descname"><span class="pre">__del__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.Exp.__del__" title="Permalink to this definition"></a></dt>
-<dd><p>use magic method <cite>__del__</cite> to delete.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Exp.__eq__">
-<span class="sig-name descname"><span class="pre">__eq__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Exp__value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQLite.gensql.Exp.__eq__" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Exp.__eq__">
+<span class="sig-name descname"><span class="pre">__eq__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Exp__value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.gensql.Exp" title="MercurySQL.gensql.exp.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.gensql.Exp" title="MercurySQL.gensql.exp.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQL.gensql.Exp.__eq__" title="Link to this definition"></a></dt>
 <dd><p>Return self==value.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Exp.__ge__">
-<span class="sig-name descname"><span class="pre">__ge__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Exp__value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQLite.gensql.Exp.__ge__" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Exp.__ge__">
+<span class="sig-name descname"><span class="pre">__ge__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Exp__value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.gensql.Exp" title="MercurySQL.gensql.exp.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.gensql.Exp" title="MercurySQL.gensql.exp.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQL.gensql.Exp.__ge__" title="Link to this definition"></a></dt>
 <dd><p>Return self&gt;=value.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Exp.__gt__">
-<span class="sig-name descname"><span class="pre">__gt__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Exp__value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQLite.gensql.Exp.__gt__" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Exp.__gt__">
+<span class="sig-name descname"><span class="pre">__gt__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Exp__value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.gensql.Exp" title="MercurySQL.gensql.exp.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.gensql.Exp" title="MercurySQL.gensql.exp.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQL.gensql.Exp.__gt__" title="Link to this definition"></a></dt>
 <dd><p>Return self&gt;value.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Exp.__hash__">
-<span class="sig-name descname"><span class="pre">__hash__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#MercurySQLite.gensql.Exp.__hash__" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Exp.__hash__">
+<span class="sig-name descname"><span class="pre">__hash__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#MercurySQL.gensql.Exp.__hash__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Exp.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">o2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.Exp.__init__" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Exp.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">o2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.gensql.Exp.__init__" title="Link to this definition"></a></dt>
 <dd><p>Acceptable addition attributes:
 - table: Table …………………. the table to search
 - _str: str ……………………. the string to show when print the object</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Exp.__iter__">
-<span class="sig-name descname"><span class="pre">__iter__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.Exp.__iter__" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Exp.__iter__">
+<span class="sig-name descname"><span class="pre">__iter__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.gensql.Exp.__iter__" title="Link to this definition"></a></dt>
 <dd><p>use magic method <cite>__iter__</cite> to search.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Exp.__le__">
-<span class="sig-name descname"><span class="pre">__le__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Exp__value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQLite.gensql.Exp.__le__" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Exp.__le__">
+<span class="sig-name descname"><span class="pre">__le__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Exp__value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.gensql.Exp" title="MercurySQL.gensql.exp.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.gensql.Exp" title="MercurySQL.gensql.exp.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQL.gensql.Exp.__le__" title="Link to this definition"></a></dt>
 <dd><p>Return self&lt;=value.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Exp.__lt__">
-<span class="sig-name descname"><span class="pre">__lt__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Exp__value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQLite.gensql.Exp.__lt__" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Exp.__lt__">
+<span class="sig-name descname"><span class="pre">__lt__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Exp__value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.gensql.Exp" title="MercurySQL.gensql.exp.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.gensql.Exp" title="MercurySQL.gensql.exp.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQL.gensql.Exp.__lt__" title="Link to this definition"></a></dt>
 <dd><p>Return self&lt;value.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Exp.__ne__">
-<span class="sig-name descname"><span class="pre">__ne__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Exp__value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQLite.gensql.Exp" title="MercurySQLite.gensql.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQLite.gensql.Exp.__ne__" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Exp.__ne__">
+<span class="sig-name descname"><span class="pre">__ne__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Exp__value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.gensql.Exp" title="MercurySQL.gensql.exp.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.gensql.Exp" title="MercurySQL.gensql.exp.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQL.gensql.Exp.__ne__" title="Link to this definition"></a></dt>
 <dd><p>Return self!=value.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Exp.__str__">
-<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.Exp.__str__" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Exp.__or__">
+<span class="sig-name descname"><span class="pre">__or__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_Exp__value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MercurySQL.gensql.Exp" title="MercurySQL.gensql.exp.Exp"><span class="pre">Exp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#MercurySQL.gensql.Exp" title="MercurySQL.gensql.exp.Exp"><span class="pre">Exp</span></a></span></span><a class="headerlink" href="#MercurySQL.gensql.Exp.__or__" title="Link to this definition"></a></dt>
+<dd><p>Return self|value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="MercurySQL.gensql.Exp.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.gensql.Exp.__str__" title="Link to this definition"></a></dt>
 <dd><p>Return str(self).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Exp.convert">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Exp.convert" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Exp.convert">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQL.gensql.Exp.convert" title="Link to this definition"></a></dt>
 <dd><p>Convert value into a form that can be used in a SQL query.</p>
-<dl class="simple">
-<dt>Return:</dt><dd><dl class="simple">
-<dt>Tuple[str, tuple]</dt><dd><p>The converted value in the form of <cite>(sql_command, paras)</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>Any</em>) – The value to convert.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The converted value in the form of <cite>(sql_command, paras)</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[str, tuple]</p>
 </dd>
 </dl>
-</dd>
-</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">BasicExp</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>                 <span class="c1"># (&#39;?&#39;, (1,))</span>
+<span class="n">BasicExp</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;Bernie&#39;</span><span class="p">)</span>          <span class="c1"># (&#39;?&#39;, (&#39;Bernie&#39;,))</span>
+<span class="n">BasicExp</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>              <span class="c1"># (&#39;&#39;, ())</span>
+<span class="n">BasicExp</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">Exp</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>    <span class="c1"># (&#39;(id = ?)&#39;, (1,))</span>
+<span class="o">...</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Exp.delete">
-<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Exp.delete" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Exp.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.gensql.Exp.delete" title="Link to this definition"></a></dt>
 <dd><p>Execute delete.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Exp.formula">
-<span class="sig-name descname"><span class="pre">formula</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Exp.formula" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Exp.formula">
+<span class="sig-name descname"><span class="pre">formula</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQL.gensql.Exp.formula" title="Link to this definition"></a></dt>
 <dd><p>Return the formula of the expression in the form of (sql_command, paras).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Exp.gen_formula">
-<span class="sig-name descname"><span class="pre">gen_formula</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Exp.gen_formula" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Exp.gen_formula">
+<span class="sig-name descname"><span class="pre">gen_formula</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.gensql.Exp.gen_formula" title="Link to this definition"></a></dt>
 <dd><p>[Helper] Generate the formula of the expression.</p>
-<p><a href="#id1"><span class="problematic" id="id2">*</span></a>(Note) You can also construct a formula by yourself, just set the <cite>_formula</cite> attribute to a tuple in the form of <cite>(sql_command, paras)</cite>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also construct a formula by yourself, just set the <cite>_formula</cite> attribute to a tuple in the form of <cite>(sql_command, paras)</cite>.</p>
+</div>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.Exp.query">
-<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'*'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.Exp.query" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.Exp.query">
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'*'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#MercurySQL.gensql.Exp.query" title="Link to this definition"></a></dt>
 <dd><p>Execute query.</p>
 </dd></dl>
 
 </dd></dl>
 
 </section>
-<section id="low-level-helper-apis">
-<h2>Low-level (Helper) APIs<a class="headerlink" href="#low-level-helper-apis" title="Permalink to this heading"></a></h2>
+<section id="low-level-apis">
+<h2>Low-level APIs<a class="headerlink" href="#low-level-apis" title="Link to this heading"></a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.BasicExp">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQLite.gensql.</span></span><span class="sig-name descname"><span class="pre">BasicExp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.BasicExp" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.exp.BasicExp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.gensql.exp.</span></span><span class="sig-name descname"><span class="pre">BasicExp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.gensql.exp.BasicExp" title="Link to this definition"></a></dt>
 <dd><p>Basic class of Exp, representing a basic query expression that can be used to construct complex queries.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.BasicExp.__dict__">
-<span class="sig-name descname"><span class="pre">__dict__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">mappingproxy({'__module__':</span> <span class="pre">'MercurySQLite.gensql',</span> <span class="pre">'__init__':</span> <span class="pre">&lt;function</span> <span class="pre">BasicExp.__init__&gt;,</span> <span class="pre">'convert':</span> <span class="pre">&lt;staticmethod</span> <span class="pre">object&gt;,</span> <span class="pre">'gen_formula':</span> <span class="pre">&lt;function</span> <span class="pre">BasicExp.gen_formula&gt;,</span> <span class="pre">'formula':</span> <span class="pre">&lt;function</span> <span class="pre">BasicExp.formula&gt;,</span> <span class="pre">'__dict__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__dict__'</span> <span class="pre">of</span> <span class="pre">'BasicExp'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__weakref__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__weakref__'</span> <span class="pre">of</span> <span class="pre">'BasicExp'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__doc__':</span> <span class="pre">None,</span> <span class="pre">'__annotations__':</span> <span class="pre">{}})</span></em><a class="headerlink" href="#MercurySQLite.gensql.BasicExp.__dict__" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.exp.BasicExp.__annotations__">
+<span class="sig-name descname"><span class="pre">__annotations__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#MercurySQL.gensql.exp.BasicExp.__annotations__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MercurySQL.gensql.exp.BasicExp.__dict__">
+<span class="sig-name descname"><span class="pre">__dict__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">mappingproxy({'__module__':</span> <span class="pre">'MercurySQL.gensql.exp',</span> <span class="pre">'__init__':</span> <span class="pre">&lt;function</span> <span class="pre">BasicExp.__init__&gt;,</span> <span class="pre">'convert':</span> <span class="pre">&lt;staticmethod(&lt;function</span> <span class="pre">BasicExp.convert&gt;)&gt;,</span> <span class="pre">'gen_formula':</span> <span class="pre">&lt;function</span> <span class="pre">BasicExp.gen_formula&gt;,</span> <span class="pre">'formula':</span> <span class="pre">&lt;function</span> <span class="pre">BasicExp.formula&gt;,</span> <span class="pre">'__dict__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__dict__'</span> <span class="pre">of</span> <span class="pre">'BasicExp'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__weakref__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__weakref__'</span> <span class="pre">of</span> <span class="pre">'BasicExp'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__doc__':</span> <span class="pre">None,</span> <span class="pre">'__annotations__':</span> <span class="pre">{}})</span></em><a class="headerlink" href="#MercurySQL.gensql.exp.BasicExp.__dict__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.BasicExp.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQLite.gensql.BasicExp.__init__" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.exp.BasicExp.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.gensql.exp.BasicExp.__init__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.BasicExp.convert">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQLite.gensql.BasicExp.convert" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.exp.BasicExp.convert">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQL.gensql.exp.BasicExp.convert" title="Link to this definition"></a></dt>
 <dd><p>Convert value into a form that can be used in a SQL query.</p>
-<dl class="simple">
-<dt>Return:</dt><dd><dl class="simple">
-<dt>Tuple[str, tuple]</dt><dd><p>The converted value in the form of <cite>(sql_command, paras)</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>Any</em>) – The value to convert.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The converted value in the form of <cite>(sql_command, paras)</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[str, tuple]</p>
 </dd>
 </dl>
-</dd>
-</dl>
+<p>Example Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">BasicExp</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>                 <span class="c1"># (&#39;?&#39;, (1,))</span>
+<span class="n">BasicExp</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;Bernie&#39;</span><span class="p">)</span>          <span class="c1"># (&#39;?&#39;, (&#39;Bernie&#39;,))</span>
+<span class="n">BasicExp</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>              <span class="c1"># (&#39;&#39;, ())</span>
+<span class="n">BasicExp</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">Exp</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>    <span class="c1"># (&#39;(id = ?)&#39;, (1,))</span>
+<span class="o">...</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.BasicExp.formula">
-<span class="sig-name descname"><span class="pre">formula</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQLite.gensql.BasicExp.formula" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.exp.BasicExp.formula">
+<span class="sig-name descname"><span class="pre">formula</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#MercurySQL.gensql.exp.BasicExp.formula" title="Link to this definition"></a></dt>
 <dd><p>Return the formula of the expression in the form of (sql_command, paras).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.BasicExp.gen_formula">
-<span class="sig-name descname"><span class="pre">gen_formula</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.BasicExp.gen_formula" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="MercurySQL.gensql.exp.BasicExp.gen_formula">
+<span class="sig-name descname"><span class="pre">gen_formula</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#MercurySQL.gensql.exp.BasicExp.gen_formula" title="Link to this definition"></a></dt>
 <dd><p>[Helper] Generate the formula of the expression.</p>
-<p><a href="#id3"><span class="problematic" id="id4">*</span></a>(Note) You can also construct a formula by yourself, just set the <cite>_formula</cite> attribute to a tuple in the form of <cite>(sql_command, paras)</cite>.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.TypeParser">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQLite.gensql.</span></span><span class="sig-name descname"><span class="pre">TypeParser</span></span><a class="headerlink" href="#MercurySQLite.gensql.TypeParser" title="Permalink to this definition"></a></dt>
-<dd><p>[Helper]
-Parse the type of a column.</p>
-<blockquote>
-<div><p>Class for parsing Python standard types to SQLite types.</p>
-</div></blockquote>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.TypeParser.__dict__">
-<span class="sig-name descname"><span class="pre">__dict__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">mappingproxy({'__module__':</span> <span class="pre">'MercurySQLite.gensql',</span> <span class="pre">'__doc__':</span> <span class="pre">'\n</span>&#160;&#160;&#160; <span class="pre">[Helper]\n</span>&#160;&#160;&#160; <span class="pre">Parse</span> <span class="pre">the</span> <span class="pre">type</span> <span class="pre">of</span> <span class="pre">a</span> <span class="pre">column.\n</span>&#160;&#160;&#160; <span class="pre">',</span> <span class="pre">'parse':</span> <span class="pre">&lt;staticmethod</span> <span class="pre">object&gt;,</span> <span class="pre">'__dict__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__dict__'</span> <span class="pre">of</span> <span class="pre">'TypeParser'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__weakref__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__weakref__'</span> <span class="pre">of</span> <span class="pre">'TypeParser'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__annotations__':</span> <span class="pre">{}})</span></em><a class="headerlink" href="#MercurySQLite.gensql.TypeParser.__dict__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="MercurySQLite.gensql.TypeParser.parse">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#MercurySQLite.gensql.TypeParser.parse" title="Permalink to this definition"></a></dt>
-<dd><p>Compile the type to SQLite type.</p>
-<dl class="simple">
-<dt>Paras:</dt><dd><dl class="simple">
-<dt><a href="#id7"><span class="problematic" id="id8">type_</span></a>: Any</dt><dd><p>The type to parse.</p>
-</dd>
-</dl>
-</dd>
-<dt>Supported Types:</dt><dd><p>str ——- TEXT
-int ——- INTEGER
-float —– REAL
-bool —— BOOLEAN
-bytes ——- BLOB</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also construct a formula by yourself, just set the <cite>_formula</cite> attribute to a tuple in the form of <cite>(sql_command, paras)</cite>.</p>
+</div>
 </dd></dl>
 
 </dd></dl>
@@ -595,7 +827,10 @@ bytes ——- BLOB</p>
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Documentation of Mercury SQL" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="drivers/index.html" class="btn btn-neutral float-right" title="MercurySQL.drivers (Drivers)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
