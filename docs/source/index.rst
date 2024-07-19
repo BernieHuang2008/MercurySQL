@@ -12,6 +12,7 @@ Documentation of Mercury SQL
 
    modules/gensql
    modules/drivers/index
+   modules/errors
 
    devguide/index
 

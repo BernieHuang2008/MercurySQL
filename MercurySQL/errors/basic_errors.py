@@ -1,27 +1,18 @@
-class DuplicateError(Exception):
-    def __init__(self, msg: str):
-        self.message = msg
-        super().__init__(msg)
+class MercurySQLError(Exception):
+    """Base class for MercurySQL errors."""
+    pass
+
+class MSQLSyntaxError(MercurySQLError):
+    """MSQLSyntaxError is raised when a syntax error is found in the query."""
+    pass
 
 
-class NotExistsError(Exception):
-    def __init__(self, msg: str):
-        self.message = msg
-        super().__init__(msg)
+class MSQLDriverError(MercurySQLError):
+    """
+    MSQLDriverError is raised when a driver error is found in the query.
 
+    .. note::
+       If the third-party drivers wants to create there own errors, it is recommended to inherit this class, for better error handling.
+    """
+    pass
 
-class NotSupportedError(Exception):
-    def __init__(self, msg: str):
-        self.message = msg
-        super().__init__(msg)
-
-
-class ConfilictError(Exception):
-    def __init__(self, msg: str):
-        self.message = msg
-        super().__init__(msg)
-
-class NotSpecifiedError(Exception):
-    def __init__(self, msg: str):
-        self.message = msg
-        super().__init__(msg)

@@ -7,4 +7,4 @@ Developer Guide
 
    Introduction <intro.rst>
    Drivers: Intro <../modules/drivers/intro.rst>
-   Drivers: Definition & Example <../modules/drivers/base.rst>
+   Drivers: Definition & Example <../modules/drivers/built_in_drivers/base.rst>
