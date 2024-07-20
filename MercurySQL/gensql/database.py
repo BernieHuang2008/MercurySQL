@@ -22,6 +22,9 @@ from ..errors import *
 from .table import Table
 
 
+from ..drivers import sqlite
+
+
 # ========== Class Decorations ==========
 class DataBase:
     pass
@@ -37,7 +40,8 @@ with open(os.path.join(real_path, "..", "VERSION"), encoding="utf-8") as f:
 
 
 # ========= Tool Functions =========
-default_driver = None
+default_driver = sqlite
+# Our default driver is sqlite
 
 
 def set_driver(driver):
