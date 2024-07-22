@@ -207,7 +207,7 @@ class Table:
         return QueryResult(self, exp, selection)
 
     def newColumn(
-        self, name: str, type_: Any, force=False, primaryKey=False, autoIncrement=False
+        self, name: str, type_: Any, default = None, force=False, primaryKey=False, autoIncrement=False
     ) -> None:
         """
         Add a new column to the table.
@@ -242,8 +242,15 @@ class Table:
                 raise DuplicateError(f"Column `{name}` already exists.")
             else:
                 return
+        
+        # TODO: 写一个函数判断类型和传入的是否一致，
+        if default and type(default) != type_:
+            raise TypeNotMatchError(default, type(default), name, type_)
 
         type_ = self.driver.TypeParser.parse(type_)
+        default = self.driver.TypeParser.add_punctuation(default)
+
+        # TODO: 再写一个函数可以添加对应的标点符号
 
         if self.isEmpty:
             # create it first
@@ -251,13 +258,14 @@ class Table:
                 self.table_name,
                 name,
                 type_,
+                default,
                 primaryKey=primaryKey,
                 autoIncrement=autoIncrement,
             )
             self.db.do(cmd)
             self.isEmpty = False
         else:
-            cmd = self.driver.APIs.gensql.add_column(self.table_name, name, type_)
+            cmd = self.driver.APIs.gensql.add_column(self.table_name, name, type_, default)
             self.db.do(cmd)
 
             if primaryKey:
@@ -295,6 +303,13 @@ class Table:
         skipError = skipError and force
 
         for name, type_ in columns.items():
+            default_value = None
+
+            # 支持 type_ 为 [str, "默认值"] 的写法
+            if isinstance(type_, list):
+                default_value = type_[1]
+                type_ = type_[0]
+
             type_origin = type_
             type_ = self.driver.TypeParser.parse(type_)
             isPrimaryKey = name == primaryKey
@@ -306,12 +321,13 @@ class Table:
                     )
                 elif not skipError:
                     raise DuplicateError(
-                        f"Column `{name}` already exists. You can use `force=True` to avoid this error."
+                        f"Column `{name}` already exists. You can use `skipError=True` to avoid this error."
                     )
             else:
                 self.newColumn(
                     name,
                     type_origin,
+                    default=default_value,
                     primaryKey=isPrimaryKey,
                     autoIncrement=autoIncrement,
                 )
