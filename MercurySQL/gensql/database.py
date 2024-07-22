@@ -40,8 +40,7 @@ with open(os.path.join(real_path, "..", "VERSION"), encoding="utf-8") as f:
 
 
 # ========= Tool Functions =========
-default_driver = sqlite
-# Our default driver is sqlite
+default_driver = None
 
 
 def set_driver(driver):
