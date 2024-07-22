@@ -51,7 +51,7 @@ class Table:
             - set `isEmpty` to True if the table doesn't have any columns. This variable will effect how the `newColumn()` method works.
         """
         self.db = db
-        self.table_name = table_name
+        self.table_name = self.driver.APIs.reformat_table_name(table_name)
         self.driver = db.driver
 
         all_tables = self.driver.APIs.get_all_tables(self.db)
@@ -110,6 +110,8 @@ class Table:
             - `_str` is used to print the definition of a column using `str(...)`.
             - raise an Exception if column not exists.
         """
+        key = self.driver.APIs.reformat_column_name(key)
+
         if key not in self.columns:
             raise NotExistsError(f"Column `{key}` not exists.")
 
@@ -140,6 +142,8 @@ class Table:
             - get options from `value` if it has parameters (Judge it by whether it's a tuple, so you can use it as the L3 of example showed).
             - Actually create the column, using `newColumn()` method.
         """
+        key = self.driver.APIs.reformat_column_name(key)
+
         options = {
             "primary key": False,
             "auto increment": False,
@@ -176,6 +180,8 @@ class Table:
             del table['name']  # same as table.delColumn('name')
 
         """
+        key = self.driver.APIs.reformat_column_name(key)
+
         self.delColumn(key)
 
     def select(self, exp: Exp = None, selection: str = "*") -> QueryResult:
@@ -237,6 +243,8 @@ class Table:
             - Set as the `primary key` column if `primaryKey` is True.
             - Record its name and type in `self.columns` and `self.columnsType`.
         """
+        name = self.driver.APIs.reformat_column_name(name)
+
         if name in self.columns:
             if not force:
                 raise DuplicateError(f"Column `{name}` already exists.")
@@ -267,7 +275,12 @@ class Table:
         self.columnsType[name] = type_
 
     def struct(
-        self, columns: dict, skipError=True, primaryKey: str = None, autoIncrement=False, force=True
+        self,
+        columns: dict,
+        skipError=True,
+        primaryKey: str = None,
+        autoIncrement=False,
+        force=True,
     ) -> None:
         """
         Set the structure of the table.
@@ -295,6 +308,8 @@ class Table:
         skipError = skipError and force
 
         for name, type_ in columns.items():
+            name = self.driver.APIs.reformat_column_name(name)
+
             type_origin = type_
             type_ = self.driver.TypeParser.parse(type_)
             isPrimaryKey = name == primaryKey
@@ -317,6 +332,8 @@ class Table:
                 )
 
     def delColumn(self, name: str) -> None:
+        name = self.driver.APIs.reformat_column_name(name)
+
         if name not in self.columns:
             # column not exist
             raise NotExistsError(f"Column `{name}` not exist!")
@@ -346,6 +363,8 @@ class Table:
             table.setPrimaryKey('id')
 
         """
+        keyname = self.driver.APIs.reformat_column_name(keyname)
+        
         cmd = self.driver.APIs.gensql.set_primary_key(self, keyname, keytype)
         self.db.do(cmd)
 
@@ -370,6 +389,8 @@ class Table:
         if "__auto" in keys:
             __auto = kwargs["__auto"]
             keys.remove("__auto")
+        
+        keys = list(map(self.driver.APIs.reformat_column_name, keys))
 
         columns = ", ".join(keys)
         values = ", ".join([self.driver.payload for _ in range(len(keys))])
@@ -384,7 +405,7 @@ class Table:
 
         self.db.do(cmd, paras=[tuple(kwargs[k] for k in keys)])
 
-    def update(self, exp: Exp, data: dict={}, **kwargs) -> None:
+    def update(self, exp: Exp, data: dict = {}, **kwargs) -> None:
         """
         Update the table.
 
@@ -409,12 +430,14 @@ class Table:
             table.update(table['id'] == 1, name='Bernie', age=15)
             # OR
             (table['id'] == 1).update({"name": "Bernie", "age": 15})    # recommended
-            
+
         """
-        
+
         if not data:
             data = kwargs
-        
+
+        data = {self.driver.APIs.reformat_column_name(k): v for k, v in data.items()}
+
         columns = ", ".join([f"{key} = {self.driver.payload}" for key in data.keys()])
         values = tuple(data.values())
 
