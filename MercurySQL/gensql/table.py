@@ -243,14 +243,11 @@ class Table:
             else:
                 return
         
-        # TODO: 写一个函数判断类型和传入的是否一致，
         if default and type(default) != type_:
             raise TypeNotMatchError(default, type(default), name, type_)
 
         type_ = self.driver.TypeParser.parse(type_)
         default = self.driver.TypeParser.add_punctuation(default)
-
-        # TODO: 再写一个函数可以添加对应的标点符号
 
         if self.isEmpty:
             # create it first
@@ -275,7 +272,7 @@ class Table:
         self.columnsType[name] = type_
 
     def struct(
-        self, columns: dict, skipError=True, primaryKey: str = None, autoIncrement=False, force=True
+        self, columns: dict, skipError=True, primaryKey: str = None, autoIncrement=False, force=True, rebuild=False
     ) -> None:
         """
         Set the structure of the table.
@@ -286,6 +283,8 @@ class Table:
         :type skipError: bool
         :param primaryKey: The primary key of the table.
         :type primaryKey: str
+        :param rebuild: Whether to rebuild the table.
+        :type rebuild: bool
 
         Example Usage:
 
@@ -304,6 +303,7 @@ class Table:
 
         for name, type_ in columns.items():
             default_value = None
+            
 
             # 支持 type_ 为 [str, "默认值"] 的写法
             if isinstance(type_, list):
@@ -315,7 +315,11 @@ class Table:
             isPrimaryKey = name == primaryKey
 
             if name in self.columns:
-                if type_.lower() != self.columnsType[name].lower():
+                if rebuild:
+                    print(f"Testing function, still constructing...")
+                    # TODO: 这个Rebuild理论上会重新创建一个表，但是对应的底层代码还没写完
+                    # self.delColumn(name)
+                elif type_.lower() != self.columnsType[name].lower():
                     raise ConfilictError(
                         f"Column `{name}` with different types (`{self.columnsType[name]}`) already exists. While trying to add column `{name}` with type `{type_}`."
                     )
@@ -323,14 +327,15 @@ class Table:
                     raise DuplicateError(
                         f"Column `{name}` already exists. You can use `skipError=True` to avoid this error."
                     )
-            else:
-                self.newColumn(
-                    name,
-                    type_origin,
-                    default=default_value,
-                    primaryKey=isPrimaryKey,
-                    autoIncrement=autoIncrement,
-                )
+                
+            # Raise 错误后不会执行后续代码，所以这里可以不用 Else
+            self.newColumn(
+                name,
+                type_origin,
+                default=default_value,
+                primaryKey=isPrimaryKey,
+                autoIncrement=autoIncrement,
+            )
 
     def delColumn(self, name: str) -> None:
         if name not in self.columns:
@@ -342,7 +347,8 @@ class Table:
         else:
             # delete the column
             self.columns.remove(name)
-            cmd = self.driver.APIs.gensql.drop_column(name)
+            # 这一行有Bug，修复了
+            cmd = self.driver.APIs.gensql.drop_column(table_name=self.table_name,column_name=name)
             self.db.do(cmd)
 
     def setPrimaryKey(self, keyname: str, keytype: str) -> None:
