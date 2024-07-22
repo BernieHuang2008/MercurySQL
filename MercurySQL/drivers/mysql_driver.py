@@ -22,8 +22,7 @@ class Driver_MySQL(BaseDriver):
     payload = '%s'
 
     Conn = mysql.connector.MySQLConnection
-    # Cursor = mysql.connector.cursor_cext.CMySQLCursor
-    Cursor = mysql.connector.cursor.MySQLCursor
+    Cursor = mysql.connector.cursor_cext.CMySQLCursor
 
     class APIs:
         class gensql:
