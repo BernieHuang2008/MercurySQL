@@ -388,6 +388,7 @@ class Table:
 
         """
 
+        # TODO: 为了兼容v1.0中的json格式传参的问题，v1.0需要修复
         # if __auto is a dict 
         if isinstance(__auto, dict):
             keys = list(__auto.keys())
