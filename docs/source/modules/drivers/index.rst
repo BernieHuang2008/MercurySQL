@@ -1,3 +1,5 @@
+.. _PG_INTRO_DRIVER:
+
 MercurySQL.drivers (Drivers)
 ============================
 

@@ -3,11 +3,17 @@ MercurySQL.gensql
 
 Operate SQL in a more pythonic way.
 
-This file contains the implementation of a common SQL database wrapper class, and for each sql (e.g. sqlite, mysql), a `Driver` is needed.
+This module contains the implementation of python to SQL.
+It provides a high-level API for operating SQL databases, which allows you to create tables, insert rows, execute queries, etc. in a more pythonic way.
+
+For each sql engine (e.g. sqlite, mysql, ...), a `Driver` is needed. For more details about the `Driver`, please refer to the :ref:`PG_INTRO_DRIVER` section.
 
 .. warning::
-   This module will not perform any inspection on DB names, Table names or Column names etc.
-   However, all the query values are replaced with safe queries ('`?`' or else). Therefore, it is recommended to hardcode Column names to prevent SQL injection.
+   This module provides built-in support for anti-SQL-injection. That is, all the query values are replaced with safe queries ('`?`' or else). 
+   
+   However, the inspection of the table name & column name is implemented by `Driver` s. So becareful especially when using third-party drivers.
+   
+   It is recommended to hard-code the `DB name`, `table name` & `column name` in your code, instead of using user inputs directly.
 
 
 Advanced APIs
@@ -18,14 +24,10 @@ Advanced APIs
    :special-members:
    :exclude-members: __weakref__, __module__
 
-   Represents a SQL database. It provides methods for creating tables, executing SQL commands, and retrieving table objects, etc.
-
 .. autoclass:: MercurySQL.gensql.Table
    :members:
    :special-members: 
    :exclude-members: __weakref__, __module__
-
-   Represents a table in a SQL database. Can be created by `db.createTable()`. It provides methods for adding columns, deleting columns, inserting rows, and executing queries, etc.
 
 .. autoclass:: MercurySQL.gensql.Exp
    :members:
