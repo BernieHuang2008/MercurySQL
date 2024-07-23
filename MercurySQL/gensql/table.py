@@ -27,7 +27,9 @@ class QueryResult:
 # ========== Classes ==========
 class Table:
     """
-    Represents a table in the SQL database and provides methods for adding columns, deleting columns, inserting rows, and executing queries.
+    Represents a table in a SQL database. Can be created by `db.createTable()`.
+    
+    It provides methods for adding columns, deleting columns, inserting rows, and executing queries, etc.
     """
 
     def __init__(self, db, table_name: str):
@@ -125,8 +127,9 @@ class Table:
         :type value: Any. Can be single un-parsed type (e.g. `int`, `str(5)`, ...) OR a tuple in the form of `(type, options)`. (e.g. `(int, 'primary key', 'auto increment')`)
 
         Options in `value`:
-        - 'primary key': Set the column as the primary key of the table.
-        - 'auto increment': Set the column as an auto-incremented column.
+
+        - **'primary key'** — Set the column as the primary key of the table.
+        - **'auto increment'** — Set the column as an auto-incremented column.
 
         Example Usage:
 

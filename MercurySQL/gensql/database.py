@@ -3,7 +3,7 @@ Copyright (c) Bernie Huang 2023, all rights reserved.
 
 MercurySQL.gensql.database
 ==========================
-This file contains the DataBase class and a tool function `set_driver` as well.
+This file contains the DataBase class, and a tool function `set_driver` as well.
 
 Classes
 -------
@@ -77,7 +77,8 @@ def check_version(version: str) -> bool:
 class DataBase:
     """
     Select/Create/Connect a SQL database.
-    Represents a SQL database and provides methods for creating tables, executing SQL commands, and retrieving table objects.
+
+    The instance of this class represents a SQL database, and provides methods for creating tables, executing SQL, and retrieving table objects.
     """
 
     def __init__(self, db_name: str, driver=None, **kwargs):
@@ -95,7 +96,7 @@ class DataBase:
 
         How It Works:
             - start a connection to the SQL database, using the driver specified by `driver` parameter or `set_driver()` method.
-            - get a cursor to execute sql commands.
+            - create a new `CommandQueue` to handle all SQL commands in this DB.
             - gather all infomations of the database, for further usages.
         """
         if driver is None:
@@ -289,7 +290,10 @@ class DataBase:
             - if exists, return the existing table (the OLD `Table` Object)
             - if not exists, create a new table by `createTable()`.
 
-        .. note:: The only difference between `__getitem__()` and `createTable()` is that `__getitem__()` will return the **OLD** `Table` Object if exists, while `createTable()` will return a **NEW** `Table` Object.
+        .. note::
+           The only difference between `__getitem__()` and `createTable()` is that `__getitem__()` will return the **OLD** `Table` Object if exists, while `createTable()` will return a **NEW** `Table` Object.
+
+           **See the "How It Works" section in `createTable()` for more details.**
         """
         if key in self.tables:
             return self.tables[key]
