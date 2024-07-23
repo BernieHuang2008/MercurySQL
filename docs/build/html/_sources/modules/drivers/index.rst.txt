@@ -6,6 +6,6 @@ MercurySQL.drivers (Drivers)
    :caption: Contents:
 
    intro
-   base
-   sqlite
+   built_in_drivers/index
+   errors
 

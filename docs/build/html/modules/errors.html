@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MercurySQL.errors &mdash; Mercury SQL https://pypi.org/project/mercurysql documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/cite.css?v=555e2f84" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=d5e102cc"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Developer Guide" href="../devguide/index.html" />
+    <link rel="prev" title="Driver Errors" href="drivers/errors.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Mercury SQL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="gensql.html">MercurySQL.gensql</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drivers/index.html">MercurySQL.drivers (Drivers)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">MercurySQL.errors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-errors">Basic Errors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.errors.MercurySQLError"><code class="docutils literal notranslate"><span class="pre">MercurySQLError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.errors.MSQLSyntaxError"><code class="docutils literal notranslate"><span class="pre">MSQLSyntaxError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.errors.MSQLDriverError"><code class="docutils literal notranslate"><span class="pre">MSQLDriverError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#syntax-errors">Syntax Errors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.errors.DuplicateError"><code class="docutils literal notranslate"><span class="pre">DuplicateError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.errors.NotExistsError"><code class="docutils literal notranslate"><span class="pre">NotExistsError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.errors.NotSupportedError"><code class="docutils literal notranslate"><span class="pre">NotSupportedError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.errors.ConfilictError"><code class="docutils literal notranslate"><span class="pre">ConfilictError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.errors.NotSpecifiedError"><code class="docutils literal notranslate"><span class="pre">NotSpecifiedError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#driver-errors">Driver Errors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#MercurySQL.errors.DriverIncompatibleError"><code class="docutils literal notranslate"><span class="pre">DriverIncompatibleError</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/index.html">Developer Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Mercury SQL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">MercurySQL.errors</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/errors.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mercurysql-errors">
+<h1>MercurySQL.errors<a class="headerlink" href="#mercurysql-errors" title="Link to this heading"></a></h1>
+<p>Here are the exceptions that may be raised by MercurySQL.</p>
+<section id="basic-errors">
+<h2>Basic Errors<a class="headerlink" href="#basic-errors" title="Link to this heading"></a></h2>
+<p>There are many type of errors that can be raised by MercurySQL.</p>
+<p>However, all these errors are divided into a few main categories.
+We have created some Basic Errors that are parent classes of all other errors.
+So you can catch a whole category of errors by using the parent class.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.errors.MercurySQLError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.errors.</span></span><span class="sig-name descname"><span class="pre">MercurySQLError</span></span><a class="headerlink" href="#MercurySQL.errors.MercurySQLError" title="Link to this definition"></a></dt>
+<dd><p>Base class for MercurySQL errors.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.errors.MSQLSyntaxError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.errors.</span></span><span class="sig-name descname"><span class="pre">MSQLSyntaxError</span></span><a class="headerlink" href="#MercurySQL.errors.MSQLSyntaxError" title="Link to this definition"></a></dt>
+<dd><p>MSQLSyntaxError is raised when a syntax error is found in the query.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.errors.MSQLDriverError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.errors.</span></span><span class="sig-name descname"><span class="pre">MSQLDriverError</span></span><a class="headerlink" href="#MercurySQL.errors.MSQLDriverError" title="Link to this definition"></a></dt>
+<dd><p>MSQLDriverError is raised when a driver error is found in the query.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the third-party drivers wants to create there own errors, it is recommended to inherit this class, for better error handling.</p>
+</div>
+</dd></dl>
+
+</section>
+<section id="syntax-errors">
+<h2>Syntax Errors<a class="headerlink" href="#syntax-errors" title="Link to this heading"></a></h2>
+<p>Syntax Errors are often caused by misusing of MercurySQL’s functions and syntax.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.errors.DuplicateError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.errors.</span></span><span class="sig-name descname"><span class="pre">DuplicateError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.errors.DuplicateError" title="Link to this definition"></a></dt>
+<dd><p>DuplicateError is raised when a duplicate entry is found in the database.</p>
+<p>E.g.:
+- Trying to create a table with the same name as an existing table.
+- Trying to add a column with the same name as an existing column.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.errors.NotExistsError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.errors.</span></span><span class="sig-name descname"><span class="pre">NotExistsError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.errors.NotExistsError" title="Link to this definition"></a></dt>
+<dd><p>NotExistsError is raised when an entry is not found in the database.</p>
+<p>E.g.:
+- Trying to use/delete a table which is not existing.
+- Trying to use/delete a column which is not existing.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.errors.NotSupportedError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.errors.</span></span><span class="sig-name descname"><span class="pre">NotSupportedError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.errors.NotSupportedError" title="Link to this definition"></a></dt>
+<dd><p>NotSupportedError is raised when an operation is not supported by the database.</p>
+<p>Currently, this error is not used in MercurySQL.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.errors.ConfilictError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.errors.</span></span><span class="sig-name descname"><span class="pre">ConfilictError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.errors.ConfilictError" title="Link to this definition"></a></dt>
+<dd><p>ConfilictError is raised when an operation conflicts with the database.</p>
+<p>E.g.:
+- Trying to add a new column, but the column name is already used, and the two columns has different type.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.errors.NotSpecifiedError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.errors.</span></span><span class="sig-name descname"><span class="pre">NotSpecifiedError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.errors.NotSpecifiedError" title="Link to this definition"></a></dt>
+<dd><p>NotSpecifiedError is raised when a required parameter is not specified.</p>
+<p>E.g.:
+- Trying to create a DataBase object without specifying the driver.
+- Trying to execute a query without specifying the table.</p>
+</dd></dl>
+
+</section>
+<section id="driver-errors">
+<span id="drverr"></span><h2>Driver Errors<a class="headerlink" href="#driver-errors" title="Link to this heading"></a></h2>
+<p>Driver Errors are all related to drivers.</p>
+<p>A driver can raise these error for not working properly, and MSQL can also raise these errors when it detects something wrong that is related to driver.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="MercurySQL.errors.DriverIncompatibleError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MercurySQL.errors.</span></span><span class="sig-name descname"><span class="pre">DriverIncompatibleError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">driver</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MercurySQL.errors.DriverIncompatibleError" title="Link to this definition"></a></dt>
+<dd><p>DriverIncompatibleError is raised when the driver version is not supported by MercurySQL.</p>
+<p>For details of MercurySQL Versioning System, please see the <cite>Drivers.Versioning</cite> Chapter.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="drivers/errors.html" class="btn btn-neutral float-left" title="Driver Errors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../devguide/index.html" class="btn btn-neutral float-right" title="Developer Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Bernie J. Huang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

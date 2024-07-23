@@ -1,4 +1,11 @@
-class DriverIncompatibleError(Exception):
+from .basic_errors import MSQLDriverError
+
+class DriverIncompatibleError(MSQLDriverError):
+    """
+    DriverIncompatibleError is raised when the driver version is not supported by MercurySQL.
+
+    For details of MercurySQL Versioning System, please see the `Drivers.Versioning` Chapter. 
+    """
     def __init__(self, driver: str, dv: str, cv: str):
         """
         :param driver: Driver Name.

@@ -1,7 +1,7 @@
-MercurySQLite
-=============
+MercurySQL
+==========
 
 .. toctree::
    :maxdepth: 4
 
-   MercurySQLite
+   MercurySQL

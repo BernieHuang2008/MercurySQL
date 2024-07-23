@@ -1,5 +1,5 @@
-**[Driver]**: Base
-==================
+**[Driver]**: Base Driver
+=========================
 
 .. warning::
    All Drivers **MUST** be defined as subclasses of this `BaseDriver` class.
