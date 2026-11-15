@@ -14,7 +14,12 @@ sys.path.insert(0, os.path.abspath('../../'))
 project = 'Mercury SQL'
 copyright = '2023, Bernie J. Huang'
 author = 'Bernie J. Huang'
-release = 'https://pypi.org/project/mercurysql'
+
+# Read the version from the package instead of hard-coding it (the previous
+# value was a PyPI URL, so every build claimed that as its version).
+with open(os.path.join(os.path.abspath('../../'), 'MercurySQL', 'VERSION'), encoding='utf-8') as f:
+    release = f.read().strip()
+version = '.'.join(release.split('.')[:2])
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

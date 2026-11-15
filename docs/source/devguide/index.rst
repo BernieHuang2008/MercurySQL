@@ -6,5 +6,6 @@ Developer Guide
    :caption: Contents:
 
    Introduction <intro.rst>
-   Drivers: Intro <../modules/drivers/intro.rst>
-   Drivers: Definition & Example <../modules/drivers/built_in_drivers/base.rst>
+
+The driver guide lives in :ref:`PG_INTRO_DRIVER` (under *Modules → Drivers*), so
+it is not repeated here: Sphinx only allows a document in one toctree.

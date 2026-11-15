@@ -30,7 +30,8 @@ MercurySQL has the following advantages ....
 
 - **More Pythonic way of operation**: An API that is more in line with the Python style, making the operation of SQL databases more concise and easy to understand.
 - **Avoid complex SQL statements**: Avoid writing complex SQL statements, thereby reducing the burden of learning and understanding SQL syntax.
-- **More secure database**: Use safe queries, automatically commits for you, protect database security, and prevent data loss.
+- **Safer SQL by default**: values are always bound as parameters and table/column names are quoted by the driver; `selection` only accepts the table's own columns. See [Security notes](#security-and-reliability-notes) for exactly what is protected.
+- **Fail loudly, not silently**: a failing statement raises the driver's exception instead of hanging the caller, and `db.do(sql1, sql2)` runs as one transaction (all-or-nothing).
 - **Debugging with Python**: You can debug and check your database in Python directly, without complext SQL debugging in terminal.
 
 For example, it can do these things....
@@ -137,7 +138,28 @@ MercurySQL
 # Dependencies:
 - sqlite3 (for Driver_SQLite, comes with Python)
 
-  So ... no dependencies!
+  So ... no dependencies for SQLite!
+
+- `pip install "MercurySQL[mysql]"` for the MySQL driver
+  (`mysql-connector-python`, MySQL 8.0.19+).
+
+Requires Python **3.8+**.
+
+## Security and reliability notes
+
+- **Values are parameters.** `insert()`, `update()`, `where` conditions and
+  `delete()` bind every value; nothing user-supplied is concatenated into SQL.
+- **Identifiers are quoted, not parameters.** Table and column names are quoted
+  (`"name"` / `` `name` ``). `selection=` only accepts the table's own column
+  names, or a list of them; arbitrary SQL needs the explicit `raw=True` opt-out.
+  A custom column type must be a plain SQL type (so it cannot smuggle DDL).
+- **Quoting is not authorization.** Do not build table/column names from
+  untrusted input without your own allow-list.
+- **Transactions.** `db.do(*sql)` is all-or-nothing. Use
+  `with db.transaction():` to group several calls.
+- **Close your database.** `with DataBase(...) as db:` (or `db.close()`) stops
+  the background thread and closes the connection; otherwise one thread and one
+  connection per `DataBase` stay alive for the life of the process.
 
 ---
 

@@ -1,0 +1,66 @@
+name: Release (bump version)
+
+# Manual version bump. The old `release-auto_weekly.yml` ran every Sunday, used
+# the removed `::set-output` command, patched a `version = '...'` line that does
+# not exist in this repo, produced an empty tag such as `v.`, and still created a
+# *published* release (which, in turn, published to PyPI). It is replaced by this
+# explicit, reviewable workflow.
+#
+# Running it:
+#   Actions -> Release (bump version) -> Run workflow -> version = 0.2.1
+# It writes MercurySQL/VERSION, commits, and pushes. `auto-release.yml` then
+# opens a draft GitHub release for the new version.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "New version, e.g. 0.2.1 (must be greater than the current one)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    name: Bump the version
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+        with:
+          fetch-depth: 0
+
+      - name: Validate the new version
+        env:
+          NEW_VERSION: ${{ inputs.version }}
+        run: |
+          python - <<'PY'
+          import os, re, pathlib
+          new = os.environ["NEW_VERSION"].strip()
+          if not re.fullmatch(r"\d+\.\d+\.\d+", new):
+              raise SystemExit(f"`{new}` is not a x.y.z version")
+          current = pathlib.Path("MercurySQL/VERSION").read_text(encoding="utf-8").strip()
+          as_tuple = lambda v: tuple(int(p) for p in v.split("."))
+          if as_tuple(new) <= as_tuple(current):
+              raise SystemExit(f"`{new}` must be greater than `{current}`")
+          if pathlib.Path(f"v{new}").exists():
+              raise SystemExit("tag already exists")
+          print("version", current, "->", new)
+          PY
+
+      - name: Write the version, commit and tag
+        env:
+          NEW_VERSION: ${{ inputs.version }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          printf '%s' "$NEW_VERSION" > MercurySQL/VERSION
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add MercurySQL/VERSION
+          git commit -m "release: v$NEW_VERSION"
+          git tag "v$NEW_VERSION"
+          git push origin HEAD:main
+          git push origin "v$NEW_VERSION"

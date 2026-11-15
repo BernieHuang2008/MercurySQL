@@ -1,6 +1,14 @@
-# for docs build
-sphinx
-sphinx_rtd_theme
+# Runtime / documentation-build tooling.
+# The package itself has no runtime dependency; the MySQL driver is an extra:
+#   pip install "MercurySQL[mysql]"
 
-# for release
-wheel
+# for tests
+pytest>=7
+
+# for building and checking a release
+build
+twine
+
+# for docs build
+sphinx>=7.0,<9.0
+sphinx_rtd_theme>=2.0,<4.0
