@@ -1,3 +1,5 @@
+import os
+
 import testlib
 
 from MercurySQL import DataBase, set_driver
@@ -8,6 +10,11 @@ from MercurySQL.drivers.sqlite import Driver_SQLite
 set_driver(Driver_SQLite)
 
 if __name__ == '__main__':
+    # Start from a clean database: the test used to depend on leftovers from the
+    # previous run and therefore failed when run twice.
+    if os.path.exists('test.db'):
+        os.remove('test.db')
+
     # Create db
     db = DataBase("test.db")
     print("Database Information:", db.info)

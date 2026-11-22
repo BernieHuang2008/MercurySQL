@@ -1,13 +1,25 @@
 .vscode/*
 */__pycache__/*
+__pycache__/
 *.pyc
 __local/*
 *.db
 .venv/*
+.venv*/
+
+# build artefacts
+dist/
 dist/*
+build/
 build/*
+*.egg-info/
 MercurySQL.egg-info/*
+docs/build/
+docs/build/*
 
 runtime
 runtime/*
 *.test.py
+
+# tooling caches
+.pytest_cache/

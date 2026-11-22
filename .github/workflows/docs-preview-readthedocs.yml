@@ -1,7 +1,14 @@
 # .github/workflows/docs-preview-readthedocs.yml
 # Github Action Workflow for the docs preview in `read the docs`
+#
+# `pull_request_target` is used on purpose here: the job only needs a
+# write-scoped token to comment the preview URL on the pull request, and it never
+# checks out or executes the pull request's code (checkout defaults to the base
+# branch). Do not add `ref: ${{ github.event.pull_request.head.sha }}` to this
+# file.
 
 name: readthedocs/actions
+
 on:
   pull_request_target:
     types:
@@ -11,17 +18,17 @@ on:
       - "docs/**"
 
 permissions:
+  contents: read
   pull-requests: write
 
 jobs:
   pull-request-links:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v3
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
         with:
-          python-version: '3.x'
-      - uses: readthedocs/actions/preview@v1
+          persist-credentials: false
+
+      - uses: readthedocs/actions/preview@b8bba1484329bda1a3abe986df7ebc80a8950333  # v1
         with:
           project-slug: "mercurysql"

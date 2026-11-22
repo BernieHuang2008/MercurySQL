@@ -1,54 +1,59 @@
 name: Auto Release
 
+# Creates a *draft* GitHub release when MercurySQL/VERSION changes on main.
+# Publishing it (which triggers publish-pypi.yml) stays a human decision.
+
 on:
   push:
     branches:
       - main
     paths:
       - MercurySQL/VERSION
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   release:
     name: Auto Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
-      - name: Get previous version
-        id: prev_version
+      - name: Read the current and the previous version
         run: |
-          echo "PREV_VERSION=$(git show HEAD^:MercurySQL/VERSION)" >> $GITHUB_ENV
+          curr="$(cat MercurySQL/VERSION)"
+          echo "CURR_VERSION=$curr" >> "$GITHUB_ENV"
+          # The parent commit may not contain the file at all (it was added in
+          # this commit): fall back to the previous tag instead of failing.
+          if git show HEAD^:MercurySQL/VERSION >/dev/null 2>&1; then
+            prev="$(git show HEAD^:MercurySQL/VERSION)"
+          else
+            prev="$(git describe --tags --abbrev=0 2>/dev/null | sed 's/^v//' || true)"
+          fi
+          echo "PREV_VERSION=${prev:-0.0.0}" >> "$GITHUB_ENV"
 
-      - name: Get current version
-        id: current_version
-        run: |
-          echo "CURR_VERSION=$(cat MercurySQL/VERSION)" >> $GITHUB_ENV
-
-      - name: Generate release note
-        id: release_note
-        run: |
-          echo "This is release note" > release_note.txt
-          echo "" >> release_note.txt
-          echo "RELEASE_NOTE=$(cat release_note.txt)" >> $GITHUB_ENV
-
-      - name: Create Release
-        uses: actions/create-release@v1
-        with:
-          tag_name: v${{ env.CURR_VERSION }}
-          release_name: v${{ env.CURR_VERSION }}
-          body: |
-            From ${{ env.PREV_VERSION }} -> ${{ env.CURR_VERSION }}
-
-            ${{ env.RELEASE_NOTE }}
-
-            **Full Changelog**: https://github.com/BernieHuang2008/MercurySQL/compare/v${{ env.PREV_VERSION }}...v${{ env.CURR_VERSION }}
-          draft: true
-          prerelease: false
+      - name: Create the draft release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view "v$CURR_VERSION" >/dev/null 2>&1; then
+            echo "Release v$CURR_VERSION already exists, nothing to do."
+            exit 0
+          fi
+          {
+            echo "From $PREV_VERSION -> $CURR_VERSION"
+            echo
+            echo "**Full Changelog**: https://github.com/${{ github.repository }}/compare/v$PREV_VERSION...v$CURR_VERSION"
+          } > release-notes.md
+          gh release create "v$CURR_VERSION" \
+            --title "v$CURR_VERSION" \
+            --notes-file release-notes.md \
+            --draft \
+            --target "$GITHUB_SHA"

@@ -1,85 +1,178 @@
 """
-Requirements: 
+Requirements:
   - sqlite3
 """
-from .base import BaseDriver
+from .base import BaseDriver, check_type_sql
 
 import sqlite3
+import uuid
 from typing import Any, List
 
 
 class Driver_SQLite(BaseDriver):
-    pass
+    """
+    The built-in driver for SQLite (via the standard-library :mod:`sqlite3`).
 
-
-class Driver_SQLite(BaseDriver):
+    .. note::
+        Connections are opened in **autocommit** mode (``isolation_level=None``)
+        so that MercurySQL owns the transaction boundaries: one transaction per
+        ``db.do(...)`` call, one per ``with db.transaction():`` block. Without
+        that, Python's legacy implicit-transaction handling would interleave
+        with the explicit ``BEGIN`` used by ``transaction()``.
+    """
     dependencies = ['sqlite3']
-    version = '0.1.0'
+    version = '0.2.0'
     payload = '?'
+
+    #: SQLite compares table and column names case-insensitively.
+    table_name_case_insensitive = True
+    column_name_case_insensitive = True
 
     Conn = sqlite3.Connection
     Cursor = sqlite3.Cursor
 
-    class APIs:
+    class APIs(BaseDriver.APIs):
+        ident_quote = '"'
+
         class gensql:
             @staticmethod
             def drop_table(table_name: str) -> str:
-                return f"DROP TABLE {table_name}"
+                q = Driver_SQLite.APIs.quote_ident
+                return f"DROP TABLE {q(table_name)}"
 
             @staticmethod
             def get_all_tables() -> str:
-                return "SELECT name FROM sqlite_master WHERE type='table';"
+                # `sqlite_%` are internal bookkeeping tables (e.g.
+                # sqlite_sequence, created by AUTOINCREMENT); they are not user
+                # tables and must not show up in `db.tables`.
+                return (
+                    "SELECT name FROM sqlite_master "
+                    "WHERE type='table' AND name NOT LIKE 'sqlite_%';"
+                )
 
             @staticmethod
             def get_all_columns(table_name: str) -> str:
-                return f"PRAGMA table_info({table_name});"
+                q = Driver_SQLite.APIs.quote_ident
+                return f"PRAGMA table_info({q(table_name)});"
+
+            @staticmethod
+            def get_primary_keys(table_name: str) -> str:
+                # PRAGMA table_info -> (cid, name, type, notnull, dflt, pk)
+                # `pk` is the 1-based position in the primary key, or 0.
+                return Driver_SQLite.APIs.gensql.get_all_columns(table_name)
 
             @staticmethod
             def create_table_if_not_exists(table_name: str, column_name: str, column_type: str, primaryKey=False, autoIncrement=False) -> str:
-                return f"""
-                    CREATE TABLE IF NOT EXISTS {table_name} ({column_name} {column_type} {'PRIMARY KEY' if primaryKey else ''} {'AUTOINCREMENT' if autoIncrement else ''})
-                """
+                q = Driver_SQLite.APIs.quote_ident
+                if autoIncrement and not primaryKey:
+                    # SQLite only accepts AUTOINCREMENT on INTEGER PRIMARY KEY.
+                    raise ValueError(
+                        "SQLite only supports AUTOINCREMENT on a PRIMARY KEY column."
+                    )
+                return (
+                    f"CREATE TABLE IF NOT EXISTS {q(table_name)} "
+                    f"({q(column_name)} {column_type}"
+                    f"{' PRIMARY KEY' if primaryKey else ''}"
+                    f"{' AUTOINCREMENT' if autoIncrement else ''})"
+                )
 
             @staticmethod
             def add_column(table_name: str, column_name: str, column_type: str) -> str:
-                return f"""
-                    ALTER TABLE {table_name} ADD COLUMN {column_name} {column_type}
-                """
+                q = Driver_SQLite.APIs.quote_ident
+                return (
+                    f"ALTER TABLE {q(table_name)} "
+                    f"ADD COLUMN {q(column_name)} {column_type}"
+                )
 
             @staticmethod
             def drop_column(table_name: str, column_name: str) -> str:
-                return f"""
-                    ALTER TABLE {table_name} DROP COLUMN {column_name}
-                """
+                q = Driver_SQLite.APIs.quote_ident
+                return (
+                    f"ALTER TABLE {q(table_name)} "
+                    f"DROP COLUMN {q(column_name)}"
+                )
 
             @staticmethod
             def set_primary_key(table, keyname: str, keytype: str) -> list:
+                """
+                Rebuild the table with `keyname` as its primary key.
+
+                Every column is named explicitly in the CREATE and in the
+                INSERT ... SELECT: a positional `SELECT *` shifts all values when
+                the new key is not the first column. The statement list runs in
+                one transaction, so a failure cannot leave the data in the
+                temporary table.
+                """
+                q = Driver_SQLite.APIs.quote_ident
+                others = [(n, t) for n, t in table.columnsType.items() if n != keyname]
+                columns = [keyname] + [n for n, _ in others]
+                definitions = [f"{q(keyname)} {keytype} PRIMARY KEY"]
+                definitions += [f"{q(name)} {type_}" for name, type_ in others]
+
+                # Random name: two processes must not fight over the same
+                # temporary table, and a crashed rebuild must not be reused.
+                temp = f"___mercurysql_tmp_{uuid.uuid4().hex}"
+
+                quoted_columns = ", ".join(map(q, columns))
                 return [
-                    f"CREATE TABLE ___temp_table ({keyname} {keytype} PRIMARY KEY, {', '.join([f'{name} {type_}' for name, type_ in table.columnsType.items() if name != keyname])})",
-                    f"INSERT INTO ___temp_table SELECT * FROM {table.table_name}",
-                    f"DROP TABLE {table.table_name}",
-                    f"ALTER TABLE ___temp_table RENAME TO {table.table_name}"
+                    f"CREATE TABLE {q(temp)} ({', '.join(definitions)})",
+                    f"INSERT INTO {q(temp)} ({quoted_columns}) "
+                    f"SELECT {quoted_columns} FROM {q(table.table_name)}",
+                    f"DROP TABLE {q(table.table_name)}",
+                    f"ALTER TABLE {q(temp)} RENAME TO {q(table.table_name)}",
                 ]
 
             @staticmethod
-            def insert(table_name: str, columns: str, values: str) -> str:
-                return f"INSERT INTO {table_name} ({columns}) VALUES ({values})"
+            def insert(table_name: str, columns: List[str], values: str) -> str:
+                q = Driver_SQLite.APIs.quote_ident
+                cols = ", ".join(map(q, columns))
+                return f"INSERT INTO {q(table_name)} ({cols}) VALUES {values}"
 
             @staticmethod
-            def insert_or_update(table_name: str, columns: str, values: str) -> str:
-                return f"INSERT OR REPLACE INTO {table_name} ({columns}) VALUES ({values})"
+            def insert_or_update(table_name: str, columns: List[str], values: str, primary_keys: List[str]) -> str:
+                if not primary_keys:
+                    raise ValueError(
+                        "`__auto=True` needs a primary key: SQLite can only "
+                        "upsert through `ON CONFLICT(<primary key>)`."
+                    )
+                q = Driver_SQLite.APIs.quote_ident
+                cols = ", ".join(map(q, columns))
+                updates = ", ".join(
+                    f"{q(c)} = excluded.{q(c)}"
+                    for c in columns
+                    if c not in primary_keys
+                )
+                conflict = ", ".join(map(q, primary_keys))
+                if not updates:
+                    return (
+                        f"INSERT INTO {q(table_name)} ({cols}) VALUES {values} "
+                        f"ON CONFLICT ({conflict}) DO NOTHING"
+                    )
+                return (
+                    f"INSERT INTO {q(table_name)} ({cols}) VALUES {values} "
+                    f"ON CONFLICT ({conflict}) DO UPDATE SET {updates}"
+                )
 
             @staticmethod
-            def update(table_name: str, columns: str, condition: str) -> str:
-                return f"UPDATE {table_name} SET {columns} WHERE {condition}"
+            def update(table_name: str, columns: List[str], condition: str) -> str:
+                q = Driver_SQLite.APIs.quote_ident
+                sets = ", ".join(f"{q(c)} = {Driver_SQLite.payload}" for c in columns)
+                return f"UPDATE {q(table_name)} SET {sets} WHERE {condition}"
 
             @staticmethod
-            def query(table_name: str, selection: str, condition: str) -> str:
-                return f"SELECT {selection} FROM {table_name} WHERE {condition}"
+            def query(table_name: str, selection: str, condition: str, limit=None, offset=None) -> str:
+                q = Driver_SQLite.APIs.quote_ident
+                cmd = f"SELECT {selection} FROM {q(table_name)} WHERE {condition}"
+                if limit is not None:
+                    cmd += f" LIMIT {int(limit)}"
+                    if offset is not None:
+                        cmd += f" OFFSET {int(offset)}"
+                return cmd
 
             @staticmethod
             def delete(table_name: str, condition: str) -> str:
-                return f"DELETE FROM {table_name} WHERE {condition}"
+                q = Driver_SQLite.APIs.quote_ident
+                return f"DELETE FROM {q(table_name)} WHERE {condition}"
 
         @classmethod
         def get_all_tables(cls, db) -> List[str]:
@@ -90,6 +183,14 @@ class Driver_SQLite(BaseDriver):
         def get_all_columns(cls, db, table_name: str) -> List[str]:
             cursor = db.do(cls.gensql.get_all_columns(table_name))
             return list(map(lambda x: [x[1], x[2]], cursor.fetchall()))
+
+        @classmethod
+        def get_primary_keys(cls, db, table_name: str) -> List[str]:
+            cursor = db.do(cls.gensql.get_primary_keys(table_name))
+            # (cid, name, type, notnull, dflt, pk)
+            keyed = [row for row in cursor.fetchall() if len(row) > 5 and row[5]]
+            keyed.sort(key=lambda row: row[5])
+            return [row[1] for row in keyed]
 
     class TypeParser:
         """
@@ -130,6 +231,9 @@ class Driver_SQLite(BaseDriver):
                 TypeParser.parse(float)     # REAL
                 ...
 
+            A custom type string is validated by
+            :func:`MercurySQL.drivers.base.check_type_sql`, so it cannot carry
+            extra DDL (``"TEXT DEFAULT 'pwn'"`` is rejected).
             """
             supported_types = {
                 str: 'TEXT',
@@ -143,23 +247,19 @@ class Driver_SQLite(BaseDriver):
             if type_ in supported_types:
                 return supported_types[type_]
 
-            # round 2: 'Not Null' Types
-            """ 
-            === !!! Not Supported By SQLite !!! ===
-
-            for t in supported_types:
-                if isinstance(type_, t):
-                    if type_ == t(not None):
-                        return supported_types[t] + ' NOT NULL'
-            """
-
-            # round 3: Custom Types
-            if isinstance(type_, str):    # custom type
-                return type_
+            # round 2: Custom Types (validated)
+            if isinstance(type_, str):
+                return check_type_sql(type_)
 
             # Not Supported
             raise TypeError(f"Type `{str(type_)}` not supported.")
 
     @staticmethod
-    def connect(db_name: str, **kwargs) -> Driver_SQLite.Conn:
+    def connect(db_name: str, **kwargs) -> "Driver_SQLite.Conn":
+        # NOTE: the return type must stay a *string*: it is evaluated while the
+        # class body is still executing, so a bare `Driver_SQLite.Conn` raises
+        # NameError on Python < 3.14 (annotations are lazy only from 3.14 on).
+        # `isolation_level=None` -> autocommit; MercurySQL manages transactions
+        # explicitly (`db.do()` batches and `db.transaction()`).
+        kwargs.setdefault("isolation_level", None)
         return sqlite3.connect(db_name, **kwargs)

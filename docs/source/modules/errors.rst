@@ -18,6 +18,8 @@ So you can catch a whole category of errors by using the parent class.
 
 .. autoclass:: MercurySQL.errors.MSQLDriverError
 
+.. autoclass:: MercurySQL.errors.MSQLCommandError
+
 Syntax Errors
 -------------
 
@@ -32,6 +34,26 @@ Syntax Errors are often caused by misusing of MercurySQL's functions and syntax.
 .. autoclass:: MercurySQL.errors.ConfilictError
 
 .. autoclass:: MercurySQL.errors.NotSpecifiedError
+
+.. autoclass:: MercurySQL.errors.InvalidIdentifierError
+
+.. autoclass:: MercurySQL.errors.UnsafeTypeError
+
+.. autoclass:: MercurySQL.errors.TransactionError
+
+Execution Errors
+----------------
+
+Raised by the command queue when a statement cannot be executed at all (as
+opposed to a statement that the database rejects).
+
+.. autoclass:: MercurySQL.errors.QueueError
+
+.. autoclass:: MercurySQL.errors.QueueTimeoutError
+
+.. autoclass:: MercurySQL.errors.QueueClosedError
+
+.. autoclass:: MercurySQL.errors.QueueCrashedError
 
 .. _DRVERR:
 

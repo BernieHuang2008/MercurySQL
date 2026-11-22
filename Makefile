@@ -9,21 +9,16 @@ else
 endif
 
 
-.PHONY: docs, commit, docs.html, docs.commit, always
+.PHONY: docs, docs.html, commit, venv, test, pkg, pkg.build, pkg.clear, pkg.check, tidy, always
 
-docs: docs.html docs.commit
+docs: docs.html
 
 docs.html: always
 	$(MAKE) -C docs html
 
-docs.commit: always
-	git add docs
-	git commit -m "[docs] /build"
-
-docs.clear: always
-	git checkout --force -- docs/build
-
-commit: docs
+commit: docs.html
+	git add docs/source
+	git commit -m "[docs] upd"
 
 venv.activate: always
 	.venv\Scripts\activate.bat
@@ -40,18 +35,24 @@ venv.new: always
 	python -m venv .venv
 	$(MAKE) venv.req
 
+test: always
+	python -m pytest tests -q
+
 pkg.build: always
 	$(MAKE) pkg.clear
-	python setup.py sdist bdist_wheel
+	python -m build
 
 pkg.clear: always
 	$(DEL) build dist *.egg-info
+
+pkg.check: pkg.build
+	python -m twine check dist/*
 
 pkg.install: always
 	$(PIP) install dist/*.whl --force-reinstall
 
 pkg: pkg.build pkg.install
 
-tidy: pkg.clear docs.clear venv.clear
+tidy: pkg.clear venv.clear
 
 always:

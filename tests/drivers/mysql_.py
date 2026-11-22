@@ -1,4 +1,6 @@
-# [Abandoned]
+# [Abandoned] Requires a live MySQL server; not run by CI.
+# Kept as a manual smoke test of the driver API; the expected output follows
+# the 0.2.0 type map (BIGINT / VARCHAR(255)).
 import testlib
 
 from MercurySQL.drivers.mysql import Driver_MySQL
@@ -66,9 +68,9 @@ Database Information: {'name': 'test'}
 Tables in the database: {'test': <MercurySQL.core.Table object at 0x000002549D2F8550>}
 Columns in the 'test' table: []
 Columns in the 'test' table: ['id', 'name', 'score', 'index_']
-Definition of 'id' column: INT
-Definition of 'name' column: VARCHAR(225)
-[['id', 'int', 'NO', '', None, ''], ['name', 'varchar(225)', 'YES', '', None, ''], ['score', 'float', 'YES', '', None, ''], ['index_', 'int', 'NO', 'PRI', '1', '']]
+Definition of 'id' column: BIGINT
+Definition of 'name' column: VARCHAR(255)
+[['id', 'bigint', 'NO', '', None, ''], ['name', 'varchar(255)', 'YES', '', None, ''], ['score', 'double', 'YES', '', None, ''], ['index_', 'bigint', 'NO', 'PRI', '1', '']]
 Data [id=1]: [{'id': 1, 'name': 'test', 'score': None, 'index_': 1}]
 Data [id=1]: [{'id': 1, 'name': 'test2', 'score': None, 'index_': 1}]
 Query result: []

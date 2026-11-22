@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "MercurySQL"
+dynamic = ["version", "readme"]
+description = "Operate sql in a more pythonic way."
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "Bernie J. Huang", email = "berniehuang2008@163.com" }]
+keywords = ["sql", "orm", "sqlite", "mysql", "query-builder"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Database",
+]
+dependencies = []
+
+[project.optional-dependencies]
+mysql = ["mysql-connector-python>=8.0.19"]
+dev = ["pytest>=7"]
+
+[project.urls]
+Homepage = "https://github.com/BernieHuang2008/MercurySQL"
+Documentation = "https://mercurysql.readthedocs.io/"
+Source = "https://github.com/BernieHuang2008/MercurySQL"
+Changelog = "https://github.com/BernieHuang2008/MercurySQL/blob/main/CHANGELOG.md"
+
+[tool.setuptools.dynamic]
+version = { file = "MercurySQL/VERSION" }
+readme = { file = "README.md", content-type = "text/markdown" }
+
+[tool.setuptools.packages.find]
+include = ["MercurySQL*"]
+
+[tool.setuptools.package-data]
+MercurySQL = ["VERSION"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

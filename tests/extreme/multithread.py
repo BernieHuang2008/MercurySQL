@@ -3,10 +3,15 @@ import testlib
 from MercurySQL import DataBase, set_driver
 from MercurySQL.drivers.sqlite import Driver_SQLite
 
+import os
 import threading
 import time
 
 set_driver(Driver_SQLite)
+
+# Start from a clean database, otherwise rows left by the previous run collide.
+if os.path.exists('test.db'):
+    os.remove('test.db')
 
 db = DataBase("test.db")
 tb = db['test']
@@ -30,9 +35,14 @@ def t2():
     print(2, list(tb.select()))
 
 # thread start
-threading.Thread(target=t1).start()
-threading.Thread(target=t2).start()
-time.sleep(0.7)
+# `join()` instead of `sleep()`: the main thread must not print "4" before the
+# workers printed "2" and "3", otherwise the golden output fails at random
+# (which the old `time.sleep(0.7)` version did).
+workers = [threading.Thread(target=t1), threading.Thread(target=t2)]
+for worker in workers:
+    worker.start()
+for worker in workers:
+    worker.join()
 
 # after inserting
 print(4, list(tb.select()))
